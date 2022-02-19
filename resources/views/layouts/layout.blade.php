@@ -85,24 +85,6 @@
     <!-- -->
 
     <div class="container py-4">
-        <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-            {{-- <div class="container py-4">
-                <div class="row d-flex justify-content-center py-5">
-                    <div class="col-md-6">
-                        <h2 style="font-size: 22px;" class="mb-0">Đăng ký Email</h2>
-                        <span>Nhận thông tin cập nhật qua email và các ưu đãi đặc biệt</span>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <form action="#" class="subscribe-form">
-                            <div class="form-group d-flex">
-                                <input type="text" class="form-control" placeholder="Nhập địa chỉ Email">
-                                <input type="submit" value="Subscribe" class="submit px-3">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div> --}}
-        </section>
         <footer class="ftco-footer ftco-section">
             <div class="container">
                 <div class="row">
@@ -133,7 +115,7 @@
                             <li><a href="#" class="py-2 d-block">Gà Chiên Giòn</a></li>
                             <li><a href="#" class="py-2 d-block">Cơm</a></li>
                             <li><a href="#" class="py-2 d-block">Hamburger</a></li>
-                            <li><a href="#" class="py-2 d-block">Bánh mì Us</a></li>
+                            <li><a href="#" class="py-2 d-block">Bánh mì</a></li>
                         </ul>
                     </div>
                 </div>
