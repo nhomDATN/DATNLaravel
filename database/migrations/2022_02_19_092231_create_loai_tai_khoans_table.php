@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSanPhamsTable extends Migration
+class CreateLoaiTaiKhoansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateSanPhamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('san_phams', function (Blueprint $table) {
+        Schema::create('loai_tai_khoans', function (Blueprint $table) {
             $table->id();
-            $table->string('ten_san_pham');
-            $table->longText('mo_ta');
-            $table->integer('so_luong');
-            $table->float('gia');
-            $table->integer('hinh');
-            $table->unsignedBigInteger('loai_san_pham_id');
+            $table->string('ten_loai_tai_khoan');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +28,6 @@ class CreateSanPhamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('san_phams');
+        Schema::dropIfExists('loai_tai_khoans');
     }
 }

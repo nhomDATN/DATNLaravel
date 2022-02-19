@@ -28,12 +28,12 @@
         <div class="row">
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod">
+                    <a href="/productdetail" class="img-prod">
                         <img class="img-fluid w-100" style="height: 160px;" src="images/trasua.jpg" alt="Colorlib Template">
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 5</a></h3>
+                        <h3><a href="/productdetail">Thực Phẩm 5</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
                                 <p class="price"><span>120.000</span></p>
@@ -57,12 +57,12 @@
             </div>
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod">
+                    <a href="/productdetail" class="img-prod">
                         <img class="img-fluid" src="images/2.jpg" alt="Colorlib Template">
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 5</a></h3>
+                        <h3><a href="/productdetail">Thực Phẩm 5</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
                                 <p class="price"><span>120.000</span></p>
@@ -86,12 +86,12 @@
             </div>
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod">
+                    <a href="/productdetail" class="img-prod">
                         <img class="img-fluid w-100" style="height: 160px;" src="images/banhmi.jpg" alt="Colorlib Template">
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 6</a></h3>
+                        <h3><a href="/productdetail">Thực Phẩm 6</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
                                 <p class="price"><span>350.000</span></p>
@@ -115,13 +115,13 @@
             </div>
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod">
+                    <a href="/productdetail" class="img-prod">
                         <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
                         <span class="status">30%</span>
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 7</a></h3>
+                        <h3><a href="/productdetail">Thực Phẩm 7</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
                                 <p class="price"><span>780.000</span></p>
@@ -145,13 +145,13 @@
             </div>
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod">
+                    <a href="/productdetail" class="img-prod">
                         <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
                         <span class="status">30%</span>
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 7</a></h3>
+                        <h3><a href="/productdetail">Thực Phẩm 7</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
                                 <p class="price"><span>780.000</span></p>

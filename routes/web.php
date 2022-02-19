@@ -29,6 +29,10 @@ Route::get('/product', function () {
     return view('product');
 });
 
+Route::get('/productdetail', function () {
+    return view('productdetail');
+});
+
 Route::get('/wishlist', function () {
     return view('wishlist');
 });
