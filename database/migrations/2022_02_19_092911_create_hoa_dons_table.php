@@ -16,9 +16,7 @@ class CreateHoaDonsTable extends Migration
         Schema::create('hoa_dons', function (Blueprint $table) {
             $table->id();
             $table->float('tong_tien');
-
             $table->string('trang_thai');
-            $table->unsignedBigInteger('tai_khoan_id');
             $table->unsignedBigInteger('tai_khoan_nhan_vien_id');
             $table->timestamps();
             $table->softDeletes();

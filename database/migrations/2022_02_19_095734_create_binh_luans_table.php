@@ -15,7 +15,7 @@ class CreateBinhLuansTable extends Migration
     {
         Schema::create('binh_luans', function (Blueprint $table) {
             $table->id();
-            $table->int('noi_dung');
+            $table->longText('noi_dung');
             $table->unsignedBigInteger('tai_khoan_id');
             $table->unsignedBigInteger('san_pham_id');
             $table->timestamps();

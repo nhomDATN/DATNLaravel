@@ -107,24 +107,24 @@
         </div>
         <div class="col-md-4">
             <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/hamburger.jpg);height: 300px;">
-                <div class="text px-3 py-1 bg-light ">
-                    <h2 class="mb-0 "><a href="#" class="text-dark">Hamburger</a></h2>
+                <div class="text px-3 py-1 bg-danger ">
+                    <h2 class="mb-0 "><a href="#" class="text-white">Hamburger</a></h2>
                 </div>
             </div>
 
         </div>
         <div class="col-md-4">
             <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/1.jpg);height: 300px;">
-                <div class="text px-3 py-1 bg-light ">
-                    <h2 class="mb-0 "><a href="#" class="text-dark">Chiên Giòn</a></h2>
+                <div class="text px-3 py-1 bg-danger ">
+                    <h2 class="mb-0 "><a href="#" class="text-white">Chiên Giòn</a></h2>
                 </div>
             </div>
 
         </div>
         <div class="col-md-4">
             <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/sale.jpg);height: 300px;">
-                <div class="text px-3 py-1 bg-light ">
-                    <h2 class="mb-0 "><a href="#" class="text-dark">Thực Phẩm Ưu Đãi</a></h2>
+                <div class="text px-3 py-1 bg-danger ">
+                    <h2 class="mb-0 "><a href="#" class="text-white">Thực Phẩm Ưu Đãi</a></h2>
                 </div>
             </div>
 
