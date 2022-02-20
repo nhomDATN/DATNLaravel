@@ -18,8 +18,8 @@ class CreateHoaDonsTable extends Migration
             $table->string('nguoi_nhan_hang');
             $table->string('dia_chi_nguoi_nhan_hang');
             $table->string('sdt_nguoi_nhan_hang');
+            $table->float('tong_tien');
             $table->string('trang_thai');
-            $table->unsignedBigInteger('tai_khoan_id');
             $table->unsignedBigInteger('tai_khoan_nhan_vien_id');
             $table->timestamps();
             $table->softDeletes();
