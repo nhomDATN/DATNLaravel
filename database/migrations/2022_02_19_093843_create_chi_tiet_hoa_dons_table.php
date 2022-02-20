@@ -20,7 +20,6 @@ class CreateChiTietHoaDonsTable extends Migration
             $table->float('chiet_khau');
             $table->unsignedBigInteger('hoa_don_id');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
