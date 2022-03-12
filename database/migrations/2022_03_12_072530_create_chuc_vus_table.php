@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKhoNguyenLieusTable extends Migration
+class CreateChucVusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateKhoNguyenLieusTable extends Migration
      */
     public function up()
     {
-        Schema::create('kho_nguyen_lieus', function (Blueprint $table) {
+        Schema::create('chuc_vus', function (Blueprint $table) {
             $table->id();
-            $table->string('ten_kho');
-            $table->string('dia_chi');
-            $table->unsignedBigInteger('nha_cung_cap_id');
+            $table->string('ten_chuc_vu');
+            $table->float('thuong');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateKhoNguyenLieusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kho_nguyen_lieus');
+        Schema::dropIfExists('chuc_vus');
     }
 }

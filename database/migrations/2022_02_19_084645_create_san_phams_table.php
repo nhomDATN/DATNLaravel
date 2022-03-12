@@ -17,10 +17,10 @@ class CreateSanPhamsTable extends Migration
             $table->id();
             $table->string('ten_san_pham');
             $table->longText('mo_ta');
-            $table->integer('so_luong');
+            $table->integer('ton_kho');
             $table->float('gia');
             $table->integer('hinh');
-            $table->unsignedBigInteger('loai_san_pham_id');
+            $table->unsignedBigInteger('loai_san_pham_id'); 
             $table->timestamps();
             $table->softDeletes();
         });

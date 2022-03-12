@@ -21,6 +21,7 @@ class CreateKhuyenMaisTable extends Migration
             $table->dateTime('ngay_ket_thuc');
             $table->integer('gia_tri');
             $table->integer('trang_thai');
+            $table->integer('maximum'); // mức giảm giá tối đa
         });
     }
 

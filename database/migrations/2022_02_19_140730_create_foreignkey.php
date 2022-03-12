@@ -15,6 +15,7 @@ class CreateForeignkey extends Migration
     {
         Schema::table('san_phams', function (Blueprint $table) {
             $table->foreign('loai_san_pham_id')->references('id')->on('loai_san_phams');
+            $table->foreign('khuyen_mai_id')->references('id')->on('khuyen_mais');
         });
         Schema::table('tai_khoans', function (Blueprint $table) {
             $table->foreign('loai_tai_khoan_id')->references('id')->on('loai_tai_khoans');
@@ -40,8 +41,24 @@ class CreateForeignkey extends Migration
         Schema::table('khuyen_mais', function (Blueprint $table) {
             $table->foreign('loai_khuyen_mai_id')->references('id')->on('loai_khuyen_mais');  
         });
-        Schema::table('kho_nguyen_lieus', function (Blueprint $table) {
-            $table->foreign('nha_cung_cap_id')->references('id')->on('nha_cung_caps');  
+        Schema::table('khoes', function (Blueprint $table) {
+            $table->foreign('nhan_vien_id')->references('id')->on('nhan_viens');
+        });
+        Schema::table('nguyen_lieus', function (Blueprint $table) {
+            $table->foreign('kho_id')->references('id')->on('khoes');
+            $table->foreign('don_vi_tinh_id')->references('id')->on('don_vi_tinhs');
+        });
+        Schema::table('chi_tiet_san_phams', function (Blueprint $table) {
+            $table->foreign('san_pham_id')->references('id')->on('san_phams');
+            $table->foreign('nguyen_lieu_id')->references('id')->on('nguyen_lieus');
+        });
+        Schema::table('nhan_viens', function (Blueprint $table) {
+            $table->foreign('cua_hang_id')->references('id')->on('cua_hangs');
+            $table->foreign('chuc_vu_id')->references('id')->on('chuc_vus');
+        });
+        Schema::table('phan_phois', function (Blueprint $table) {
+            $table->foreign('cua_hang_id')->references('id')->on('cua_hangs');
+            $table->foreign('nguyen_lieu_id')->references('id')->on('nguyen_lieus');
         });
     }
 
@@ -66,9 +83,17 @@ class CreateForeignkey extends Migration
         });
         Schema::table('binh_luans', function (Blueprint $table) {
         });
-        Schema::table('kho_nguyen_lieus', function (Blueprint $table) {
-        });
         Schema::table('khuyen_mais', function (Blueprint $table) {
+        });
+        Schema::table('khoes', function (Blueprint $table) {
+        });
+        Schema::table('nguyen_lieus', function (Blueprint $table) {
+        });
+        Schema::table('chi_tiet_san_phams', function (Blueprint $table) {
+        });
+        Schema::table('nhan_viens', function (Blueprint $table) {
+        });
+        Schema::table('phan_phois', function (Blueprint $table) {
         });
     }
 }

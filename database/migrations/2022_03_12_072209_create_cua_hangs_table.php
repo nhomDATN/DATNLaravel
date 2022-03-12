@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNhaCungCapsTable extends Migration
+class CreateCuaHangsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateNhaCungCapsTable extends Migration
      */
     public function up()
     {
-        Schema::create('nha_cung_caps', function (Blueprint $table) {
+        Schema::create('cua_hangs', function (Blueprint $table) {
             $table->id();
-            $table->string('ten_nha_cung_cap');
             $table->string('dia_chi');
-            $table->string('email');
-            $table->string('sdt');
+            $table->integer('trang_thai');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateNhaCungCapsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nha_cung_caps');
+        Schema::dropIfExists('cua_hangs');
     }
 }
