@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\KhoNguyenLieu;
+use App\Models\Kho;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class KhoNguyenLieuPolicy
+class KhoPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class KhoNguyenLieuPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\KhoNguyenLieu  $khoNguyenLieu
+     * @param  \App\Models\Kho  $kho
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, KhoNguyenLieu $khoNguyenLieu)
+    public function view(User $user, Kho $kho)
     {
         //
     }
@@ -48,10 +48,10 @@ class KhoNguyenLieuPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\KhoNguyenLieu  $khoNguyenLieu
+     * @param  \App\Models\Kho  $kho
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, KhoNguyenLieu $khoNguyenLieu)
+    public function update(User $user, Kho $kho)
     {
         //
     }
@@ -60,10 +60,10 @@ class KhoNguyenLieuPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\KhoNguyenLieu  $khoNguyenLieu
+     * @param  \App\Models\Kho  $kho
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, KhoNguyenLieu $khoNguyenLieu)
+    public function delete(User $user, Kho $kho)
     {
         //
     }
@@ -72,10 +72,10 @@ class KhoNguyenLieuPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\KhoNguyenLieu  $khoNguyenLieu
+     * @param  \App\Models\Kho  $kho
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, KhoNguyenLieu $khoNguyenLieu)
+    public function restore(User $user, Kho $kho)
     {
         //
     }
@@ -84,10 +84,10 @@ class KhoNguyenLieuPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\KhoNguyenLieu  $khoNguyenLieu
+     * @param  \App\Models\Kho  $kho
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, KhoNguyenLieu $khoNguyenLieu)
+    public function forceDelete(User $user, Kho $kho)
     {
         //
     }

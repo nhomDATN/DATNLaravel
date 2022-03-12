@@ -20,7 +20,8 @@ class CreateSanPhamsTable extends Migration
             $table->integer('ton_kho');
             $table->float('gia');
             $table->integer('hinh');
-            $table->unsignedBigInteger('loai_san_pham_id'); 
+            $table->unsignedBigInteger('loai_san_pham_id');
+            $table->unsignedBigInteger('khuyen_mai_id');
             $table->timestamps();
             $table->softDeletes();
         });

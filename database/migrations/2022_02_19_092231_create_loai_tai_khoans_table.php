@@ -16,8 +16,9 @@ class CreateLoaiTaiKhoansTable extends Migration
         Schema::create('loai_tai_khoans', function (Blueprint $table) {
             $table->id();
             $table->string('ten_loai_tai_khoan');
+            $table->integer('trang_thai');
             $table->timestamps();
-            $table->softDeletes();
+           
         });
     }
 

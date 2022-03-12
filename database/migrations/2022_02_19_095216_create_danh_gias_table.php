@@ -18,8 +18,9 @@ class CreateDanhGiasTable extends Migration
             $table->integer('so_sao');
             $table->unsignedBigInteger('tai_khoan_id');
             $table->unsignedBigInteger('san_pham_id');
+            $table->integer('trang_thai');
             $table->timestamps();
-            $table->softDeletes();
+            
         });
     }
 

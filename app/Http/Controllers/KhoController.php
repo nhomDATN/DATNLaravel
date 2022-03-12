@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KhoNguyenLieu;
-use App\Http\Requests\StoreKhoNguyenLieuRequest;
-use App\Http\Requests\UpdateKhoNguyenLieuRequest;
+use App\Models\Kho;
+use App\Http\Requests\StoreKhoRequest;
+use App\Http\Requests\UpdateKhoRequest;
 
-class KhoNguyenLieuController extends Controller
+class KhoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class KhoNguyenLieuController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreKhoNguyenLieuRequest  $request
+     * @param  \App\Http\Requests\StoreKhoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreKhoNguyenLieuRequest $request)
+    public function store(StoreKhoRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class KhoNguyenLieuController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\KhoNguyenLieu  $khoNguyenLieu
+     * @param  \App\Models\Kho  $kho
      * @return \Illuminate\Http\Response
      */
-    public function show(KhoNguyenLieu $khoNguyenLieu)
+    public function show(Kho $kho)
     {
         //
     }
@@ -53,10 +53,10 @@ class KhoNguyenLieuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\KhoNguyenLieu  $khoNguyenLieu
+     * @param  \App\Models\Kho  $kho
      * @return \Illuminate\Http\Response
      */
-    public function edit(KhoNguyenLieu $khoNguyenLieu)
+    public function edit(Kho $kho)
     {
         //
     }
@@ -64,11 +64,11 @@ class KhoNguyenLieuController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateKhoNguyenLieuRequest  $request
-     * @param  \App\Models\KhoNguyenLieu  $khoNguyenLieu
+     * @param  \App\Http\Requests\UpdateKhoRequest  $request
+     * @param  \App\Models\Kho  $kho
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKhoNguyenLieuRequest $request, KhoNguyenLieu $khoNguyenLieu)
+    public function update(UpdateKhoRequest $request, Kho $kho)
     {
         //
     }
@@ -76,10 +76,10 @@ class KhoNguyenLieuController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\KhoNguyenLieu  $khoNguyenLieu
+     * @param  \App\Models\Kho  $kho
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KhoNguyenLieu $khoNguyenLieu)
+    public function destroy(Kho $kho)
     {
         //
     }

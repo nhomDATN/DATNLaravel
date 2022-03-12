@@ -19,6 +19,7 @@ class CreateChiTietHoaDonsTable extends Migration
             $table->float('gia');
             $table->float('chiet_khau');
             $table->unsignedBigInteger('hoa_don_id');
+            $table->unsignedBigInteger('san_pham_id');
             $table->timestamps();
         });
     }

@@ -19,9 +19,10 @@ class CreateKhuyenMaisTable extends Migration
             $table->unsignedBigInteger('loai_khuyen_mai_id');
             $table->dateTime('ngay_bat_dau');
             $table->dateTime('ngay_ket_thuc');
-            $table->integer('gia_tri');
+            $table->integer('gia_tri'); // % giảm giá
+            $table->integer('maximum'); // mức giảm giá tối đa 
             $table->integer('trang_thai');
-            $table->integer('maximum'); // mức giảm giá tối đa
+            
         });
     }
 
