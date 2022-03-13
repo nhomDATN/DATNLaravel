@@ -6,7 +6,7 @@ use App\Models\DonViDo;
 use App\Http\Requests\StoreDonViDoRequest;
 use App\Http\Requests\UpdateDonViDoRequest;
 
-class DonViDoController extends Controller
+class DonViTinhController extends Controller
 {
     /**
      * Display a listing of the resource.
