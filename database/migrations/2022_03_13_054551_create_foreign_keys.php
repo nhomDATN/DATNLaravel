@@ -9,6 +9,9 @@ class CreateForeignkeys extends Migration
     /**
      * Run the migrations.
      *
+
+     * Run the migrations.
+     *
      * @return void
      */
     public function up()
@@ -21,6 +24,7 @@ class CreateForeignkeys extends Migration
             $table->foreign('loai_tai_khoan_id')->references('id')->on('loai_tai_khoans');
         });
         Schema::table('hoa_dons', function (Blueprint $table) {
+            $table->foreign('tai_khoan_id')->references('id')->on('tai_khoans');
             $table->foreign('nhan_vien_id')->references('id')->on('nhan_viens');
         });
         Schema::table('chi_tiet_hoa_dons', function (Blueprint $table) {
@@ -42,12 +46,12 @@ class CreateForeignkeys extends Migration
         Schema::table('khuyen_mais', function (Blueprint $table) {
             $table->foreign('loai_khuyen_mai_id')->references('id')->on('loai_khuyen_mais');  
         });
-        Schema::table('khoes', function (Blueprint $table) {
+        Schema::table('khos', function (Blueprint $table) {
             $table->foreign('nhan_vien_id')->references('id')->on('nhan_viens');
         });
         Schema::table('nguyen_lieus', function (Blueprint $table) {
             $table->foreign('don_vi_tinh_id')->references('id')->on('don_vi_tinhs');
-            $table->foreign('kho_id')->references('id')->on('khoes');
+            $table->foreign('kho_id')->references('id')->on('khos');
             
         });
         Schema::table('chi_tiet_san_phams', function (Blueprint $table) {

@@ -28,6 +28,6 @@ class CreateDonViTinhsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('don_vi_dos');
+        Schema::dropIfExists('don_vi_tinhs');
     }
 }

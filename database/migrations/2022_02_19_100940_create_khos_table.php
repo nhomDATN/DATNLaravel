@@ -13,7 +13,7 @@ class CreateKhosTable extends Migration
      */
     public function up()
     {
-        Schema::create('khoes', function (Blueprint $table) {
+        Schema::create('khos', function (Blueprint $table) {
             $table->id();
             $table->string('ten_kho');
             $table->string('dia_chi');
