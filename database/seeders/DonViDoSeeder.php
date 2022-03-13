@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class DonViDoSeeder extends Seeder
+class DonViTinhSeeder extends Seeder
 {
     /**
      * Run the database seeds.

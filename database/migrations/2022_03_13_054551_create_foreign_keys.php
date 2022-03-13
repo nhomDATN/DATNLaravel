@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateForeignkey extends Migration
+class CreateForeignkeys extends Migration
 {
     /**
      * Run the migrations.
@@ -25,6 +25,7 @@ class CreateForeignkey extends Migration
         });
         Schema::table('chi_tiet_hoa_dons', function (Blueprint $table) {
             $table->foreign('hoa_don_id')->references('id')->on('hoa_dons');
+            $table->foreign('san_pham_id')->references('id')->on('san_phams');
         });
         Schema::table('yeu_thiches', function (Blueprint $table) {
             $table->foreign('tai_khoan_id')->references('id')->on('tai_khoans');
@@ -98,3 +99,5 @@ class CreateForeignkey extends Migration
         });
     }
 }
+
+

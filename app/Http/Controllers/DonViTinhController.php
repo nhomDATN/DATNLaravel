@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DonViDo;
-use App\Http\Requests\StoreDonViDoRequest;
-use App\Http\Requests\UpdateDonViDoRequest;
+use App\Models\DonViTinh;
+use App\Http\Requests\StoreDonViTinhRequest;
+use App\Http\Requests\UpdateDonViTinhRequest;
 
-class DonViDoController extends Controller
+class DonViTinhController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class DonViDoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreDonViDoRequest  $request
+     * @param  \App\Http\Requests\StoreDonViTinhRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreDonViDoRequest $request)
+    public function store(StoreDonViTinhRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class DonViDoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\DonViDo  $donViDo
+     * @param  \App\Models\DonViTinh  $DonViTinh
      * @return \Illuminate\Http\Response
      */
-    public function show(DonViDo $donViDo)
+    public function show(DonViTinh $donViTinh)
     {
         //
     }
@@ -53,10 +53,10 @@ class DonViDoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\DonViDo  $donViDo
+     * @param  \App\Models\DonViTinh  $donViTinh
      * @return \Illuminate\Http\Response
      */
-    public function edit(DonViDo $donViDo)
+    public function edit(DonViTinh $donViTinh)
     {
         //
     }
@@ -64,11 +64,11 @@ class DonViDoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateDonViDoRequest  $request
-     * @param  \App\Models\DonViDo  $donViDo
+     * @param  \App\Http\Requests\UpdateDonViTinhRequest  $request
+     * @param  \App\Models\DonViTinh  $donViTinh
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDonViDoRequest $request, DonViDo $donViDo)
+    public function update(UpdateDonViTinhRequest $request, DonViTinh $donViTinh)
     {
         //
     }
@@ -76,10 +76,10 @@ class DonViDoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\DonViDo  $donViDo
+     * @param  \App\Models\DonViTinh  $donViTinh
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DonViDo $donViDo)
+    public function destroy(DonViTinh $donViTinh)
     {
         //
     }
