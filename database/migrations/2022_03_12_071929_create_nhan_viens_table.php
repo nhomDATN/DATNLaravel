@@ -24,7 +24,7 @@ class CreateNhanViensTable extends Migration
             $table->float('luong');
             $table->float('thuong_thang');
             $table->integer('trang_thai');
-            $table->unsignedBigInteger('cua_hang_id');
+            $table->string('noi_lam');
             $table->unsignedBigInteger('chuc_vu_id');
             $table->timestamps();
         });

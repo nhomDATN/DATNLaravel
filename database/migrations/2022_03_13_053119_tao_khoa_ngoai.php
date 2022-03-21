@@ -59,7 +59,8 @@ class TaoKhoaNgoai extends Migration
             $table->foreign('nguyen_lieu_id')->references('id')->on('nguyen_lieus');
         });
         Schema::table('nhan_viens', function (Blueprint $table) {
-            $table->foreign('cua_hang_id')->references('id')->on('cua_hangs');
+            $table->foreign('noi_lam')->references('ma_cua_hang')->on('cua_hangs');
+            //$table->foreign('noi_lam')->references('ma_kho')->on('khos');
             $table->foreign('chuc_vu_id')->references('id')->on('chuc_vus');
         });
         Schema::table('phan_phois', function (Blueprint $table) {
