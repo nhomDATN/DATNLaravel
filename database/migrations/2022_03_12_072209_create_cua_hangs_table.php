@@ -15,6 +15,7 @@ class CreateCuaHangsTable extends Migration
     {
         Schema::create('cua_hangs', function (Blueprint $table) {
             $table->id();
+            $table->string('ma_cua_hang')->unique();
             $table->string('dia_chi');
             $table->integer('trang_thai');
             $table->timestamps();
