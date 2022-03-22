@@ -22,10 +22,10 @@ class CreateNhanViensTable extends Migration
             $table->string('ho_ten');
             $table->string('CCCD');
             $table->float('luong');
-            $table->float('thuong_thang');
-            $table->integer('trang_thai');
+            $table->float('thuong_thang');     
             $table->string('noi_lam');
             $table->unsignedBigInteger('chuc_vu_id');
+            $table->integer('trang_thai');
             $table->timestamps();
         });
     }
