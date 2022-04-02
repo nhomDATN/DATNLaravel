@@ -3,6 +3,7 @@
 <head>
     <title>Index</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
@@ -25,8 +26,23 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .goTop{
+            display: flex;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            bottom: 120px;
+            right: 55px;
+            position: fixed;
+            background: red;
+            border-radius: 50%;
+            color: #fff;
+            align-items: center;
+        }
+    </style>
 </head>
-<body class="goto-here">
+<body class="goto-here" id="head">
     <div class="py-1 bg-danger">
         <div class="container">
             <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
@@ -86,16 +102,7 @@
 
     <div class="container py-4">
         <footer class="ftco-footer ftco-section">
-            <div class="container">
-                <div class="row">
-                    <div class="mouse">
-                        <a href="#" class="mouse-icon">
-                            <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-                        </a>
-
-                    </div>
-                </div>
-            </div>
+           
             <div class="row mb-5">
                 <div class="col-md">
                     <div class="ftco-footer-widget mb-4">
@@ -160,12 +167,19 @@
     </div>
 
 
+    <div class="goTop">
+        
+            <a href="#head" class="mouse-icon" style="background: red">
+                <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+            </a>
 
-
+        
+    </div>
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
-
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <div class="zalo-chat-widget" data-oaid="1558126983899774468" data-welcome-message="Chào bạn! Rất vui khi được hỗ trợbạn!"data-autopopup="0" data-width="350" data-height="420"></div>
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -182,6 +196,17 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
-
+    <script>
+        $(document).ready(function(){
+            $(window).scroll(function(){
+                if($(this).scrollTop())
+                {
+                    $('.goTop').fadeIn();
+                } else{
+                    $('.goTop').fadeOut();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

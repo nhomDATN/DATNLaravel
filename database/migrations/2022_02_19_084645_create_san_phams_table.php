@@ -17,11 +17,11 @@ class CreateSanPhamsTable extends Migration
             $table->id();
             $table->string('ten_san_pham');
             $table->longText('mo_ta');
-            $table->integer('ton_kho');
             $table->float('gia');
             $table->integer('hinh');
             $table->unsignedBigInteger('loai_san_pham_id');
             $table->unsignedBigInteger('khuyen_mai_id');
+            $table->integer('trang_thai');
             $table->timestamps();
             $table->softDeletes();
         });

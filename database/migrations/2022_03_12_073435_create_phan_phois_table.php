@@ -15,7 +15,7 @@ class CreatePhanPhoisTable extends Migration
     {
         Schema::create('phan_phois', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cua_hang_id');
+            $table->string('noi_phan_phoi');
             $table->unsignedBigInteger('nguyen_lieu_id');
             $table->integer('so_luong');
             $table->timestamps();

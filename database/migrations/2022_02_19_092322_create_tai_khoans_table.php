@@ -23,6 +23,7 @@ class CreateTaiKhoansTable extends Migration
             $table->string('ho_ten');
             $table->unsignedBigInteger('loai_tai_khoan_id');
             $table->timestamps();
+            $table->integer('trang_thai');
         });
     }
 

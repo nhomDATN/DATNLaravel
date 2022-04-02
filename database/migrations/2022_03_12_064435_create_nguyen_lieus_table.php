@@ -19,7 +19,7 @@ class CreateNguyenLieusTable extends Migration
             $table->float('don_gia');
             $table->float('so_luong');//                    100               50
             $table->unsignedBigInteger('don_vi_tinh_id');
-            $table->unsignedBigInteger('kho_id'); //        1                 2             3                 
+            $table->string('kho_id'); //        1                 2             3                 
             $table->integer('trang_thai');
             $table->timestamps();
         });
