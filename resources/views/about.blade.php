@@ -28,7 +28,7 @@
                 <div class="pb-md-5">
                     <p>Bạn có dùng thức ăn nhanh? Có nhiều người phàn nàn về nó nhưng thức ăn nhanh đúng là những món ăn ngon! – nghĩa là khi bạn đến trang web CKCFastFood.</p>
                     <p>Thức ăn nhanh là thức ăn hấp dẫn nhất đối với nhiều loại thực phẩm đặc biệt đối với trẻ em và thanh thiếu niên.</p>
-                    <p><a href="#" class="btn btn-danger">Mua ngay</a></p>
+                    <p><a href="/product" class="btn btn-danger">Mua ngay</a></p>
                 </div>
             </div>
         </div>

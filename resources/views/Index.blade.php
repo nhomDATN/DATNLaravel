@@ -45,7 +45,7 @@
                     </div>
                     <div class="media-body">
                         <h3 class="heading">Miễn phí giao hàng</h3>
-                        <span>Khi mua hơn 500 nghìn đồng</span>
+                        <span style="color: black">Khi mua hơn 500 nghìn đồng</span>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="media-body">
                         <h3 class="heading">Thực phẩm sạch sẽ</h3>
-                        <span>Đóng gỏi cẩn thận, không bao ni lông</span>
+                        <span style="color: black">Đóng gỏi cẩn thận, không bao ni lông</span>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="media-body">
                         <h3 class="heading">Siêu Chất Lượng</h3>
-                        <span>Thực phẩm chất lượng đạt chuẩn ISO</span>
+                        <span style="color: black">Thực phẩm chất lượng đạt chuẩn ISO</span>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="media-body">
                         <h3 class="heading">Hỗ Trợ</h3>
-                        <span> Hỗ Trợ 24/7</span>
+                        <span style="color: black"> Hỗ Trợ 24/7</span>
                     </div>
                 </div>
             </div>
@@ -90,45 +90,30 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/trasua.jpg);height: 300px;">
-                <div class="text px-3 py-1 bg-danger ">
-                    <h2 class="mb-0 "><a href="#" class="text-white">Trà Sữa</a></h2>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-4">
-            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/banhmi.jpg);height: 300px;">
-                <div class="text px-3 py-1 bg-danger ">
-                    <h2 class="mb-0 "><a href="#" class="text-white">Bánh Mì</a></h2>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-4">
             <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/hamburger.jpg);height: 300px;">
                 <div class="text px-3 py-1 bg-danger ">
-                    <h2 class="mb-0 "><a href="#" class="text-white">Hamburger</a></h2>
+                    <h2 class="mb-0 "><a href="#" class="text-white">Thức ăn</a></h2>
                 </div>
             </div>
 
         </div>
+
         <div class="col-md-4">
-            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/1.jpg);height: 300px;">
+            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/trasua.jpg);height: 300px;">
                 <div class="text px-3 py-1 bg-danger ">
-                    <h2 class="mb-0 "><a href="#" class="text-white">Chiên Giòn</a></h2>
+                    <h2 class="mb-0 "><a href="#" class="text-white">Thức uống</a></h2>
                 </div>
             </div>
-
         </div>
+
         <div class="col-md-4">
             <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/sale.jpg);height: 300px;">
                 <div class="text px-3 py-1 bg-danger ">
-                    <h2 class="mb-0 "><a href="#" class="text-white">Thực Phẩm Ưu Đãi</a></h2>
+                    <h2 class="mb-0 "><a href="#" class="text-white">Giảm giá</a></h2>
                 </div>
             </div>
-
         </div>
+
     </div>
 </div>
 
@@ -139,7 +124,7 @@
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <span class="subheading">Thực Phẩm Chất Lượng</span>
                 <h2 class="mb-4">Thực Phẩm Của Chúng Tôi</h2>
-                <p>Chiên ngay bán ngay, không để qua ngày</p>
+                <p style="color: black">Chế biến ngay bán ngay, không để qua ngày</p>
             </div>
         </div>
     </div>
@@ -156,7 +141,7 @@
                         <h3><a href="#">Thực Phẩm 1</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span class="mr-2 price-dc">200.000</span><span class="price-sale">$80.00</span></p>
+                                <p class="price"><span class="mr-2 price-dc">200.000</span><span class="price-sale">$80.00</span> VNĐ</p>
                             </div>
                         </div>
                         <div class="bottom-area d-flex px-3">
@@ -164,7 +149,7 @@
                                 <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                     <span><i class="ion-ios-menu"></i></span>
                                 </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <a href="/cart" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
                                 <a href="#" class="heart d-flex justify-content-center align-items-center ">
@@ -190,7 +175,7 @@
                         </div>
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                <a href="/productdetail" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                     <span><i class="ion-ios-menu"></i></span>
                                 </a>
                                 <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
@@ -502,52 +487,42 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
-                                <span class="status">30%</span>
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Thực Phẩm 7</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>780.000</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
-                                    </div>
+
+                    <div class="container">
+                        <div class="row mt-5">
+                            <div class="col text-center">
+                                <div class="block-27">
+                                    <ul>
+                                        <li><a href="#">&lt;</a></li>
+                                        <li class="active"><span>1</span></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li><a href="#">&gt;</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="container">
-                        <section class="ftco-section img font-weight-bold" style="background-image: url(images/1.jpg);">
 
+                    <div class="container">
+                        </br>
+                        </br>
+                        <section class="ftco-section img font-weight-bold" style="background-image: url(images/1.jpg);">
                             <div class="row justify-content-end" style="margin: inherit;">
                                 <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate" style="background: rgba(141, 243, 148, 0.4)">
                                     <span class="subheading">Giá Tốt Cho Bạn</span>
                                     <h2 class="mb-4">Giảm giá trong ngày</h2>
 
                                     <ul>
-                                        <li>3 Đùi Gà</li>
-                                        <li>Lon pepsi</li>
-                                        <li>1 Phần Gà nướng</li>
+                                        <li style="color: black">3 Đùi Gà</li>
+                                        <li style="color: black">Lon pepsi</li>
+                                        <li style="color: black">1 Phần Gà nướng</li>
                                     </ul>
-                                    <h3><a href="#">Compo 3</a></h3>
+                                    <h3><a href="#" style="color: black">Compo 3</a></h3>
                                 </br>
-                                    <span class="price" style="color: red; font-weight:bold" >Giá 500.000 VNĐ <a href="#" style="color: black; font-weight:bold"> giờ chỉ có 300.000 VNĐ</a></span>
+                                    <span class="price" style="color: red; font-weight:bold" >Giá 500.000 VNĐ <span style="color: black; font-weight:bold"> giờ chỉ có 300.000 VNĐ. <a href="#" style="color: rgb(74, 74, 250); font-weight:bold; background: orange"> Mua ngay</a></span></span>
                                     {{-- <div id="timer" class="d-flex mt-5">
                                         <div class="time" id="days"></div>
                                         <div class="time pl-3" id="hours"></div>
@@ -591,7 +566,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="text text-center">
-                                                    <p class="mb-5 pl-4 line">Giao Hàng Tận Nơi, Món Ăn Ngon Và Rẻ.</p>
+                                                    <p class="mb-5 pl-4 line">Thiết kế giao diện thân thiện, hợp mắt mới người dùng.</p>
                                                     
                                                 </div>
                                             </div>
@@ -604,34 +579,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="text text-center">
-                                                    <p class="mb-5 pl-4 line">Thiết kế giao diện thân thiện, hợp mắt mới người dùng.</p>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="testimony-wrap p-4 pb-5">
-                                                <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
-                                                    <span class="quote d-flex align-items-center justify-content-center">
-                                                        <i class="icon-quote-left"></i>
-                                                    </span>
-                                                </div>
-                                                <div class="text text-center">
-                                                    <p class="mb-5 pl-4 line">Thiết kế giao diện thân thiện, hợp mắt mới người dùng.</p>
-                                                   
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="testimony-wrap p-4 pb-5">
-                                                <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
-                                                    <span class="quote d-flex align-items-center justify-content-center">
-                                                        <i class="icon-quote-left"></i>
-                                                    </span>
-                                                </div>
-                                                <div class="text text-center">
                                                     <p class="mb-5 pl-4 line">Thao tác chức năng ổn định, giảm thiếu tối đa sự cố không mong muốn</p>
-                                                    
                                                 </div>
                                             </div>
                                         </div>

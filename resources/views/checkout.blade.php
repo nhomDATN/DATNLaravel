@@ -57,19 +57,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="streetaddress">Địa chi</label>
-                                <input type="text" class="form-control" placeholder="House number and street name">
+                                <input type="text" class="form-control" placeholder="Số nhà và tên đường">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)">
+                                <input type="text" class="form-control" placeholder="Căn hộ, dãy phòng,...(tùy chọn)">
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="postcodezip">Mã giảm giá / ZIP *</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" placeholder="Nhập mã giảm giá nếu có">
                             </div>
                         </div>
                         <div class="w-100"></div>
