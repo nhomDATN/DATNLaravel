@@ -34,7 +34,7 @@
 
                                 <td class="product-name">
                                     <h3>Hamburger</h3>
-                                    <p>Món ăn nhanh Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p>
+                                    <p>Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p>
                                 </td>
 
                                 <td class="price">$4.90</td>
@@ -55,7 +55,7 @@
 
                                 <td class="product-name">
                                     <h3>Gà Rán</h3>
-                                    <p>Món ăn nhanh Gà Rán là một món ăn xuất xứ từ miền Nam Hoa Kỳ; nguyên liệu chính là những miếng thịt gà đã được lăn bột rồi chiên trên chảo, chiên ngập dầu, chiên áp suất hoặc chiên chân không.</p>
+                                    <p>Gà Rán là một món ăn xuất xứ từ miền Nam Hoa Kỳ; nguyên liệu chính là những miếng thịt gà đã được lăn bột rồi chiên trên chảo, chiên ngập dầu, chiên áp suất hoặc chiên chân không.</p>
                                 </td>
 
                                 <td class="price">$15.00</td>

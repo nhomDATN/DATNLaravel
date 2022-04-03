@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Email:</span> <a href="mailto:ckc_fastfood@caothang.edu.vn">ckc_fastfood@caothang.edu.vn</a></p>
+                    <p><span>Email:</span> <a href="mailto:ckc_fastfood@caothang.edu.vn">fastfood@caothang.edu.vn</a></p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">

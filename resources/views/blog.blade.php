@@ -21,12 +21,12 @@
                             </a>
                             <div class="text d-block pl-md-4">
                                 <div class="meta mb-3">
-                                    <div><a href="#">Tháng 12 09, 2021</a></div>
-                                    <div><a href="#">Quản Trị Viên</a></div>
+                                    <div style="color: black">Tháng 12 09, 202</div>
+                                    <div style="color: black">Quản Trị Viên</div>
                                     <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                                 </div>
                                 <h3 class="heading"><a href="#">Hamburger</a></h3>
-                                <p>Món ăn nhanh Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p>
+                                <p>Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p>
                                 <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                                     <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                                 </div>
                                 <h3 class="heading"><a href="#">Gà Rán</a></h3>
-                                <p>Món ăn nhanh Gà Rán là một món ăn xuất xứ từ miền Nam Hoa Kỳ; nguyên liệu chính là những miếng thịt gà đã được lăn bột rồi chiên trên chảo, chiên ngập dầu, chiên áp suất hoặc chiên chân không.</p>
+                                <p>Gà Rán là một món ăn xuất xứ từ miền Nam Hoa Kỳ; nguyên liệu chính là những miếng thịt gà đã được lăn bột rồi chiên trên chảo, chiên ngập dầu, chiên áp suất hoặc chiên chân không.</p>
                                 <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                     <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                                 </div>
                                 <h3 class="heading"><a href="#">Bánh Mì</a></h3>
-                                <p>Món ăn nhanh Bánh Mì là một món ăn của Việt Nam, bao gồm vỏ là một ổ bánh mì nướng có da giòn, ruột mềm, bên trong là phần nhân đa dạng, chẳng hạn như: bò kho, cá mòi hay xíu mại.</p>
+                                <p>Bánh Mì là một món ăn của Việt Nam, bao gồm vỏ là một ổ bánh mì nướng có da giòn, ruột mềm, bên trong là phần nhân đa dạng, chẳng hạn như: bò kho, cá mòi hay xíu mại.</p>
                                 <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
                             </div>
                         </div>
@@ -75,6 +75,22 @@
                                 </div>
                                 <h3 class="heading"><a href="#">Khoai Tây Chiên</a></h3>
                                 <p>Khoai Tây Chiên là khoai phải có bề ngoài giòn, nhưng phần ruột nóng, mềm bên trong - một sự kết hợp tuyệt vời được tạo thành khi khoai tây được đổ vào chảo dầu nóng.</p>
+                                <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-flex ftco-animate">
+                        <div class="blog-entry align-self-stretch d-md-flex">
+                            <a href="/blogdetail" class="block-20" style="background-image: url('images/trasua.jpg');">
+                            </a>
+                            <div class="text d-block pl-md-4">
+                                <div class="meta mb-3">
+                                    <div><a href="#">Tháng 12 09, 2021</a></div>
+                                    <div><a href="#">Quản Trị Viên</a></div>
+                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                </div>
+                                <h3 class="heading"><a href="#">Trà Sữa</a></h3>
+                                <p>Trà sữa là loại trà được kết hợp giữa trà và sữa. Khi nhắc đến trà sữa thì người Việt chúng ta sẽ nghĩ ngay đến những ly trà sữa mát lạnh với những hạt trân châu dẻo ngọt.</p>
                                 <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
                             </div>
                         </div>

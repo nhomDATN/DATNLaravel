@@ -4,12 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TaoKhoaNgoai extends Migration
+class CreateForeignkeys extends Migration
 {
     /**
      * Run the migrations.
      *
-   /**
+
      * Run the migrations.
      *
      * @return void
@@ -46,7 +46,7 @@ class TaoKhoaNgoai extends Migration
        
         Schema::table('nguyen_lieus', function (Blueprint $table) {
             $table->foreign('don_vi_tinh_id')->references('id')->on('don_vi_tinhs');
-            $table->foreign('kho_id')->references('ma_noi_lam_viec')->on('noi_lam_viecs');
+            $table->foreign('kho_id')->references('id')->on('noi_lam_viecs');
             
         });
         Schema::table('chi_tiet_san_phams', function (Blueprint $table) {
@@ -54,12 +54,13 @@ class TaoKhoaNgoai extends Migration
             $table->foreign('nguyen_lieu_id')->references('id')->on('nguyen_lieus');
         });
         Schema::table('nhan_viens', function (Blueprint $table) {
-            $table->foreign('noi_lam')->references('ma_noi_lam_viec')->on('noi_lam_viecs');
+            //$table->foreign('noi_lam')->references('ma_noi_lam_viec')->on('noi_lam_viecs');
             //$table->foreign('noi_lam')->references('ma_kho')->on('khos');
+            $table->foreign('noi_lam_id')->references('id')->on('noi_lam_viecs');
             $table->foreign('chuc_vu_id')->references('id')->on('chuc_vus');
         });
         Schema::table('phan_phois', function (Blueprint $table) {
-            $table->foreign('noi_phan_phoi')->references('ma_noi_lam_viec')->on('noi_lam_viecs');
+            $table->foreign('noi_phan_phoi_id')->references('id')->on('noi_lam_viecs');
             $table->foreign('nguyen_lieu_id')->references('id')->on('nguyen_lieus');
         });
     }
@@ -97,3 +98,5 @@ class TaoKhoaNgoai extends Migration
         });
     }
 }
+
+
