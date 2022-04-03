@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap/font-awesome.min.css">
     <style>
         .goTop{
             display: flex;
@@ -34,15 +35,15 @@
             height: 55px;
             bottom: 120px;
             right: 55px;
-            position: fixed;
-            background: red;
+            position: fixed;     
             border-radius: 50%;
-            color: #fff;
             align-items: center;
         }
+        
     </style>
 </head>
-<body class="goto-here" id="head">
+<body class="goto-here" id="head" style=" background-image: url(images/background.png);
+background-repeat:no-repeat;" >
     <div class="py-1 bg-danger">
         <div class="container">
             <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
@@ -102,7 +103,6 @@
 
     <div class="container py-4">
         <footer class="ftco-footer ftco-section">
-           
             <div class="row mb-5">
                 <div class="col-md">
                     <div class="ftco-footer-widget mb-4">
@@ -168,13 +168,11 @@
 
 
     <div class="goTop">
-        
-            <a href="#head" class="mouse-icon" style="background: red">
-                <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-            </a>
-
-        
+            <a href="#head" class="mouse-icon">
+                <div class="mouse-wheel"><span class="ion-ios-arrow-up" ></span></div>
+            </a> 
     </div>
+   
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>

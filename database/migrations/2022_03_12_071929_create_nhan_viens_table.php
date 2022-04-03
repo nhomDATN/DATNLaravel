@@ -19,7 +19,6 @@ class CreateNhanViensTable extends Migration
             $table->string('dia_chi');
             $table->string('ngay_sinh');
             $table->string('sdt');
-            $table->string('ho_ten');
             $table->string('CCCD');
             $table->float('luong');
             $table->float('thuong_thang');     

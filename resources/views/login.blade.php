@@ -3,9 +3,9 @@
 <hr />
 <div class="container">
     <h2>Đăng Nhập</h2>
-    <form action="index.php">
+    <form action="{{ route('') }}" data-id="login" method="POST">
+        @csrf
         <div class="form-group">
-
             Tài Khoản <input type="email" class="form-control" placeholder="Nhập Tài Khoản" id="email">
         </div>
         <div class="form-group">
@@ -27,7 +27,5 @@
     </div>
     <p class="mt-4">Chưa Có Tài Khoản?<a href="/register">Đăng Ký Ngay</a></p>
 </div>
-			
-
 <hr>
 @endsection
