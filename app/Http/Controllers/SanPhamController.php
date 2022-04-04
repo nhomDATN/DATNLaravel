@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\SanPham;
 use App\Http\Requests\StoreSanPhamRequest;
 use App\Http\Requests\UpdateSanPhamRequest;
+use Illuminate\Support\Facades\Session;
 
 class SanPhamController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +17,12 @@ class SanPhamController extends Controller
      */
     public function index()
     {
+        Session::put('productType',['Tất cả','Gà Rán','Khoai Tây Chiên','Bánh Mì','Hamburger','Trà Sữa']);
+        
+            $active = 'Tất cả';
+        
+        //dd(Session::get('productType'));
+        return view('product',['active' => $active]);
         //
     }
 

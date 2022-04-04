@@ -28,17 +28,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap/font-awesome.min.css">
     <style>
-        .goTop{
-            display: flex;
-            justify-content: center;
-            width: 55px;
-            height: 55px;
-            bottom: 120px;
-            right: 55px;
-            position: fixed;     
-            border-radius: 50%;
-            align-items: center;
-        }
+        
         
     </style>
 </head>
@@ -90,7 +80,7 @@ background-repeat:no-repeat;" >
                     <li class="nav-item"><a  href="/about" class="nav-link" style="font-size: 15px">Chúng Tôi</a></li>
                     <li class="nav-item"><a href="/blog"  class="nav-link" style="font-size: 15px">Blog</a></li>
                     <li class="nav-item"><a href="/contact"  class="nav-link" style="font-size: 15px">Liên Hệ</a></li>
-                    <li class="nav-item cta cta-colored"><a href="/cart"  class="nav-link" style="font-size: 15px"><span class="icon-shopping_cart"></span>[0]</a></li>
+                    <li class="nav-item"><a href="/cart"  class="nav-link" style="font-size: 15px"><span class="icon-shopping_cart"></span>[0]</a></li>
 
                 </ul>
             </div>
@@ -168,7 +158,7 @@ background-repeat:no-repeat;" >
 
 
     <div class="goTop">
-            <a href="#head" class="mouse-icon">
+            <a href="#head" class="mouse-icon bg-danger">
                 <div class="mouse-wheel"><span class="ion-ios-arrow-up" ></span></div>
             </a> 
     </div>

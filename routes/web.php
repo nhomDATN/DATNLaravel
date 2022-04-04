@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\SanPhamController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,9 +25,7 @@ Route::get('/register', function () {
     return view('register');
 });
 
-Route::get('/product', function () {
-    return view('product');
-});
+Route::get('/product',[SanPhamController::class,'index']);
 
 Route::get('/productdetail', function () {
     return view('productdetail');
