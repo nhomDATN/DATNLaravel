@@ -111,7 +111,8 @@
                     <h3>Tổng tiền giỏ hàng</h3>
                     <p class="d-flex">
                         <span>Tổng phụ</span>
-                        @foreach ($lstgiohang as $gh)
+                        <span></span>
+                        {{-- @foreach ($lstgiohang as $gh)
                             <span id="totalcheckout @php echo $gh->id @endphp">
                                 @php 
                                     $all = 0;
@@ -119,7 +120,7 @@
                                     echo $all;
                                 @endphp
                             </span>
-                        @endforeach
+                        @endforeach --}}
                         
                     </p>
                     <p class="d-flex">
@@ -151,7 +152,6 @@
         total = document.getElementById('total '+id);
         totalcheckout = document.getElementById('totalcheckout '+id);
         total.innerHTML = quantity * price;
-        totalcheckout.innerHTML += (int)total;
         })
     }
 </script>
