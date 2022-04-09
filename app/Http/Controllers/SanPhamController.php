@@ -8,15 +8,28 @@ use App\Http\Requests\UpdateSanPhamRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class SanPhamController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
+    {
+        Session::put('productType',['Tất cả','Gà Rán','Khoai Tây Chiên','Bánh Mì','Hamburger','Trà Sữa']);
+        
+        $active = 'Tất cả';
+    
+    //dd(Session::get('productType'));
+    return view('product',['active' => $active]);
+    }
+    
+
+    public function home(Request $request)
     {
         $lstsp = SanPham::all();
         return view('index', ['lstsp'=>$lstsp]);

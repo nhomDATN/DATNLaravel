@@ -16,7 +16,7 @@
             <div class="col-md-12 ftco-animate">
                 <div class="cart-list">
                     <table class="table">
-                        <thead class="thead-primary">
+                        <thead class="thead-primary bg-danger">
                             <tr class="text-center">
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>

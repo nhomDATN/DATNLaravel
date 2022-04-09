@@ -16,12 +16,11 @@
         <div class="row justify-content-center">
             <div class="col-md-10 mb-5 text-center">
                 <ul class="product-category">
-                    <li><a href="#" class="active">Tất Cả</a></li>
-                    <li><a href="#">Khoai Tây Chiên</a></li>
-                    <li><a href="#">Đùi Gà Chiên Giòn</a></li>
-                    <li><a href="#">Trà Sữa</a></li>
-                    <li><a href="#">Bánh Mì</a></li>
-                    <li><a href="#">Hamburger</a></li>
+                    @foreach ( Session::get('productType') as $items )
+                    <li><a href="#"  @if ($items == $active) class="active" @endif " > {{ $items }} </a></li>
+                    @endforeach
+                   
+                   
                 </ul>
             </div>
         </div>
@@ -41,13 +40,13 @@
                         </div>
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                <a href="#" class="add-to-cart d-flex justify-content-center bg-danger align-items-center text-center">
                                     <span><i class="ion-ios-menu"></i></span>
                                 </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <a href="#" class="buy-now d-flex justify-content-center bg-danger align-items-center mx-1">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                <a href="#" class="heart d-flex justify-content-center bg-danger align-items-center ">
                                     <span><i class="ion-ios-heart"></i></span>
                                 </a>
                             </div>
@@ -70,13 +69,13 @@
                         </div>
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                <a href="#" class="add-to-cart d-flex justify-content-center bg-danger align-items-center text-center">
                                     <span><i class="ion-ios-menu"></i></span>
                                 </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <a href="#" class="buy-now d-flex justify-content-center bg-danger align-items-center mx-1">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                <a href="#" class="heart d-flex justify-content-center bg-danger align-items-center ">
                                     <span><i class="ion-ios-heart"></i></span>
                                 </a>
                             </div>
@@ -94,18 +93,18 @@
                         <h3><a href="/productdetail">Thực Phẩm 6</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span>350.000</span></p>
+                                <p class="price"><span>350.000 đ</span></p>
                             </div>
                         </div>
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                <a href="#" class="add-to-cart d-flex justify-content-center bg-danger align-items-center text-center">
                                     <span><i class="ion-ios-menu"></i></span>
                                 </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <a href="#" class="buy-now d-flex justify-content-center bg-danger align-items-center mx-1">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                <a href="#" class="heart d-flex justify-content-center bg-danger align-items-center ">
                                     <span><i class="ion-ios-heart"></i></span>
                                 </a>
                             </div>
@@ -263,36 +262,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="product">
-                    <a href="#" class="img-prod">
-                        <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
-                        <span class="status">30%</span>
-                        <div class="overlay"></div>
-                    </a>
-                    <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 7</a></h3>
-                        <div class="d-flex">
-                            <div class="pricing">
-                                <p class="price"><span>780.000</span></p>
-                            </div>
-                        </div>
-                        <div class="bottom-area d-flex px-3">
-                            <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i class="ion-ios-cart"></i></span>
-                                </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                    <span><i class="ion-ios-heart"></i></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <div class="row mt-5">
             <div class="col text-center">

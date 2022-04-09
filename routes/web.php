@@ -5,7 +5,6 @@ use App\Http\Controllers\HoaDonController;
 use App\Http\Controllers\TaiKhoanController;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('index');
 // });
 
-Route::get('/', [SanPhamController::class, 'index']);
+Route::get('/', [SanPhamController::class, 'home']);
 
 Route::get('/login', function () {
     return view('login');
@@ -31,9 +30,7 @@ Route::get('/register', function () {
     return view('register');
 });
 
-Route::get('/product', function () {
-    return view('product');
-});
+Route::get('/product',[SanPhamController::class,'index']);
 
 Route::get('/productdetail', function () {
     return view('productdetail');
