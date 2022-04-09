@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TaiKhoan;
-use App\Http\Requests\StoreTaiKhoanRequest;
-use App\Http\Requests\UpdateTaiKhoanRequest;
+use Illuminate\Http\Request;
 
 class TaiKhoanController extends Controller
 {
@@ -17,6 +16,18 @@ class TaiKhoanController extends Controller
     {
         //
     }
+
+    public function checkout()
+    {
+        $tttk = TaiKhoan::join('hoa_dons', 'hoa_dons.tai_khoan_id', '=', 'tai_khoans.id')
+        ->join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
+        ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
+        ->select('tai_khoans.ho_ten', 'tai_khoans.dia_chi', 'hoa_dons.voucher')
+        ->where('tai_khoans.id', 1)
+        ->get();
+        return view('checkout', ['tttk'=>$tttk]);
+    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +45,7 @@ class TaiKhoanController extends Controller
      * @param  \App\Http\Requests\StoreTaiKhoanRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTaiKhoanRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -68,7 +79,7 @@ class TaiKhoanController extends Controller
      * @param  \App\Models\TaiKhoan  $taiKhoan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTaiKhoanRequest $request, TaiKhoan $taiKhoan)
+    public function update(Request $request, TaiKhoan $taiKhoan)
     {
         //
     }

@@ -130,47 +130,25 @@
     </div>
     <div class="container">
         <div class="row">
+            @foreach ($lstsp as $sp)
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
                     <a href="#" class="img-prod">
-                        <img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
-
+                        <img class="img-fluid w-100" style="height: 160px;" src="{{ asset("/images/$sp->hinh") }}" alt="Colorlib Template">
+                        @if($sp->khuyen_mai_id == 1)
+                            <span class="status">50%</span>
+                        @endif
+                        @if($sp->khuyen_mai_id == 2)
+                            <span class="status">30%</span>
+                        @endif
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 1</a></h3>
+                        <h3><a href="#">{{ $sp->ten_san_pham }}</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span class="mr-2 price-dc">200.000</span><span class="price-sale">$80.00</span> VNĐ</p>
-                            </div>
-                        </div>
-                        <div class="bottom-area d-flex px-3">
-                            <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="/cart" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i class="ion-ios-cart"></i></span>
-                                </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                    <span><i class="ion-ios-heart"></i></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="product">
-                    <a href="#" class="img-prod">
-                        <img class="img-fluid" src="images/2.jpg" alt="Colorlib Template">
-                        <div class="overlay"></div>
-                    </a>
-                    <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 2</a></h3>
-                        <div class="d-flex">
-                            <div class="pricing">
-                                <p class="price"><span>300.000</span></p>
+                                {{-- <p class="price"><span class="mr-2 price-dc">200.000</span><span class="price-sale">$80.00</span> VNĐ</p> --}}
+                                <p class="price"><span>{{ $sp->gia }}</span></p>
                             </div>
                         </div>
                         <div class="bottom-area d-flex px-3">
@@ -189,351 +167,69 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="product">
-                    <a href="#" class="img-prod">
-                        <img class="img-fluid" src="images/3.jpg" alt="Colorlib Template">
-                        <div class="overlay"></div>
-                    </a>
-                    <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 3</a></h3>
-                        <div class="d-flex">
-                            <div class="pricing">
-                                <p class="price"><span>400.000</span></p>
-                            </div>
-                        </div>
-                        <div class="bottom-area d-flex px-3">
-                            <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i class="ion-ios-cart"></i></span>
-                                </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                    <span><i class="ion-ios-heart"></i></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="product">
-                    <a href="#" class="img-prod">
-                        <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
-                        <span class="status">30%</span>
-                        <div class="overlay"></div>
-                    </a>
-                    <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Thực Phẩm 4</a></h3>
-                        <div class="d-flex">
-                            <div class="pricing">
-                                <p class="price"><span>500.000</span></p>
-                            </div>
-                        </div>
-                        <div class="bottom-area d-flex px-3">
-                            <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i class="ion-ios-cart"></i></span>
-                                </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                    <span><i class="ion-ios-heart"></i></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+
+            @php
+                $dem = 1;
+                $temp = $lstsp;
+
+                for ($i = 1; $i <= count($temp); $i++)  
+                    $dem += 1;
+                    
+            @endphp
+
+            
+
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid w-100" style="height: 160px;" src="images/trasua.jpg" alt="Colorlib Template">
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Thực Phẩm 5</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>120.000</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="images/2.jpg" alt="Colorlib Template">
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Thực Phẩm 5</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>120.000</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid w-100" style="height: 160px;" src="images/banhmi.jpg" alt="Colorlib Template">
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Thực Phẩm 6</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>350.000</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
-                                <span class="status">30%</span>
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Thực Phẩm 7</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>780.000</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
-                                <span class="status">30%</span>
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Thực Phẩm 7</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>780.000</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
-                                <span class="status">30%</span>
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Thực Phẩm 7</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>780.000</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
-                                <span class="status">30%</span>
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Thực Phẩm 7</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>780.000</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="images/4.jpg" alt="Colorlib Template">
-                                <span class="status">30%</span>
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Thực Phẩm 7</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>780.000</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+                                <li><a href="#">&lt;</a></li>
+                                    @for ($j = 1; $j < $dem - 1; $j++)
+                                        @if ($j == 1)
+                                        <li class="active"><span>@php echo $j @endphp </span></li>
+                                        @endif
+                                        @if ($j % 8 == 0)
+                                        <li><a href="#">@php echo $j + 1 @endphp </a></li>
+                                        @endif
+                                    @endfor
+                                <li><a href="#">&gt;</a></li>
 
-                    <div class="container">
-                        <div class="row mt-5">
-                            <div class="col text-center">
-                                <div class="block-27">
-                                    <ul>
-                                        <li><a href="#">&lt;</a></li>
-                                        <li class="active"><span>1</span></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">&gt;</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            </ul>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="container">
+            <div class="container">
+                </br>
+                </br>
+                <section class="ftco-section img font-weight-bold" style="background-image: url(images/1.jpg);">
+                    <div class="row justify-content-end" style="margin: inherit;">
+                        <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate" style="background: rgba(141, 243, 148, 0.4)">
+                            <span class="subheading">Giá Tốt Cho Bạn</span>
+                            <h2 class="mb-4">Giảm giá trong ngày</h2>
+
+                            <ul>
+                                <li style="color: black">3 Đùi Gà</li>
+                                <li style="color: black">Lon pepsi</li>
+                                <li style="color: black">1 Phần Gà nướng</li>
+                            </ul>
+                            <h3><a href="#" style="color: black">Compo 3</a></h3>
                         </br>
-                        </br>
-                        <section class="ftco-section img font-weight-bold" style="background-image: url(images/1.jpg);">
-                            <div class="row justify-content-end" style="margin: inherit;">
-                                <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate" style="background: rgba(141, 243, 148, 0.4)">
-                                    <span class="subheading">Giá Tốt Cho Bạn</span>
-                                    <h2 class="mb-4">Giảm giá trong ngày</h2>
-
-                                    <ul>
-                                        <li style="color: black">3 Đùi Gà</li>
-                                        <li style="color: black">Lon pepsi</li>
-                                        <li style="color: black">1 Phần Gà nướng</li>
-                                    </ul>
-                                    <h3><a href="#" style="color: black">Compo 3</a></h3>
-                                </br>
-                                    <span class="price" style="color: red; font-weight:bold" >Giá 500.000 VNĐ <span style="color: black; font-weight:bold"> giờ chỉ có 300.000 VNĐ. <a href="#" style="color: rgb(74, 74, 250); font-weight:bold; background: orange"> Mua ngay</a></span></span>
-                                    {{-- <div id="timer" class="d-flex mt-5">
-                                        <div class="time" id="days"></div>
-                                        <div class="time pl-3" id="hours"></div>
-                                        <div class="time pl-3" id="minutes"></div>
-                                        <div class="time pl-3" id="seconds"></div>
-                                    </div> --}}
-                                </div>
-                            </div>
-
-                        </section>
+                            <span class="price" style="color: red; font-weight:bold" >Giá 500.000 VNĐ <span style="color: black; font-weight:bold"> giờ chỉ có 300.000 VNĐ. <a href="#" style="color: rgb(74, 74, 250); font-weight:bold; background: orange"> Mua ngay</a></span></span>
+                            {{-- <div id="timer" class="d-flex mt-5">
+                                <div class="time" id="days"></div>
+                                <div class="time pl-3" id="hours"></div>
+                                <div class="time pl-3" id="minutes"></div>
+                                <div class="time pl-3" id="seconds"></div>
+                            </div> --}}
+                        </div>
                     </div>
+
+                </section>
+            </div>
                     <section class="ftco-section testimony-section">
                         <div class="container">
                             <div class="row justify-content-center mb-5 pb-3">
@@ -588,11 +284,9 @@
                             </div>
                         </div>
                     </section>
-                </div>
-            </div>
         </div>
-            </div>
+    </div>
 </section>
 
-                    <hr>
+<hr>
 @endsection

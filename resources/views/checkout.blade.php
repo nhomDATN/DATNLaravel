@@ -15,40 +15,56 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-7 ftco-animate">
+                @foreach ($tttk as $tk)
                 <form action="#" class="billing-form">
                     <h3 class="mb-4 billing-heading">Chi tiết hóa đơn</h3>
                     <div class="row align-items-end">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="firstname">Họ</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label for="firstname">Họ tên</label>
+                                <input type="text" class="form-control" placeholder="Họ tên" value="@php echo $tk->ho_ten  @endphp" style="color: black !important">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="form-group">
                                 <label for="lastname">Tên</label>
                                 <input type="text" class="form-control" placeholder="">
                             </div>
-                        </div>
+                        </div> --}}
+                        @php
+                            $dia_chi = explode(",",$tk->dia_chi);
+                        @endphp
                         <div class="w-100"></div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="country">Quận</label>
                                 <div class="select-wrap">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="" id="" class="form-control">
+                                    <select name="" id="" class="form-control" style="color: black !important">
                                         <option value="">Quận 1</option>
+                                        
                                         <option value="">Quận 2</option>
+                                        
                                         <option value="">Quận 3</option>
+                                       
                                         <option value="">Quận 4</option>
+                                        
                                         <option value="">Quận 5</option>
+                                        
                                         <option value="">Quận 6</option>
+                                        
                                         <option value="">Quận 7</option>
+                                        
                                         <option value="">Quận 8</option>
+                                        
                                         <option value="">Quận 9</option>
+                                        
                                         <option value="">Quận 10</option>
+                                        
                                         <option value="">Quận 11</option>
+                                        
                                         <option value="">Quận 12</option>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -56,36 +72,36 @@
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="streetaddress">Địa chi</label>
-                                <input type="text" class="form-control" placeholder="Số nhà và tên đường">
+                                <label for="streetaddress">Địa chỉ</label>
+                                <input type="text" class="form-control" placeholder="Số nhà và tên đường" value="@php echo $dia_chi[0]  @endphp" style="color: black !important">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Căn hộ, dãy phòng,...(tùy chọn)">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="postcodezip">Mã giảm giá / ZIP *</label>
-                                <input type="text" class="form-control" placeholder="Nhập mã giảm giá nếu có">
+                                <input type="text" class="form-control" placeholder="Nhập mã giảm giá nếu có" value="@php echo $tk->voucher  @endphp" style="color: black !important">
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="phone">SDT</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label for="phone">Số điện thoại</label>
+                                <input type="text" class="form-control" placeholder="SĐT" value="@php echo $tk->sdt  @endphp" style="color: black !important">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="emailaddress">Email</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" placeholder="Email" value="@php echo $tk->email  @endphp" style="color: black !important">
                             </div>
                         </div>
-                        <div class="w-100"></div>
+                        {{-- <div class="w-100"></div>
                         <div class="col-md-12">
                             <div class="form-group mt-4">
                                 <div class="radio">
@@ -93,9 +109,11 @@
                                     <label><input type="radio" name="optradio"> Gửi đến địa chỉ khác</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
-                </form><!-- END -->
+                </form>
+                @endforeach
+                <!-- END -->
             </div>
             <div class="col-xl-5">
                 <div class="row mt-5 pt-3">

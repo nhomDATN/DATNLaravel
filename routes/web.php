@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\SanPhamController;
+use App\Http\Controllers\HoaDonController;
+use App\Http\Controllers\TaiKhoanController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/', [SanPhamController::class, 'index']);
 
 Route::get('/login', function () {
     return view('login');
@@ -41,26 +47,38 @@ Route::get('/sale', function () {
     return view('sale');
 });
 
-Route::get('/cart', function () {
-    return view('cart');
-});
+// Route::get('/cart', function () {
+//     return view('cart');
+// });
 
-Route::get('/checkout', function () {
-    return view('checkout');
-});
+Route::get('/cart', [HoaDonController::class, 'cart']);
+
+// Route::get('/checkout', function () {
+//     return view('checkout');
+// });
+
+Route::get('/checkout', [TaiKhoanController::class, 'checkout']);
 
 Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/blog', function () {
-    return view('blog');
-});
+// Route::get('/blog', function () {
+//     return view('blog');
+// });
 
-Route::get('/blogdetail', function () {
-    return view('blogdetail');
-});
+Route::get('/blog', [SanPhamController::class, 'blog']);
+
+Route::get('/searchSanPham', [SanPhamController::class, 'search'])->name('sanPham.search');
+
+// Route::get('/blogdetail', function () {
+//     return view('blogdetail');
+// });
+
+Route::get('/blogdetail', [SanPhamController::class, 'blogdetail']);
 
 Route::get('/contact', function () {
     return view('contact');
 });
+
+Route::resource('sanPham', SanPhamController::class);

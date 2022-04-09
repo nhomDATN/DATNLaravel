@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\SanPham;
 use App\Http\Requests\StoreSanPhamRequest;
 use App\Http\Requests\UpdateSanPhamRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 
 class SanPhamController extends Controller
 {
@@ -13,9 +16,23 @@ class SanPhamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $lstsp = SanPham::all();
+        return view('index', ['lstsp'=>$lstsp]);
+    }
+
+    public function blog(Request $request)
+    {
+        $lstsp = SanPham::all();
+        return view('blog', ['lstsp'=>$lstsp]);
+    }
+
+    public function blogdetail(Request $request)
+    {
+        $lstsp = SanPham::all();
+        $sanPham =SanPham::where('id','=',$request->get('sanPham'))->first();
+        return view('blogdetail', ['lstsp'=>$lstsp]);
     }
 
     /**
@@ -34,7 +51,7 @@ class SanPhamController extends Controller
      * @param  \App\Http\Requests\StoreSanPhamRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSanPhamRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -68,7 +85,7 @@ class SanPhamController extends Controller
      * @param  \App\Models\SanPham  $sanPham
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSanPhamRequest $request, SanPham $sanPham)
+    public function update(Request $request, SanPham $sanPham)
     {
         //
     }
@@ -83,4 +100,34 @@ class SanPhamController extends Controller
     {
         //
     }
+
+    // public function search(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $output = '';
+    //         $sanphams = SanPham::all()
+    //         ->select('san_phams.id','san_phams.ten_san_pham','san_phams.mo_ta','san_phams.gia','loai_san_pham_id','san_phams.created_at')
+    //         ->where('ten_san_pham', 'LIKE', '%' . $request->search . '%')
+    //         ->get();
+    //         if ($sanphams) {
+    //             foreach ($sanphams as $key => $sp) {
+    //                 $output .= '<tr>
+    //                 <td>' . $sp->id . '</td>
+    //                 <td>' . $sp->ten_san_pham . '</td>
+    //                 <td>' . $sp->mo_ta . '</td>
+    //                 <td>' . $sp->gia . '</td>
+    //                 <td>' . $sp->hinh . '</td>
+    //                 <td><img src=" ' . asset("/storage/$sp->hinh_anh") . ' " style="width: 100px;"></td>
+    //                 <td>' . $sp->loai_san_pham_id . '</td>
+    //                 <td>' . $sp->created_at . '</td>
+    //                 <td>' . $sp->updated_at . '</td>
+                    
+                    
+    //                 </tr>';
+    //             }
+    //         }
+
+    //         return Response($output);
+    //     }
+    // }
 }

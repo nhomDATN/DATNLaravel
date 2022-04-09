@@ -21,34 +21,39 @@
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>Tên sản phẩm</th>
-                                <th>Gía</th>
+                                <th>Giá</th>
                                 <th>Số lượng</th>
                                 <th>Tổng</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($lstgiohang as $gh)
                             <tr class="text-center">
                                 <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 
-                                <td class="image-prod"><div class="img" style="background-image:url(images/hamburger.jpg);"></div></td>
+                                <td class="image-prod"><div class="img" style="background-image:url('{{ asset("/images/$gh->hinh") }}');"></div></td>
 
                                 <td class="product-name">
-                                    <h3>Hamburger</h3>
-                                    <p>Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p>
+                                    <h3>@php echo $gh->ten_san_pham @endphp</h3>
+                                    <p>@php
+                                        $mo_ta = explode('.',$gh->mo_ta);
+                                        echo $mo_ta[0] . '.';
+                                    @endphp</p>
+                                    {{-- <p>Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p> --}}
                                 </td>
 
-                                <td class="price">$4.90</td>
-
+                                <td class="price" name="price" id="price @php echo $gh->id @endphp">@php echo $gh->gia @endphp</td>
                                 <td class="quantity">
                                     <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+                                        <input type="text" name="quantity" class="quantity" value="1" min="1" max="100" id="@php echo $gh->id @endphp" onclick="sum(@php echo $gh->id @endphp)">
                                     </div>
                                 </td>
-
-                                <td class="total">$14.00</td>
-                            </tr><!-- END TR-->
-
-                            <tr class="text-center">
+                                <td class="total" id="total @php echo $gh->id @endphp">@php echo $gh->gia*$gh->so_luong  @endphp</td>
+                            </tr>
+                            @endforeach
+                            <!-- END TR-->
+                            
+                            {{-- <tr class="text-center">
                                 <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 
                                 <td class="image-prod"><div class="img" style="background-image:url(images/6.jpg);"></div></td>
@@ -67,7 +72,7 @@
                                 </td>
 
                                 <td class="total">$15.70</td>
-                            </tr><!-- END TR-->
+                            </tr><!-- END TR--> --}}
                         </tbody>
                     </table>
                 </div>
@@ -100,12 +105,22 @@
                 </div>
                 <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Ước tính</a></p>
             </div>
+            
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
                     <h3>Tổng tiền giỏ hàng</h3>
                     <p class="d-flex">
                         <span>Tổng phụ</span>
-                        <span>$29.00</span>
+                        @foreach ($lstgiohang as $gh)
+                            <span id="totalcheckout @php echo $gh->id @endphp">
+                                @php 
+                                    $all = 0;
+                                    $all += (int)$gh->gia * (int)$gh->so_luong;
+                                    echo $all;
+                                @endphp
+                            </span>
+                        @endforeach
+                        
                     </p>
                     <p class="d-flex">
                         <span>Vận chuyển</span>
@@ -126,4 +141,18 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    let total, totalcheckout;
+    function sum(id){
+        var quantity = document.getElementById(id);
+        $(quantity).on('keyup',function(){
+        var quantity = document.getElementById(id).value;
+        var price = document.getElementById('price '+id).innerHTML;
+        total = document.getElementById('total '+id);
+        totalcheckout = document.getElementById('totalcheckout '+id);
+        total.innerHTML = quantity * price;
+        totalcheckout.innerHTML += (int)total;
+        })
+    }
+</script>
 @endsection

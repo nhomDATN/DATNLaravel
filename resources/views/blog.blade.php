@@ -5,7 +5,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
 
-                <h1 class="mb-0 bread">Blog</h1>
+                <h1 class="mb-0 bread" style="font-size: 50px; color: rgb(87, 247, 93)">Blog</h1>
             </div>
         </div>
     </div>
@@ -15,89 +15,32 @@
         <div class="row">
             <div class="col-lg-8 ftco-animate">
                 <div class="row">
+                    @foreach ($lstsp as $sp)
                     <div class="col-md-12 d-flex ftco-animate">
                         <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="/blogdetail" class="block-20" style="background-image: url('images/hamburger.jpg');">
+                            <a href="/blogdetail" class="block-20" style="background-image: url('{{ asset("/images/$sp->hinh") }}');">
                             </a>
                             <div class="text d-block pl-md-4">
                                 <div class="meta mb-3">
-                                    <div style="color: black">Tháng 12 09, 202</div>
-                                    <div style="color: black">Quản Trị Viên</div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                    <div style="color: black; font-size: 15px">@php echo $sp->created_at @endphp</div>
+                                    <div style="color: black; font-size: 15px">Quản Trị Viên</div>
+                                    {{-- <div><a href="#" class="meta-chat"><span class="icon-chat"></span>3</a></div> --}}
                                 </div>
-                                <h3 class="heading"><a href="#">Hamburger</a></h3>
-                                <p>Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p>
+                                <h3 class="heading"><a href="#">@php echo $sp->ten_san_pham @endphp</a></h3>
+                                
+                                <p>@php 
+                                    $mo_ta =  explode(".",$sp->mo_ta);
+                                    echo $mo_ta[0] . '...';
+                                @endphp</p>
                                 <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="/blogdetail" class="block-20" style="background-image: url('images/6.jpg');">
-                            </a>
-                            <div class="text d-block pl-md-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">Tháng 12 09, 2021</a></div>
-                                    <div><a href="#">Quản Trị Viên</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading"><a href="#">Gà Rán</a></h3>
-                                <p>Gà Rán là một món ăn xuất xứ từ miền Nam Hoa Kỳ; nguyên liệu chính là những miếng thịt gà đã được lăn bột rồi chiên trên chảo, chiên ngập dầu, chiên áp suất hoặc chiên chân không.</p>
-                                <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="/blogdetail" class="block-20" style="background-image: url('images/banhmi.jpg');">
-                            </a>
-                            <div class="text d-block pl-md-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">Tháng 12 09, 2021</a></div>
-                                    <div><a href="#">Quản Trị Viên</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading"><a href="#">Bánh Mì</a></h3>
-                                <p>Bánh Mì là một món ăn của Việt Nam, bao gồm vỏ là một ổ bánh mì nướng có da giòn, ruột mềm, bên trong là phần nhân đa dạng, chẳng hạn như: bò kho, cá mòi hay xíu mại.</p>
-                                <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="/blogdetail" class="block-20" style="background-image: url('images/khoaitaychien.jpg');">
-                            </a>
-                            <div class="text d-block pl-md-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">Tháng 12 09, 2021</a></div>
-                                    <div><a href="#">Quản Trị Viên</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading"><a href="#">Khoai Tây Chiên</a></h3>
-                                <p>Khoai Tây Chiên là khoai phải có bề ngoài giòn, nhưng phần ruột nóng, mềm bên trong - một sự kết hợp tuyệt vời được tạo thành khi khoai tây được đổ vào chảo dầu nóng.</p>
-                                <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="/blogdetail" class="block-20" style="background-image: url('images/trasua.jpg');">
-                            </a>
-                            <div class="text d-block pl-md-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">Tháng 12 09, 2021</a></div>
-                                    <div><a href="#">Quản Trị Viên</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading"><a href="#">Trà Sữa</a></h3>
-                                <p>Trà sữa là loại trà được kết hợp giữa trà và sữa. Khi nhắc đến trà sữa thì người Việt chúng ta sẽ nghĩ ngay đến những ly trà sữa mát lạnh với những hạt trân châu dẻo ngọt.</p>
-                                <p><a href="/blogdetail" class="btn btn-primary py-2 px-3">Đọc thêm</a></p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
+            </div> 
+            <!-- .col-md-8 -->
 
-            </div> <!-- .col-md-8 -->
             <div class="col-lg-4 sidebar ftco-animate">
                 <div class="sidebar-box">
                     <form action="#" class="search-form">
@@ -107,22 +50,36 @@
                         </div>
                     </form>
                 </div>
+                @php
+                    $dem_thuc_an = 0;
+                    $dem_thuc_uong = 0;
+                @endphp
+                @foreach ($lstsp as $sp)
+                    @if ($sp->loai_san_pham_id == 1)
+                        @php
+                            $dem_thuc_an += 1;
+                        @endphp  
+                    @elseif ($sp->loai_san_pham_id == 2)
+                        @php
+                            $dem_thuc_uong += 1;
+                        @endphp
+                    @endif
+                @endforeach
                 <div class="sidebar-box ftco-animate">
-                    <h3 class="heading">Thể loại</h3>
+                    <h3 class="heading">Loại</h3>
                     <ul class="categories">
-                        <li><a href="#">Hamburger <span>(12)</span></a></li>
-                        <li><a href="#">Gà Rán<span>(22)</span></a></li>
-                        <li><a href="#">Bánh Mì <span>(37)</span></a></li>
-                        <li><a href="#">Khoai Tây Chiên <span>(42)</span></a></li>
+                        <li><a href="/product">Thức ăn <span style="font-size: 15px; color:black">@php echo ($dem_thuc_an) @endphp</span></a></li>
+                        <li><a href="/product">Thức uống<span style="font-size: 15px; color:black">@php echo ($dem_thuc_uong) @endphp</span></a></li>
                     </ul>
                 </div>
 
-                <div class="sidebar-box ftco-animate">
+                {{-- <div class="sidebar-box ftco-animate">
                     <h3 class="heading">Blog gần đây</h3>
+                    
                     <div class="block-21 mb-4 d-flex">
                         <a class="blog-img mr-4" style="background-image: url(images/hamburger.jpg);"></a>
                         <div class="text">
-                            <h3 class="heading-1"><a href="#">Món ăn nhanh Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.<</a></h3>
+                            <h3 class="heading-1"><a href="#">@php echo $mo_ta[0] @endphp</a></h3>
                             <div class="meta">
                                 <div><a href="#"><span class="icon-calendar"></span> Tháng 12 09, 2021</a></div>
                                 <div><a href="#"><span class="icon-person"></span> Quản Trị Viên</a></div>
@@ -156,7 +113,7 @@
                         <h3 class="heading">Đoạn văn</h3>
                         <p>Hỗ trợ cho việc bạn có thể tìm hiểu thêm về các loại thức ăn có trên web!</p>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>
