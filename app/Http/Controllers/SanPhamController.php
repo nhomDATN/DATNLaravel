@@ -9,10 +9,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class SanPhamController extends Controller
 {
-    
+    public function __contruct()
+    {
+        Session::put('productType',['Tất cả','Gà Rán','Khoai Tây Chiên','Bánh Mì','Hamburger','Trà Sữa']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,15 +24,20 @@ class SanPhamController extends Controller
      */
     public function index(Request $request)
     {
-        Session::put('productType',['Tất cả','Gà Rán','Khoai Tây Chiên','Bánh Mì','Hamburger','Trà Sữa']);
-        
-        $active = 'Tất cả';
-    
-    //dd(Session::get('productType'));
-    return view('product',['active' => $active]);
+        $active= $request->key;
+        $offset = (($request->page - 1) * 8);
+        $select = '';
+        $page = $request->page;
+        if($active != "Tất cả")
+            $select = $request->key;
+        $allProduct = DB::select('select mo_ta from san_phams where mo_ta like "%'.$select.'%" ');
+        $product =  DB::select('select mo_ta,san_phams.id,ten_san_pham,gia,gia_tri,khuyen_mai_id,hinh from san_phams,khuyen_mais where khuyen_mai_id = khuyen_mais.id and mo_ta like "%'.$select.'%" limit 8 offset '.$offset.'');
+        $maxpage = ceil(count($allProduct)/8);
+        //dd($allProduct);
+      return view('product',['key' => $active , 'product' =>$product,'page' => $page,'maxpage' => $maxpage]);
+
     }
     
-
     public function home(Request $request)
     {
         $lstsp = SanPham::all();
@@ -66,7 +75,7 @@ class SanPhamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -75,9 +84,14 @@ class SanPhamController extends Controller
      * @param  \App\Models\SanPham  $sanPham
      * @return \Illuminate\Http\Response
      */
-    public function show(SanPham $sanPham)
+    public function show(Request $request)
     {
-        //
+        $product = SanPham::where('id','=',$request->id)->get();
+        $select = '';
+        if($request->key != "Tất cả")
+            $select= $request->key;
+        $listProduct = DB::select('select id,ten_san_pham,gia,hinh,mo_ta from san_phams where mo_ta like "%'.$select.'%" limit 4');
+        return view('productdetail',['key'=>$request->key,'listProduct'=>$listProduct,'product' =>$product]);
     }
 
     /**

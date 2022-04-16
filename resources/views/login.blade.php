@@ -3,7 +3,7 @@
 <hr />
 <div class="container">
     <h2>Đăng Nhập</h2>
-    <form action="{{ route('') }}" data-id="login" method="POST">
+    <form action="{{ route('home') }}" data-id="login" method="POST">
         @csrf
         <div class="form-group">
             Tài Khoản <input type="email" class="form-control" placeholder="Nhập Tài Khoản" id="email">

@@ -20,21 +20,20 @@ use Illuminate\Support\Facades\Route;
 //     return view('index');
 // });
 
-Route::get('/', [SanPhamController::class, 'home']);
-
+Route::get('/', [SanPhamController::class, 'home'])->name('home');
+Route::get('/search',[SanPhamController::class,'search'])->name('productSearch');
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
 
 Route::get('/register', function () {
     return view('register');
-});
+})->name('register');
 
-Route::get('/product',[SanPhamController::class,'index']);
 
-Route::get('/productdetail', function () {
-    return view('productdetail');
-});
+Route::get('/product/{key}/{page}',[SanPhamController::class,'index'])->name('productpage');
+
+Route::get('/productdetail/{key}/{id}',[SanPhamController::class,'show'])->name('productdetail');
 
 Route::get('/wishlist', function () {
     return view('wishlist');
