@@ -21,6 +21,7 @@ class CreateSanPhamsTable extends Migration
             $table->string('hinh');
             $table->unsignedBigInteger('loai_san_pham_id');
             $table->unsignedBigInteger('khuyen_mai_id');
+            $table->string('tim_kiem'); //la các keyword tìm kiếm sản phẩm
             $table->integer('trang_thai');
             $table->timestamps();
             $table->softDeletes();

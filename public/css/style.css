@@ -13,7 +13,7 @@
    padding-top: 10px;
    padding-bottom: 10px;
    height: 20px;
-   width: 100px;
+   width: 200px;
  }
  .addCart:hover{
    background-color: red;
@@ -232,7 +232,7 @@ label {
   margin-bottom: 0.5rem; }
 
 button {
-  border-radius: 0; }
+  border-radius: 50%; }
 
 button:focus {
   outline: 1px dotted;
@@ -2069,6 +2069,7 @@ textarea.form-control {
       margin-bottom: 0; } }
 
 .btn {
+  position: relative;
   display: inline-block;
   font-weight: 400;
   color: #212529;
@@ -8859,13 +8860,17 @@ h1, h2, h3, h4, h5,
 
 .product-details .quantity-left-minus {
   background: transparent;
+  position: relative;
+  float: left;
   padding: 0 15px; }
 
 .product-details .quantity-right-plus {
   background: transparent;
   padding: 0 15px; }
 
-.product-details button, .product-details .form-control {
+.product-details button[type="button"], .product-details .form-control {
+  position: absolute;
+  float: left;
   height: 40px !important;
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.1) !important;
@@ -8877,11 +8882,32 @@ h1, h2, h3, h4, h5,
   -ms-border-radius: 0;
   border-radius: 0;
   font-size: 14px; }
+  .product-details button[type="submit"]
+  {
+    cursor: pointer;
+    background-color: black;
+   color: white;
+   border-radius: 20px;
+   padding-left: 30px;
+   padding-right: 30px;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   height: 50px;
+   width: 250px;
+   border: none;
+  }
+  .product-details button[type="submit"]:hover
+  {
+    background-color: red;
+  
+  }
   .product-details button:hover, .product-details button:focus, .product-details .form-control:hover, .product-details .form-control:focus {
     text-decoration: none;
     outline: none; }
 
 .product-details .form-group {
+  display: flex;
+  justify-content: space-between;
   position: relative; }
   .product-details .form-group .form-control {
     padding-right: 40px;

@@ -33,7 +33,7 @@ Route::get('/register', function () {
 
 Route::get('/product/{key}/{page}',[SanPhamController::class,'index'])->name('productpage');
 
-Route::get('/productdetail/{key}/{id}',[SanPhamController::class,'show'])->name('productdetail');
+Route::get('/productdetail/{id}',[SanPhamController::class,'show'])->name('productdetail');
 
 Route::get('/wishlist', function () {
     return view('wishlist');
@@ -48,7 +48,7 @@ Route::get('/sale', function () {
 // });
 
 Route::get('/cart', [HoaDonController::class, 'cart']);
-
+Route::post('/cart', [HoaDonController::class, 'addCart'])->name('cart.add');
 // Route::get('/checkout', function () {
 //     return view('checkout');
 // });

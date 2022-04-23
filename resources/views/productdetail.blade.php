@@ -10,7 +10,6 @@
         </div>
     </div>
 </div>
-
 <section class="ftco-section">
     <div class="container">
         <div class="row">
@@ -21,18 +20,24 @@
                 <h3>{{ $product[0]->ten_san_pham }}</h3>
                 <div class="rating d-flex">
                     <p class="text-left mr-4">
-                        <a href="#" class="mr-2">5.0</a>
-                        <a href="#"><span class="ion-ios-star-half"></span></a>
-                        <a href="#"><span class="ion-ios-star-outline"></span></a>
-                        <a href="#"><span class="ion-ios-star-outline"></span></a>
-                        <a href="#"><span class="ion-ios-star-outline"></span></a>
-                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <a href="#" class="mr-2">{{ $so_sao }}</a>
+                        @for ($i = 0; $i<5;$i++)
+                        <a href="#"><span class="@if ($i < $so_sao)
+                            ion-ios-star
+                            @elseif ($i < $so_sao && $i + 1 > $so_sao)
+                            ion-ios-star-half
+                            @else
+                            ion-ios-star-outline
+                        @endif"></span></a>
+                        @endfor
+                       
+                       
                     </p>
                     <p class="text-left mr-4">
-                        <a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Bình Chọn</span></a>
+                        <a href="#" class="mr-2" style="color: #000;">{{ $binhchon }} <span style="color: #bbb;">Bình Chọn</span></a>
                     </p>
                     <p class="text-left">
-                        <a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Đã Bán</span></a>
+                        <a href="#" class="mr-2" style="color: #000;">{{ $daban }} <span style="color: #bbb;">Đã Bán</span></a>
                     </p>
                 </div>
                 <p class="price"><span>{{ $product[0]->gia }}đ</span></p>
@@ -55,23 +60,35 @@
                     <div class="input-group col-md-6 d-flex mb-3">
                        
                         
-                   
+                   <form action="{{ route('cart.add') }}" method="POST" > 
+                    @csrf
+                       <input type="hidden" value="{{ $product[0]->id }}" name = "productId">
+                       <input type="hidden" value="@if ($product[0]->khuyen_mai_id == 1)
+                           0
+                           @else
+                           {{ $product[0]->gia_tri }}
+                       @endif" name = "sales">
+                       <input type="hidden" value="{{ $product[0]->gia }}" name = "price">
+                       @if (!empty(Session::get('accountId')))
+                       <input type="hidden" value="{{ Session::get('accountId')}}" name = "accountId">
+                       @endif
+                      
                             <span class="input-group-btn mr-2">
-                                <button type="button" class="quantity-left-minus btn" data-type="minus"  data-field=""onclick="minus()">
+                                <button style="z-index: 2000;" type="button" class="quantity-left-minus btn" data-type="minus"  data-field=""onclick="minus()">
                                     <i class="ion-ios-remove" ></i>
                                 </button>
                             </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" onchange="quantity()" value="1" min="1" max="100">
+                        <input  type="text" id="quantity" name="quantity" class="form-control input-number" onchange="quantity()" value="1" min="1" max="100">
                         <span class="input-group-btn ml-2">
-                            <button type="button" class="quantity-right-plus btn" data-type="plus"  data-field="" onclick="plus()">
+                            <button  type="button" class="quantity-right-plus btn" data-type="plus"  data-field="" onclick="plus()" style="margin-left: 202px;">
                                 <i class="ion-ios-add"></i>
                             </button>
                         </span>
                     </div>
                     <div class="w-100"></div>
-
                 </div>
-                <p  ><a href="cart.html" class="addCart">Thêm vào giỏ hàng</a></p>
+               <button type="submit" class="addCart">Thêm vào giỏ hàng</button>
+            </form>
             </div>
                    
                         <script>
@@ -111,7 +128,7 @@
             @foreach ($listProduct as $item )  
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="{{ route('productdetail',['key' => $key, 'id' => $item->id]) }}" class="img-prod">
+                    <a href="{{ route('productdetail',['id' => $item->id]) }}" class="img-prod">
                         <img class="img-fluid w-100" style="height: 160px;" src="/images/{{ $item->hinh }}" alt="Colorlib Template">
                         <div class="overlay"></div>
                     </a>

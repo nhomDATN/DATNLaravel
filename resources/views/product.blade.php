@@ -28,7 +28,7 @@
             @foreach ($product as $items)          
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="{{ route('productdetail',['key' => $key,'id'=>$items->id]) }} }}" class="img-prod">
+                    <a href="{{ route('productdetail',['id'=>$items->id])}}" class="img-prod">
                         <img class="img-fluid w-100" style="height: 160px;" src="/images/{{ $items->hinh }}" alt="Colorlib Template">
                         @if ($items->khuyen_mai_id != 1)
                         <span class="status">{{ $items->giatri }} %</span>

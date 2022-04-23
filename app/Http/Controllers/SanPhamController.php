@@ -15,7 +15,7 @@ class SanPhamController extends Controller
 {
     public function __contruct()
     {
-        Session::put('productType',['Tất cả','Gà Rán','Khoai Tây Chiên','Bánh Mì','Hamburger','Trà Sữa']);
+        
     }
     /**
      * Display a listing of the resource.
@@ -24,6 +24,7 @@ class SanPhamController extends Controller
      */
     public function index(Request $request)
     {
+        Session::put('productType',['Tất cả','Gà Rán','Khoai Tây Chiên','Bánh Mì','Hamburger','Trà Sữa']);
         $active= $request->key;
         $offset = (($request->page - 1) * 8);
         $select = '';
@@ -86,12 +87,44 @@ class SanPhamController extends Controller
      */
     public function show(Request $request)
     {
+        $daban = 0;
+        $binhchon = 0;
+        $so_sao = 0;
+        $select = DB::select('select so_sao from danh_gias where san_pham_id = ?', [$request->id]);
+        if(!empty($select))
+        {
+            foreach($select as $i)
+            {
+                $so_sao += $i->so_sao;
+            }
+           
+            $binhchon = count($select);
+            $so_sao = ($so_sao*1.0)/($binhchon*1.0);
+        }
+        $select = DB::select('select so_luong from chi_tiet_hoa_dons,hoa_dons where hoa_don_id = hoa_dons.id and san_pham_id = ? and trang_thai != "Giỏ Hàng"', [$request->id]);
+        if(!empty($select))
+        {
+            foreach($select as $i)
+            {
+                $daban += $i->so_luong;
+            }
+        }
+        
         $product = SanPham::where('id','=',$request->id)->get();
-        $select = '';
-        if($request->key != "Tất cả")
-            $select= $request->key;
-        $listProduct = DB::select('select id,ten_san_pham,gia,hinh,mo_ta from san_phams where mo_ta like "%'.$select.'%" limit 4');
-        return view('productdetail',['key'=>$request->key,'listProduct'=>$listProduct,'product' =>$product]);
+        $select = SanPham::select('tim_kiem')->where('id','=',$request->id)->get();
+        $explore = explode(",",$select[0]->tim_kiem);
+        $string = '';
+        $dem = 1;
+        foreach($explore as $items)
+        {
+            $string .= "tim_kiem like '%$items%'";
+            if($dem++ != count($explore))
+                $string .= " or ";
+        }
+        //dd($string);
+        $listProduct = $selects = DB::select('select id,ten_san_pham,gia,hinh,mo_ta from san_phams where '.$string.' and id != '.$request->id.' limit 4');;
+       
+        return view('productdetail',['listProduct'=>$listProduct,'product' =>$product,'daban' =>$daban,'so_sao'=>$so_sao,'binhchon'=>$binhchon]);
     }
 
     /**
