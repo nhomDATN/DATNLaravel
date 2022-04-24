@@ -148,7 +148,7 @@
                         <div class="d-flex">
                             <div class="pricing">
                                 {{-- <p class="price"><span class="mr-2 price-dc">200.000</span><span class="price-sale">$80.00</span> VNĐ</p> --}}
-                                <p class="price"><span>{{ $sp->gia }}</span></p>
+                                <p class="price"><span>{{ $sp->gia }}</span> VNĐ</p>
                             </div>
                         </div>
                         <div class="bottom-area d-flex px-3">

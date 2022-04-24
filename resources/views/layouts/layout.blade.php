@@ -33,8 +33,9 @@
         
     </style>
 </head>
-<body class="goto-here" id="head" style=" background-image: url(images/background.png);
-background-repeat:no-repeat;" >
+{{-- <body class="goto-here" id="head" style=" background-image: url(images/background.png);
+background-repeat:no-repeat;" > --}}
+<body class="goto-here" id="head">
     <div class="py-1 bg-danger">
         <div class="container">
             <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">

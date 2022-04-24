@@ -5,7 +5,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
 
-                <h1 class="mb-0 bread" style="font-size: 50px; color: rgb(87, 247, 93)">Blog Single</h1>
+                <h1 class="mb-0 bread" style="font-size: 50px; color: rgb(87, 247, 93)">Blog Detail</h1>
             </div>
         </div>
     </div>
@@ -20,19 +20,19 @@
                 @endphp
                 @foreach ($lstsp as $sp)
                 <div class="col-lg-8 ftco-animate">
-                    <h2 class="mb-3">@php
+                    <h2 class="mb-3" style="color: red">@php
                         $dem += 1;
                          echo  '#' . $dem. '. ' . $sp->ten_san_pham; 
                          
                          @endphp</h2>
-                    <p>@php 
+                    <p style="color: black; font-size:18px">@php 
                         $mo_ta =  explode(".",$sp->mo_ta);
                         echo $mo_ta[0].'.';
                     @endphp</p>
                     <p>
                         <img src="{{ asset("/images/$sp->hinh") }}" alt="" class="img-fluid">
                     </p>
-                    <p>@php 
+                    <p style="color: black; font-size:18px">@php 
                         $mo_ta =  explode(".",$sp->mo_ta);
                         echo $mo_ta[1]. '.' .'<br />'.'<br />';
                         

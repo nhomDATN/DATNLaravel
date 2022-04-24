@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>SĐT:</span> <a href="tel://6667514982">+ 666 751 4982</a></p>
+                    <p><span>SĐT:</span> <a href="tel://0934961323">+ 093 496 1323</a></p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">
