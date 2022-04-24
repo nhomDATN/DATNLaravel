@@ -3,7 +3,7 @@
 <hr />
 <div class="container mt-4">
     <h2>Đăng Ký</h2>
-    <form action="index.php">
+    <form  action="{{ route('home') }}">
         <div class="form-group">
 
             Tài Khoản<span class="text-danger">*</span> <input type="text" class="form-control w-50" placeholder="Nhập Tài Khoản" id="email">

@@ -8,33 +8,36 @@
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="/css/aos.css">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
 
 
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/icomoon.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap/font-awesome.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <style>
         
         
     </style>
 </head>
+<<<<<<< HEAD
 {{-- <body class="goto-here" id="head" style=" background-image: url(images/background.png);
 background-repeat:no-repeat;" > --}}
+=======
+>>>>>>> 7ce1a93e26751c9f7f04185c7046efe5680a00c8
 <body class="goto-here" id="head">
     <div class="py-1 bg-danger">
         <div class="container">
@@ -51,8 +54,8 @@ background-repeat:no-repeat;" > --}}
                         </div>
                         <div class="col-md pr-4 d-flex  align-items-center">
 
-                            <a class="text text-white" href="/login" > Đăng Nhập </a>/
-                            <a class="text text-white" href="/register" >Đăng Ký </a>
+                            <a class="text text-white" href=" {{ route('login') }}" > Đăng Nhập </a>/
+                            <a class="text text-white" href="{{ route('register') }}" >Đăng Ký </a>
                         </div>
                     </div>
                 </div>
@@ -68,11 +71,11 @@ background-repeat:no-repeat;" > --}}
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="/" class="nav-link" style="font-size: 15px">Trang Chủ</a></li>
+                    <li class="nav-item"><a href="/" class="nav-link" style="font-size: 15px">Trang Chủ</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px">Mua Hàng</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="/product" >Mua Thực Phẩm</a>
+                            <a class="dropdown-item" href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" >Mua Thực Phẩm</a>
                             <a class="dropdown-item" href="/wishlist" >Danh Sách Yêu Thích</a>
                             <a class="dropdown-item" href="/sale" >Ưu Đãi</a>
                             <a class="dropdown-item" href="/cart" >Giỏ Hàng</a>
@@ -170,22 +173,22 @@ background-repeat:no-repeat;" > --}}
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <div class="zalo-chat-widget" data-oaid="1558126983899774468" data-welcome-message="Chào bạn! Rất vui khi được hỗ trợbạn!"data-autopopup="0" data-width="350" data-height="420"></div>
     <script src="https://sp.zalo.me/plugins/sdk.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
-    <script src="js/scrollax.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <script src="/js/jquery.stellar.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/aos.js"></script>
+    <script src="/js/jquery.animateNumber.min.js"></script>
+    <script src="/js/bootstrap-datepicker.js"></script>
+    <script src="/js/scrollax.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="js/google-map.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/js/google-map.js"></script>
+    <script src="/js/main.js"></script>
     <script>
         $(document).ready(function(){
             $(window).scroll(function(){

@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Models\HoaDon;
 use App\Models\KhuyenMai;
 use App\Models\SanPham;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class HoaDonController extends Controller
 {
@@ -29,7 +31,32 @@ class HoaDonController extends Controller
         ->get();
         return view('cart', ['lstgiohang'=>$lstgiohang]);
     }
+    public function addCart(Request $request)
+    {
 
+        $product = $request->productId;
+        $date = new CarBon();
+        if(empty(Session::get('cartId')))
+        {
+            $idNew = DB::table('hoa_dons')->max('id');
+            Session::put('cartId',$idNew);
+            DB::insert('insert into hoa_dons (tai_khoan_id,trang_thai,created_at) values (?,?,?)', [$product,'Giỏ Hàng',$date]);
+        }
+        else
+        {
+            $select = DB::table('chi_tiet_hoa_dons')->where('san_pham_id','=',$product)->where('hoa_don_id','=',Session::get('cartId'))->get();
+            if(count($select)>0)
+            {
+                DB::update('update chi_tiet_hoa_dons set so_luong = so_luong + ?, updated_at = ? where san_pham_id = ? and hoa_don_id = ?', [$request->quantity,$date,$product,Session::get('cartId')]);
+            }
+            else
+            {
+                DB::insert('insert into chi_tiet_hoa_dons (so_luong,gia,chiet_khau,hoa_don_id, san_pham_id,created_at) values (?,?,?,?,?,?)', [$request->quantity,$request->price,$request->sales,Session::get('cartId'), $product,$date]);
+            }
+           
+        }
+        return redirect()->route('home');
+    }
     /**
      * Show the form for creating a new resource.
      *
