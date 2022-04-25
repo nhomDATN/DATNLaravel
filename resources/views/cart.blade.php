@@ -48,7 +48,7 @@
                                         <input type="text" name="quantity" class="quantity" value="1" min="1" max="100" id="@php echo $gh->id @endphp" onclick="sum(@php echo $gh->id @endphp)">
                                     </div>
                                 </td>
-                                <td class="total" id="total @php echo $gh->id @endphp" onclick="checkout(@php echo $gh->id @endphp)">@php echo $gh->gia*$gh->so_luong  @endphp</td>
+                                <td class="total" id="total @php echo $gh->id @endphp" onclick="checkout(@php echo $gh->id @endphp)">@php echo $gh->gia @endphp</td>
                             </tr>
                             @endforeach
                             <!-- END TR-->

@@ -31,7 +31,7 @@
                     <a href="{{ route('productdetail',['id'=>$items->id])}}" class="img-prod">
                         <img class="img-fluid w-100" style="height: 160px;" src="/images/{{ $items->hinh }}" alt="Colorlib Template">
                         @if ($items->khuyen_mai_id != 1)
-                        <span class="status">{{ $items->giatri }} %</span>
+                        <span class="status">{{ $items->gia_tri }} %</span>
                         @endif
                         <div class="overlay"></div>
                     </a>

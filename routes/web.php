@@ -21,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [SanPhamController::class, 'home'])->name('home');
+
 Route::get('/search',[SanPhamController::class,'search'])->name('productSearch');
+
 Route::get('/login', function () {
     return view('login');
 })->name('login');

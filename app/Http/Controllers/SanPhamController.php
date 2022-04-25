@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
+
 class SanPhamController extends Controller
 {
     public function __contruct()
@@ -41,10 +42,11 @@ class SanPhamController extends Controller
     
     public function home(Request $request)
     {
-        $lstsp = SanPham::all();
+        #$lstsp =  SanPham::all();
+        $lstsp = SanPham::Paginate(4);
         return view('index', ['lstsp'=>$lstsp]);
     }
-
+    
     public function blog(Request $request)
     {
         $lstsp = SanPham::all();

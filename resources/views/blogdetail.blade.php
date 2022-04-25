@@ -44,7 +44,7 @@
                 </div>
                 @endforeach
 
-                <div class="about-author d-flex p-4 bg-light">
+                {{-- <div class="about-author d-flex p-4 bg-light">
                     <div class="bio align-self-md-center mr-4">
                         <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
                     </div>
@@ -52,7 +52,7 @@
                         <h3>Quản Trị Viên</h3>
                         <p>Đối với tôi, điều thú vị nhất là được thưởng thức những món ăn mà mình yêu thích. Trong số các món ăn yêu thích của tôi, không thể không kể tới các món ăn nhanh như Gà Rán, Hamburger, Bánh Mì và Khoai Tây Chiên.</p>
                     </div>
-                </div>
+                </div> --}}
                 <!-- -->
 
                 {{-- <div class="pt-5 mt-5">
