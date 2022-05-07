@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Index</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -33,11 +34,6 @@
         
     </style>
 </head>
-<<<<<<< HEAD
-{{-- <body class="goto-here" id="head" style=" background-image: url(images/background.png);
-background-repeat:no-repeat;" > --}}
-=======
->>>>>>> 7ce1a93e26751c9f7f04185c7046efe5680a00c8
 <body class="goto-here" id="head">
     <div class="py-1 bg-danger">
         <div class="container">

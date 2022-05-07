@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\ChiTietHoaDon;
 use Carbon\Carbon;
 use App\Models\HoaDon;
 use App\Models\KhuyenMai;
@@ -31,16 +33,24 @@ class HoaDonController extends Controller
         ->get();
         return view('cart', ['lstgiohang'=>$lstgiohang]);
     }
+
+    public function capNhatSoLuong (Request $request){
+        if ($request->ajax()) {        
+            DB::update('update chi_tiet_hoa_dons set so_luong = ? where id = ?', [$request->quantity, $request->id]);
+        }
+        // return Response();
+    }
+
     public function addCart(Request $request)
     {
-
+        Session::forget('cartId');
         $product = $request->productId;
         $date = new CarBon();
         if(empty(Session::get('cartId')))
         {
             $idNew = DB::table('hoa_dons')->max('id');
-            Session::put('cartId',$idNew);
-            DB::insert('insert into hoa_dons (tai_khoan_id,trang_thai,created_at) values (?,?,?)', [$product,'Giỏ Hàng',$date]);
+            Session::put('cartId',$idNew + 1);
+            DB::insert('insert into hoa_dons (tai_khoan_id,tong_tien,nhan_vien_id, trang_thai,created_at) values (?,?,?,?,?)', [1, 0, 1, -1, $date]);
         }
         else
         {
@@ -57,6 +67,9 @@ class HoaDonController extends Controller
         }
         return redirect()->route('home');
     }
+
+
+
     /**
      * Show the form for creating a new resource.
      *

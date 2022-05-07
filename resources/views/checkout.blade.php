@@ -4,8 +4,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-
-                <h1 class="mb-0 bread">Thanh Toán</h1>
+                <div style="background-color: rgba(212, 243, 212, 0.5);">
+                    <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Thanh Toán</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -127,16 +128,14 @@
                         <p class="d-flex" style="color: black">
                             <span style="color: green">Tên sản phẩm</span>
                             <span style="color: green; text-align: center">Số lượng mua</span>
-                        
+                            <span style="color: green; text-align: center">Giá</span>
                         
                         </p>
                         @foreach ($giohang as $gh)
-                           
-                            
                             <p class="d-flex">
                                 <span style="color: black">@php echo $gh->ten_san_pham @endphp</span>
                                 <span style="color: black; text-align: center">@php echo $gh->so_luong @endphp</span>
-                            
+                                <span style="color: black; text-align: center">@php echo $gh->gia * $gh->so_luong @endphp</span>
                             
                             </p>
                         @endforeach
@@ -194,13 +193,7 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="" class="mr-2"> Tôi đã đọc và chấp nhận các điều khoản và điều kiện</label>
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <p><a href="#" class="btn btn-primary py-3 px-4">Đặt hàng</a></p>
                         </div>
                     </div>

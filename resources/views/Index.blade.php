@@ -130,111 +130,46 @@
     </div>
     <div class="container">
         <div class="row">
-            <!--
-            <div style="width: 100%;">
-                <div class="carousel-inner" style="width: 100%;">
-                @foreach ($lstsp as $sp)
-                    
-                    <div class="carousel-item active" style="margin-right: 0; width: 25%;">
-                    
-                            <div class="col-md-6 col-lg-3 ftco-animate" style="max-width: 100%;">
-                                <div class="product">
-                                    <a href="#" class="img-prod">
-                                        <img class="img-fluid w-100" style="height: 160px;" src="{{ asset("/images/$sp->hinh") }}" alt="Colorlib Template">
-                                        @if($sp->khuyen_mai_id == 1)
-                                            <span class="status">50%</span>
-                                        @endif
-                                        @if($sp->khuyen_mai_id == 2)
-                                            <span class="status">30%</span>
-                                        @endif
-                                        <div class="overlay"></div>
-                                    </a>
-                                    <div class="text py-3 pb-4 px-3 text-center">
-                                        <h3><a href="#">{{ $sp->ten_san_pham }}</a></h3>
-                                        <div class="d-flex">
-                                            <div class="pricing">
-                                                {{-- <p class="price"><span class="mr-2 price-dc">200.000</span><span class="price-sale">$80.00</span> VNĐ</p> --}}
-                                                @if ($sp->gia % 1000 == 0)
-                                                    <p class="price"><span>{{ $sp->gia / 1000 }}</span>.000 VNĐ</p>
-                                                @else
-                                                    <p class="price"><span>{{ $sp->gia / 1000 }}</span>00 VNĐ</p>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="bottom-area d-flex px-3">
-                                            <div class="m-auto d-flex">
-                                                <a href="/productdetail" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                                    <span><i class="ion-ios-menu"></i></span>
-                                                </a>
-                                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                                    <span><i class="ion-ios-cart"></i></span>
-                                                </a>
-                                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                                    <span><i class="ion-ios-heart"></i></span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                @endforeach
-                </div>
-                <a style="position: absolute; left: 15%">
-                    <img src="images/back.png" alt="Compo 1" style="width: 100px; height: 50px;">
-                </a>
-                <a style="position: absolute; right: 15%">
-                    <img src="images/next.png" alt="Compo 1" style="width: 100px; height: 50px;">
-                </a>
-            </div>
-            -->
-
             @foreach ($lstsp as $sp)
+                <div id="idsp" class="carousel-item active" style="margin-right: 0; width: 25%;">
                     
-                    <div class="carousel-item active" style="margin-right: 0; width: 25%;">
-                    
-                            <div class="col-md-6 col-lg-3 ftco-animate" style="max-width: 100%;">
-                                <div class="product">
-                                    <a href="#" class="img-prod">
-                                        <img class="img-fluid w-100" style="height: 160px;" src="{{ asset("/images/$sp->hinh") }}" alt="Colorlib Template">
-                                        @if($sp->khuyen_mai_id == 1)
-                                            <span class="status">50%</span>
-                                        @endif
-                                        @if($sp->khuyen_mai_id == 2)
-                                            <span class="status">30%</span>
-                                        @endif
-                                        <div class="overlay"></div>
-                                    </a>
-                                    <div class="text py-3 pb-4 px-3 text-center">
-                                        <h3><a href="#">{{ $sp->ten_san_pham }}</a></h3>
-                                        <div class="d-flex">
-                                            <div class="pricing">
-                                                {{-- <p class="price"><span class="mr-2 price-dc">200.000</span><span class="price-sale">$80.00</span> VNĐ</p> --}}
-                                                @if ($sp->gia % 1000 == 0)
-                                                    <p class="price"><span>{{ $sp->gia / 1000 }}</span>.000 VNĐ</p>
-                                                @else
-                                                    <p class="price"><span>{{ $sp->gia / 1000 }}</span>00 VNĐ</p>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="bottom-area d-flex px-3">
-                                            <div class="m-auto d-flex">
-                                                <a href="/productdetail" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                                    <span><i class="ion-ios-menu"></i></span>
-                                                </a>
-                                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                                    <span><i class="ion-ios-cart"></i></span>
-                                                </a>
-                                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                                    <span><i class="ion-ios-heart"></i></span>
-                                                </a>
-                                            </div>
-                                        </div>
+                    <div class="col-md-6 col-lg-3 ftco-animate" style="max-width: 100%;">
+                        <div class="product">
+                            <a href="{{ route('productdetail',['id'=>$sp->id]) }}" class="img-prod">
+                                <img class="img-fluid w-100" style="height: 160px;" src="{{ asset("/images/$sp->hinh") }}" alt="Colorlib Template">
+                                @if($sp->khuyen_mai_id == 1)
+                                    <span class="status">50%</span>
+                                @endif
+                                @if($sp->khuyen_mai_id == 2)
+                                    <span class="status">30%</span>
+                                @endif
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3 text-center">
+                                <h3><a href="#">{{ $sp->ten_san_pham }}</a></h3>
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price"><span>{{ number_format($sp->gia, 0, ",", ".") }} VNĐ</span></p>
+                                    </div>
+                                </div>
+                                <div class="bottom-area d-flex px-3">
+                                    <div class="m-auto d-flex">
+                                        <a href="/productdetail" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                            <span><i class="ion-ios-menu"></i></span>
+                                        </a>
+                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                            <span><i class="ion-ios-cart"></i></span>
+                                        </a>
+                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                            <span><i class="ion-ios-heart"></i></span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
-                @endforeach
+                </div>
+            @endforeach
 
             <div class="container">
                 <div class="row mt-5">

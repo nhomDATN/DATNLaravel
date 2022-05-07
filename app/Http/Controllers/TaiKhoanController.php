@@ -31,7 +31,9 @@ class TaiKhoanController extends Controller
 
         $giohang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
         ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
-        ->select('san_phams.ten_san_pham', 'chi_tiet_hoa_dons.so_luong')
+        ->join('tai_khoans', 'tai_khoans.id', '=', 'hoa_dons.tai_khoan_id')
+        ->where('tai_khoans.id', 1)
+        ->select('san_phams.ten_san_pham', 'chi_tiet_hoa_dons.so_luong', 'san_phams.gia')
         ->get();
 
         $lstctdh = TaiKhoan::join('hoa_dons', 'hoa_dons.tai_khoan_id', '=', 'tai_khoans.id')
