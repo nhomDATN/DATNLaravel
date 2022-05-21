@@ -4,8 +4,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-
-                <h1 class="mb-0 bread">Liên Hệ Chúng Tôi</h1>
+                <div style="background-color: rgba(212, 243, 212, 0.5);"> 
+                    <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Liên Hệ Chúng Tôi</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -22,7 +23,7 @@
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>SĐT:</span> <a href="tel://6667514982">+ 666 751 4982</a></p>
+                    <p><span>SĐT:</span> <a href="tel://0934961323">+ 093 496 1323</a></p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">

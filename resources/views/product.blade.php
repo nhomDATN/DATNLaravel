@@ -4,8 +4,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-
-                <h1 class="mb-0 bread">Thực Phẩm</h1>
+                <div style="background-color: rgba(212, 243, 212, 0.5);"> 
+                    <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Thực Phẩm</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -31,7 +32,7 @@
                     <a href="{{ route('productdetail',['id'=>$items->id])}}" class="img-prod">
                         <img class="img-fluid w-100" style="height: 160px;" src="/images/{{ $items->hinh }}" alt="Colorlib Template">
                         @if ($items->khuyen_mai_id != 1)
-                        <span class="status">{{ $items->giatri }} %</span>
+                        <span class="status">{{ $items->gia_tri }} %</span>
                         @endif
                         <div class="overlay"></div>
                     </a>

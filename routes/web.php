@@ -36,7 +36,9 @@ use App\Http\Controllers\HoaDonController;
 // });
 
 Route::get('/', [SanPhamController::class, 'home'])->name('home');
+
 Route::get('/search',[SanPhamController::class,'search'])->name('productSearch');
+
 Route::get('/login', function () {
     return view('login');
 })->name('login');
@@ -54,9 +56,13 @@ Route::get('/wishlist', function () {
     return view('wishlist');
 });
 
-Route::get('/sale', function () {
-    return view('sale');
-});
+// Route::get('/sale', function () {
+//     return view('sale');
+// });
+
+Route::get('/sale',[SanPhamController::class,'sale'])->name('sale');
+
+
 
 // Route::get('/cart', function () {
 //     return view('cart');
@@ -64,11 +70,17 @@ Route::get('/sale', function () {
 
 Route::get('/cart', [HoaDonController::class, 'cart']);
 Route::post('/cart', [HoaDonController::class, 'addCart'])->name('cart.add');
+
+// Route::post('/checkout', function () {
+//     return view('checkout');
+// });
+
 // Route::get('/checkout', function () {
 //     return view('checkout');
 // });
 
 Route::get('/checkout', [TaiKhoanController::class, 'checkout']);
+Route::post('/capNhatSoLuong', [HoaDonController::class, 'capNhatSoLuong'])->name('capNhatSoLuong');
 
 Route::get('/about', function () {
     return view('about');

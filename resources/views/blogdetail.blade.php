@@ -4,8 +4,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-
-                <h1 class="mb-0 bread" style="font-size: 50px; color: rgb(87, 247, 93)">Blog Single</h1>
+                <div style="background-color: rgba(212, 243, 212, 0.5);">
+                    <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Blog Detail</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -20,19 +21,19 @@
                 @endphp
                 @foreach ($lstsp as $sp)
                 <div class="col-lg-8 ftco-animate">
-                    <h2 class="mb-3">@php
+                    <h2 class="mb-3" style="color: red">@php
                         $dem += 1;
                          echo  '#' . $dem. '. ' . $sp->ten_san_pham; 
                          
                          @endphp</h2>
-                    <p>@php 
+                    <p style="color: black; font-size:18px">@php 
                         $mo_ta =  explode(".",$sp->mo_ta);
                         echo $mo_ta[0].'.';
                     @endphp</p>
                     <p>
                         <img src="{{ asset("/images/$sp->hinh") }}" alt="" class="img-fluid">
                     </p>
-                    <p>@php 
+                    <p style="color: black; font-size:18px">@php 
                         $mo_ta =  explode(".",$sp->mo_ta);
                         echo $mo_ta[1]. '.' .'<br />'.'<br />';
                         
@@ -44,7 +45,7 @@
                 </div>
                 @endforeach
 
-                <div class="about-author d-flex p-4 bg-light">
+                {{-- <div class="about-author d-flex p-4 bg-light">
                     <div class="bio align-self-md-center mr-4">
                         <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
                     </div>
@@ -52,7 +53,7 @@
                         <h3>Quản Trị Viên</h3>
                         <p>Đối với tôi, điều thú vị nhất là được thưởng thức những món ăn mà mình yêu thích. Trong số các món ăn yêu thích của tôi, không thể không kể tới các món ăn nhanh như Gà Rán, Hamburger, Bánh Mì và Khoai Tây Chiên.</p>
                     </div>
-                </div>
+                </div> --}}
                 <!-- -->
 
                 {{-- <div class="pt-5 mt-5">

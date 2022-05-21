@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
+
 class SanPhamController extends Controller
 {
     public function __contruct()
@@ -38,13 +39,23 @@ class SanPhamController extends Controller
       return view('product',['key' => $active , 'product' =>$product,'page' => $page,'maxpage' => $maxpage]);
 
     }
+
+    public function sale(Request $request)
+    {
+        $lstsp = SanPham::join('khuyen_mais', 'khuyen_mais.id', '=', 'san_phams.khuyen_mai_id')
+        ->select('san_phams.id', 'hinh', 'ten_san_pham', 'gia')
+        ->where('san_phams.khuyen_mai_id', 2)
+        ->get();
+        return view('sale', ['lstsp'=>$lstsp]);
+    }
+
     
     public function home(Request $request)
     {
-        $lstsp = SanPham::all();
+        $lstsp = SanPham::Paginate(4);
         return view('index', ['lstsp'=>$lstsp]);
     }
-
+    
     public function blog(Request $request)
     {
         $lstsp = SanPham::all();
@@ -122,7 +133,7 @@ class SanPhamController extends Controller
                 $string .= " or ";
         }
         //dd($string);
-        $listProduct = $selects = DB::select('select id,ten_san_pham,gia,hinh,mo_ta from san_phams where '.$string.' and id != '.$request->id.' limit 4');;
+        $listProduct = DB::select('select id,ten_san_pham,gia,hinh,mo_ta from san_phams where '.$string.' and id != '.$request->id.' limit 4');
        
         return view('productdetail',['listProduct'=>$listProduct,'product' =>$product,'daban' =>$daban,'so_sao'=>$so_sao,'binhchon'=>$binhchon]);
     }

@@ -4,8 +4,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-
-                <h1 class="mb-0 bread">Chi Tiết Sản Phẩm</h1>
+                <div style="background-color: rgba(212, 243, 212, 0.5);"> 
+                    <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Chi Tiết Sản Phẩm</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -40,7 +41,8 @@
                         <a href="#" class="mr-2" style="color: #000;">{{ $daban }} <span style="color: #bbb;">Đã Bán</span></a>
                     </p>
                 </div>
-                <p class="price"><span>{{ $product[0]->gia }}đ</span></p>
+                <p class="price"><span>{{ number_format($product[0]->gia, 0, ",", ".") }} VNĐ</span></p>
+                
                 <p>{{ $product[0]->mo_ta }}</p>
                 <div class="row mt-4">
                     <div class="col-md-6">
@@ -63,11 +65,13 @@
                    <form action="{{ route('cart.add') }}" method="POST" > 
                     @csrf
                        <input type="hidden" value="{{ $product[0]->id }}" name = "productId">
-                       <input type="hidden" value="@if ($product[0]->khuyen_mai_id == 1)
-                           0
-                           @else
-                           {{ $product[0]->gia_tri }}
-                       @endif" name = "sales">
+                       <input type="hidden" value="
+                            @if ($product[0]->khuyen_mai_id == 3)
+                                0
+                            @else
+                                {{ $product[0]->gia_tri }}
+                            @endif
+                                " name = "sales">
                        <input type="hidden" value="{{ $product[0]->gia }}" name = "price">
                        @if (!empty(Session::get('accountId')))
                        <input type="hidden" value="{{ Session::get('accountId')}}" name = "accountId">

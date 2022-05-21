@@ -4,8 +4,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-
-                <h1 class="mb-0 bread">Thanh Toán</h1>
+                <div style="background-color: rgba(212, 243, 212, 0.5);">
+                    <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Thanh Toán</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -18,7 +19,9 @@
                 @foreach ($tttk as $tk)
                 <form action="#" class="billing-form">
                     <h3 class="mb-4 billing-heading">Chi tiết hóa đơn</h3>
+                    <div style="color: red; font-size: 18px">Thông tin tài khoản</div>
                     <div class="row align-items-end">
+                        
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="firstname">Họ tên</label>
@@ -38,7 +41,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="country">Quận</label>
-                                <div class="select-wrap">
+                                <input type="text" class="form-control" placeholder="Quận" value="@php echo $dia_chi[1]  @endphp" style="color: black !important">
+                                {{-- <div class="select-wrap">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                     <select name="" id="" class="form-control" style="color: black !important">
                                         <option value="">Quận 1</option>
@@ -66,7 +70,7 @@
                                         <option value="">Quận 12</option>
                                         
                                     </select>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="w-100"></div>
@@ -115,66 +119,87 @@
                 @endforeach
                 <!-- END -->
             </div>
+            
             <div class="col-xl-5">
                 <div class="row mt-5 pt-3">
+                    <div class="col-md-12">
+                        <div class="cart-detail cart-total p-3 p-md-4">
+                        <h3 class="billing-heading mb-4" style="color: red">Chi tiết giỏ hàng</h3>
+                        <p class="d-flex" style="color: black">
+                            <span style="color: green">Tên sản phẩm</span>
+                            <span style="color: green; text-align: center">Số lượng mua</span>
+                            <span style="color: green; text-align: center">Giá</span>
+                        
+                        </p>
+                        @foreach ($giohang as $gh)
+                            <p class="d-flex">
+                                <span style="color: black">@php echo $gh->ten_san_pham @endphp</span>
+                                <span style="color: black; text-align: center">@php echo $gh->so_luong @endphp</span>
+                                <span style="color: black; text-align: center">@php echo $gh->gia * $gh->so_luong @endphp</span>
+                            
+                            </p>
+                        @endforeach
+                    </div>  
+                    <!-- END -->
+                    
+                    </br>
                     <div class="col-md-12 d-flex mb-5">
                         <div class="cart-detail cart-total p-3 p-md-4">
-                            <h3 class="billing-heading mb-4">Tổng số giỏ hàng</h3>
+                            <h3 class="billing-heading mb-4" style="color: red">Tổng số tiền giỏ hàng</h3>
                             <p class="d-flex">
-                                <span>Tổng phụ</span>
-                                <span>$29.00</span>
+                                <span style="color: black">Tổng tiền</span>
+                                <span style="color: black">@php echo $tongtien @endphp</span>
+                                
+                                
                             </p>
-                            <p class="d-flex">
+                            {{-- <p class="d-flex">
                                 <span>Vận chuyển</span>
                                 <span>$0.00</span>
-                            </p>
+                            </p> --}}
                             <p class="d-flex">
-                                <span>Hạ giá</span>
-                                <span>$0.00</span>
+                                <span style="color: black">Hạ giá</span>
+                                <span style="color: black">@php echo $giamgia @endphp</span>
                             </p>
                             <hr>
                             <p class="d-flex total-price">
-                                <span>Total</span>
-                                <span>$29.00</span>
+                                <span style="color: black">Total</span>
+                                <span style="color: black">@php echo ($tongtien - $giamgia) @endphp</span>
                             </p>
                         </div>
                     </div>
+                    <!-- END -->
+
                     <div class="col-md-12">
                         <div class="cart-detail p-3 p-md-4">
                             <h3 class="billing-heading mb-4">Phương thức thanh toán</h3>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Ngân hàng trực tiếp Tranfer</label>
+                                        <label><input type="radio" name="optradio" class="mr-2"> Thanh toán qua ví điện tử</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2">  Kiểm tra thanh toán</label>
+                                        <label><input type="radio" name="optradio" class="mr-2">  Thanh toán tiền mặt trực tiếp</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="radio">
                                         <label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="" class="mr-2"> Tôi đã đọc và chấp nhận các điều khoản và điều kiện</label>
-                                    </div>
-                                </div>
-                            </div>
+                            </div> --}}
+                           
                             <p><a href="#" class="btn btn-primary py-3 px-4">Đặt hàng</a></p>
                         </div>
                     </div>
                 </div>
-            </div> <!-- .col-md-8 -->
+            </div> 
+            <!-- .col-md-8 -->
         </div>
     </div>
 </section> 
