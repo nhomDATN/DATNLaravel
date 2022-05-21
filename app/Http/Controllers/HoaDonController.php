@@ -19,7 +19,6 @@ class HoaDonController extends Controller
     {
         
     }
-
     public function cart(Request $request)
     {
         $lstgiohang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id','=', 'hoa_dons.id')
