@@ -22,7 +22,6 @@ class HoaDonController extends Controller
     {
         
     }
-
     public function cart(Request $request)
     {
         $maxid = ChiTietHoaDon::max('hoa_don_id');
