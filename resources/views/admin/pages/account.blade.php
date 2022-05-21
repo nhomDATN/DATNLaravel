@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/layouts.app')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Account</h1>
+                        <h1 class="m-0">Tài Khoản</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item active">Account</li>
+                            <li class="breadcrumb-item active">Tài Khoản</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,18 +25,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                @if (request()->has('view_deleted'))
-                                    <a href="{{ route('taiKhoan.index') }}" class="btn btn-info"
-                                        style="margin-left:20px;margin-top: -0.3rem;">View All Accounts</a>
-                                    <a href="{{ route('taiKhoan.restore.all', 0) }}" class="btn btn-success"
-                                        style="margin-left:20px;margin-top: -0.3rem;">Restore All</a>
-                                @else
-                                    <a href="{{ route('taiKhoan.index', ['view_deleted' => 'DeletedRecords']) }}"
-                                        class="btn btn-primary">View Delete Records</a>
-                                @endif
                                 <div style="float: right;margin-left:20px;margin-top: -0.3rem;width: 100px;">
                                     <a href='{{ route('taiKhoan.create') }}'>
-                                        <button type="button" class="btn btn-block btn-default btn-sm">Add</button>
+                                        <button type="button" class="btn btn-block btn-default btn-sm">Thêm</button>
                                     </a>
                                 </div>
                                 <div class="card-tools">
@@ -62,20 +53,16 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Email</th>
-                                            <th>Full name</th>
-                                            <th>Birthday</th>
-                                            <th>Address</th>
-                                            <th>Phone</th>
-                                            <th>Account Type</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
-                                            @if (request()->has('view_deleted'))
-                                                <th>Delete At</th>
-                                                <th>Restore</th>
-                                            @else
-                                                <th>Edit</th>
-                                                <th>Delete</th>
-                                            @endif
+                                            <th>Họ tên</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Ngày sinh</th>
+                                            <th>SĐT</th>
+                                            <th>Loại Tài Khoản</th>
+                                            <th>Ngày Tạo</th>
+                                            <th>Ngày Cập Nhật</th>
+                                            <th>Trạng Thái</th>
+                                            <th>Chỉnh Sửa</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -84,44 +71,33 @@
                                                 <tr>
                                                     <td>{{ $tk->id }}</td>
                                                     <td>{{ $tk->email }}</td>
-                                                    <td>{{ $tk->hoten }}</td>
-                                                    <td>{{ $tk->ngaysinh }}</td>
-                                                    <td>{{ $tk->diachi }}</td>
+                                                    <td>{{ $tk->ho_ten }}</td>
+                                                    <td>{{ $tk->dia_chi }}</td>
+                                                    <td>{{ $tk->ngay_sinh }}</td>
                                                     <td>{{ $tk->sdt }}</td>
                                                     <td>{{ $tk->ten_loai_tai_khoan }}</td>
                                                     <td>{{ $tk->created_at }}</td>
                                                     <td>{{ $tk->updated_at }}</td>
-                                                    @if (request()->has('view_deleted'))
-                                                        <td>{{ $tk->deleted_at }}</td>
-                                                        <td>
-                                                            <a href="{{ route('taiKhoan.restore', $tk->id) }}">
-                                                                <button type="button"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-redo"></i>
-                                                                </button>
-                                                            </a>
-                                                        </td>
-                                                    @else
-                                                        <td style=";width: 20px;">
-                                                            <a href='{{ route('taiKhoan.edit', ['taiKhoan' => $tk]) }}'>
-                                                                <button type="button"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-edit"></i>
-                                                                </button>
-                                                            </a>
-                                                        </td>
-                                                        <td style="width: 20px;">
-                                                            <form method="post"
-                                                                action="{{ route('taiKhoan.destroy', ['taiKhoan' => $tk]) }}">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    @endif
+                                                    <td>{{ $tk->trang_thai }}</td>
+                                                    <td style=";width: 20px;">
+                                                        <a href='{{ route('taiKhoan.edit', ['taiKhoan' => $tk]) }}'>
+                                                            <button type="button"
+                                                                class="btn btn-default btn-sm checkbox-toggle"><i
+                                                                    class="fas fa-edit"></i>
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                    <td style="width: 20px;">
+                                                        <form method="post"
+                                                            action="{{ route('taiKhoan.destroy', ['taiKhoan' => $tk]) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-default btn-sm checkbox-toggle"><i
+                                                                    class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @else

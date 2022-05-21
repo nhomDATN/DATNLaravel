@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/layouts.app')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Add Account Type</h1>
+                        <h1 class="m-0">Thêm Loại Tài Khoản</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('loaiTaiKhoan.index') }}">Account Type</a></li>
-                            <li class="breadcrumb-item active">Add Account Type</li>
+                            <li class="breadcrumb-item"><a href="{{ route('loaiTaiKhoan.index') }}">Loại Tài Khoản</a></li>
+                            <li class="breadcrumb-item active">Thêm Loại Tài Khoản</li>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -24,7 +24,7 @@
             <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Form Add Account Type</h3>
+                            <h3 class="card-title">Mẫu Thêm Loại Tài Khoản</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -32,7 +32,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="">Name</label>
+                                    <label for="">Tên Loại Tài Khoản</label>
                                     <input type="text" class="form-control" name="tenltk"
                                         placeholder="Name Account Type">
                                 </div>
@@ -40,7 +40,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%">Gửi</button>
                             </div>
                             @if(session('alert'))
                             <section class='alert alert-danger'>{{session('alert')}}</section>

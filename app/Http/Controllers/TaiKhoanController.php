@@ -6,8 +6,11 @@ use App\Models\HoaDon;
 use App\Models\KhuyenMai;
 use App\Models\SanPham;
 use App\Models\TaiKhoan;
+use App\Models\LoaiTaiKhoan;
 use App\Models\ChiTietHoaDon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 
 class TaiKhoanController extends Controller
 {
@@ -16,9 +19,15 @@ class TaiKhoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $lsttk = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
+        ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.dia_chi', 'tai_khoans.ngay_sinh', 'tai_khoans.sdt', 'tai_khoans.ho_ten', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.created_at', 'tai_khoans.updated_at', 'tai_khoans.trang_thai')
+        ->get();
+        if ($request->has('view_deleted')) {
+            $lsttk = TaiKhoan::onlyTrashed()->get();
+        }
+        return view('admin/pages.account', ['lsttk' => $lsttk]); 
     }
 
     public function checkout(Request $request)
@@ -76,7 +85,8 @@ class TaiKhoanController extends Controller
      */
     public function create()
     {
-        //
+        $lstltk = LoaiTaiKhoan::all();
+        return view('admin/add.add_account', ['lstltk' => $lstltk]);
     }
 
     /**
@@ -87,7 +97,23 @@ class TaiKhoanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tonTai = TaiKhoan::where('email', $request['email'])->first();
+        if (empty($tonTai)) {
+            $taiKhoan = TaiKhoan::insert([
+                'email' => $request->input('email'),
+                'mat_khau' => bcrypt($request->input('password')),
+                'ho_ten' => $request->input('hoten'),
+                'ngay_sinh' => $request->input('ngaysinh'),
+                'dia_chi' => $request->input('diachi'),
+                'sdt' => $request->input('sdt'),
+                'loai_tai_khoan_id' => $request->input('loaitk'),
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+                'updated_at' => null,
+            ]);
+            return Redirect::route('taiKhoan.index');
+        }
+        $alert = 'Email already in use';
+        return redirect()->back()->with('alert', $alert);
     }
 
     /**
@@ -109,7 +135,8 @@ class TaiKhoanController extends Controller
      */
     public function edit(TaiKhoan $taiKhoan)
     {
-        //
+        $lstltk = LoaiTaiKhoan::all();
+        return view('admin/edit.edit_account', ['taiKhoan' => $taiKhoan, 'lstltk' => $lstltk]);
     }
 
     /**
@@ -121,7 +148,21 @@ class TaiKhoanController extends Controller
      */
     public function update(Request $request, TaiKhoan $taiKhoan)
     {
-        //
+        if ($request->ngay_sinh == "")
+        {
+            $alert = "Ngày sinh không được để trống";
+            return redirect()->back()->with('alert', $alert);
+        }
+            
+        $taiKhoan->fill([
+            'ho_ten' => $request->input('hoten'),
+            'ngay_sinh' => $request->input('ngaysinh'),
+            'dia_chi' => $request->input('diachi'),
+            'sdt' => $request->input('sdt'),
+            'loai_tai_khoan_id' => $request->input('loaitk'),
+        ]);
+        $taiKhoan->save();
+        return Redirect::route('taiKhoan.index');
     }
 
     /**
@@ -132,6 +173,85 @@ class TaiKhoanController extends Controller
      */
     public function destroy(TaiKhoan $taiKhoan)
     {
-        //
+        $taiKhoan->fill([
+            'trang_thai' => 0,
+        ]);
+        $taiKhoan->save();
+        return Redirect::route('taiKhoan.index');
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = '';
+            $accounts = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
+            ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.dia_chi', 'tai_khoans.ngay_sinh', 'tai_khoans.sdt', 'tai_khoans.ho_ten', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.created_at', 'tai_khoans.updated_at', 'tai_khoans.trang_thai')
+            ->where('email', 'LIKE', '%' . $request->search . '%')
+            ->get();
+            
+            if ($accounts) {
+                foreach ($accounts as $key => $tk) {
+                    $output .= '<tr>
+                    <td>' . $tk->id . '</td>
+                    <td>' . $tk->email . '</td>
+                    <td>' . $tk->ho_ten . '</td>
+                    <td>' . $tk->ngay_sinh . '</td>
+                    <td>' . $tk->dia_chi . '</td>
+                    <td>' . $tk->sdt . '</td>
+                    <td>' . $tk->ten_loai_tai_khoan . '</td>
+                    <td>' . $tk->created_at . '</td>
+                    <td>' . $tk->updated_at . '</td>
+                    <td style=";width: 20px;">
+                        <a href="'.route('taiKhoan.edit', ['taiKhoan' => $tk]).'">
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-edit"></i></button>
+                        </a>
+                    </td>
+                    <td style="width: 20px;">
+                        <form method="post" action="'.route('taiKhoan.destroy', ['taiKhoan' => $tk]).'">
+                        '.@csrf_field().'
+                        '.@method_field("DELETE").'
+                            <button type="submit" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </td>
+                    </tr>';
+                }
+            }
+
+            return Response($output);
+        }
+    }
+
+    public function searchTaiKhoanXoa(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = '';
+            $accounts = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
+            ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.hoten', 'tai_khoans.ngaysinh', 'tai_khoans.diachi', 'tai_khoans.sdt', 'loai_tai_khoans.ten_loai_tai_khoan', 'token', 'tai_khoans.created_at', 'tai_khoans.updated_at')
+            ->where('email', 'LIKE', '%' . $request->search . '%')
+            ->onlyTrashed()
+            ->get();
+            if ($accounts) {
+                foreach ($accounts as $key => $tk) {
+                    $output .= '<tr>
+                    <td>' . $tk->id . '</td>
+                    <td>' . $tk->email . '</td>
+                    <td>' . $tk->hoten . '</td>
+                    <td>' . $tk->ngaysinh . '</td>
+                    <td>' . $tk->diachi . '</td>
+                    <td>' . $tk->sdt . '</td>
+                    <td>' . $tk->ten_loai_tai_khoan . '</td>
+                    <td>' . $tk->created_at . '</td>
+                    <td>' . $tk->updated_at . '</td>
+                    <td style=";width: 20px;">
+                     <a href="'.route('taiKhoan.restore', $tk->id).'">
+                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-redo"></i></button>
+                     </a>
+                     </td>
+                    </tr>';
+                }
+            }
+
+            return Response($output);
+        }
     }
 }

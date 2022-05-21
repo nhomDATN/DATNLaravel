@@ -3,7 +3,7 @@
 <hr />
 <div class="container">
     <h2>Đăng Nhập</h2>
-    <form action="{{ route('home') }}" data-id="login" method="POST">
+    <form action="{{ route('homeuser') }}" data-id="login" method="POST">
         @csrf
         <div class="form-group">
             Tài Khoản <input type="email" class="form-control" placeholder="Nhập Tài Khoản" id="email">
@@ -14,7 +14,7 @@
         </div>
         <div class="form-group form-check">
             <label class="form-check-label">
-                <input class="form-check-input" type="checkbox"> Remember me
+                <input class="form-check-input" type="checkbox"> Ghi nhớ mật khẩu
             </label>
         </div>
         <button type="submit" class="btn btn-primary">Đăng Nhập</button>
