@@ -6,6 +6,7 @@ use App\Models\HoaDon;
 use App\Models\KhuyenMai;
 use App\Models\SanPham;
 use App\Models\TaiKhoan;
+use App\Models\ChiTietHoaDon;
 use Illuminate\Http\Request;
 
 class TaiKhoanController extends Controller
@@ -22,17 +23,21 @@ class TaiKhoanController extends Controller
 
     public function checkout(Request $request)
     {
+        $maxid = ChiTietHoaDon::max('hoa_don_id');
+
         $tttk = TaiKhoan::join('hoa_dons', 'hoa_dons.tai_khoan_id', '=', 'tai_khoans.id')
         // ->join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
         // ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
         ->select('tai_khoans.ho_ten', 'tai_khoans.dia_chi', 'tai_khoans.sdt', 'tai_khoans.email')
         ->where('tai_khoans.id', 1)
+        ->where('hoa_dons.id', 1)
         ->get();
 
         $giohang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
         ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
         ->join('tai_khoans', 'tai_khoans.id', '=', 'hoa_dons.tai_khoan_id')
         ->where('tai_khoans.id', 1)
+        ->where('hoa_dons.id', $maxid)
         ->select('san_phams.ten_san_pham', 'chi_tiet_hoa_dons.so_luong', 'san_phams.gia')
         ->get();
 

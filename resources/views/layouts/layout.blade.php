@@ -167,7 +167,7 @@
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <div class="zalo-chat-widget" data-oaid="1558126983899774468" data-welcome-message="Chào bạn! Rất vui khi được hỗ trợbạn!"data-autopopup="0" data-width="350" data-height="420"></div>
+    <div class="zalo-chat-widget" data-oaid="1035377164274548660" data-welcome-message="Chào bạn! Rất vui khi được hỗ trợbạn!"data-autopopup="0" data-width="350" data-height="420"></div>
     <script src="https://sp.zalo.me/plugins/sdk.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery-migrate-3.0.1.min.js"></script>

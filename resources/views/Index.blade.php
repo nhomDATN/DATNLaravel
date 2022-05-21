@@ -122,7 +122,7 @@
     <div class="container">
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate">
-                <span class="subheading">Thực Phẩm Chất Lượng</span>
+                <span class="subheading">THỰC PHẨM CHẤT LƯỢNG</span>
                 <h2 class="mb-4">Thực Phẩm Của Chúng Tôi</h2>
                 <p style="color: black">Chế biến ngay bán ngay, không để qua ngày</p>
             </div>

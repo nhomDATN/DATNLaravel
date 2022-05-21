@@ -1,5 +1,14 @@
 ﻿@extends('layouts.layout')
 @section('content')
+@php 
+    
+    if (Session::get('dem') == 0)
+    {
+        header("Refresh:0; url=cart");
+        Session::put('dem', 1);
+    }
+        
+@endphp
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-1.jpg');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -46,19 +55,17 @@
                                     {{-- <p>Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p> --}}
                                 </td>
 
-                                {{-- <td class="price" name="price" id="price @php echo $gh->id @endphp">@php echo number_format($gh->gia, 0, ",", ".") @endphp</td> --}}
+                                @php
+                                    $gia_tam = $gh->gia
+                                @endphp
                                 <td class="price" name="price" id="price @php echo $gh->id @endphp">@php echo $gh->gia @endphp</td>
+                                
                                 <td class="quantity">
                                     <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity" value="1" min="1" max="100" id="@php echo $gh->id @endphp" onclick="sum(@php echo $gh->id @endphp)">
+                                        <input type="text" name="quantity" class="quantity" value="@php echo $gh->so_luong @endphp" min="1" max="100" id="@php echo $gh->id @endphp" onclick="sum(@php echo $gh->id @endphp)">
                                     </div>
                                 </td>
                                 
-                                {{-- <div class="buttons_added">
-                                    <input class="minus is-form" type="button" value="-">
-                                    <input aria-label="quantity" class="input-qty" max="Số tối đa" min="Số tối thiểu" name="" type="number" value="">
-                                    <input class="plus is-form" type="button" value="+">
-                                </div> --}}
                                 <input type="hidden" value="1" name="taikhoanid">
                                 <td class="total" id="total @php echo $gh->id @endphp" onclick="checkout(@php echo $gh->id @endphp)">@php echo $gh->gia @endphp</td>
                             </tr>
@@ -75,7 +82,6 @@
     </div>
 </section>
 <script type="text/javascript">
-    
     let total, checkout;
         function sum(id){
             var quantity = document.getElementById(id);
