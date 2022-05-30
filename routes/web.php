@@ -9,6 +9,7 @@ use App\Http\Controllers\ChiTietSanPhamController;
 use App\Http\Controllers\LoaiSanPhamController;
 use App\Http\Controllers\TaiKhoanController;
 use App\Http\Controllers\LoaiTaiKhoanController;
+use App\Http\Controllers\NguyenLieuController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\YeuThichController;
 use App\Http\Controllers\HinhAnhController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ChiTietDonHangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HoaDonController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -62,13 +64,8 @@ Route::get('/wishlist', function () {
 
 Route::get('/sale',[SanPhamController::class,'sale'])->name('sale');
 
-
-
-// Route::get('/cart', function () {
-//     return view('cart');
-// });
-
 Route::get('/cart', [HoaDonController::class, 'cart']);
+
 Route::post('/cart', [HoaDonController::class, 'addCart'])->name('cart.add');
 
 // Route::post('/checkout', function () {
@@ -143,9 +140,16 @@ Route::get('/searchTaiKhoan', [TaiKhoanController::class, 'search'])->name('taiK
 
 Route::resource('admin/loaiSanPham', LoaiSanPhamController::class);
 
+Route::get('/searchLoaiSanPham', [LoaiSanPhamController::class, 'search'])->name('loaiSanPham.search');
+
 
 // Route::get('chiTietSanPham/restore/one/{id}', [ChiTietSanPhamController::class, 'restore'])->name('chiTietSanPham.restore');
 
 // Route::get('chiTietSanPham/restore/all/{id}', [ChiTietSanPhamController::class, 'restoreAll'])->name('chiTietSanPham.restore.all');
 
 Route::resource('admin/sanPham', SanPhamController::class);
+
+Route::resource('admin/nguyenLieu', NguyenLieuController::class);
+
+Route::get('/searchNguyenLieu', [NguyenLieuController::class, 'search'])->name('nguyenLieu.search');
+

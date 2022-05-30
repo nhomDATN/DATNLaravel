@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label for="">Tên Loại Tài Khoản</label>
                                     <input type="text" class="form-control" name="tenltk"
-                                        placeholder="Name Account Type">
+                                        placeholder="Tên Loại TK">
                                 </div>
                             </div>
                             <!-- /.card-body -->

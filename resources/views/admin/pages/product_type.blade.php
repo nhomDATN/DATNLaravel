@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Product Type</h1>
+                        <h1 class="m-0">Loại Sản Phẩm</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item active">Product Type</li>
+                            <li class="breadcrumb-item"><a href="home">Trang Chủ</a></li>
+                            <li class="breadcrumb-item active">Loại Sản Phẩm</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,24 +25,16 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                @if (request()->has('view_deleted'))
-                                    <a href="{{ route('loaiSanPham.index') }}" class="btn btn-info"
-                                        style="margin-left:20px;margin-top: -0.3rem;">View All Product Types</a>
-                                    <a href="{{ route('loaiSanPham.restore.all', 0) }}" class="btn btn-success"
-                                        style="margin-left:20px;margin-top: -0.3rem;">Restore All</a>
-                                @else
-                                    <a href="{{ route('loaiSanPham.index', ['view_deleted' => 'DeletedRecords']) }}"
-                                        class="btn btn-primary">View Delete Records</a>
-                                @endif
-                                <div style="float: right;margin-left:20px;margin-top: -0.3rem;width: 100px;">
+                                <div style="float: right; margin-left: 20px; margin-top: -0.3rem; width: 100px;">
                                     <a href='{{ route('loaiSanPham.create') }}'>
-                                        <button type="button" class="btn btn-block btn-default btn-sm">Add</button>
+                                        <button type="button" class="btn btn-block btn-default btn-sm">Thêm</button>
                                     </a>
                                 </div>
                                 <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right"
-                                            placeholder="Search by Name" id="search" name="search">
+                                    <div class="input-group input-group-sm" style="width: 200px;">
+                                        <input type="text" name="table_search" class="form-control float-right" id="search"
+                                            name="search" placeholder="Tìm kiếm theo tên loại SP">
+
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-default">
                                                 <i class="fas fa-search"></i>
@@ -58,68 +50,58 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Picture</th>
-                                            <th>Created_at</th>
-                                            <th>Updated_at</th>
-                                            @if (request()->has('view_deleted'))
-                                                <th>Delete At</th>
-                                                <th>Restore</th>
-                                            @else
-                                                <th>Edit</th>
-                                                <th>Delete</th>
-                                            @endif
+                                            <th>Tên Loại SP</th>
+                                            <th>Hình Ảnh</th>
+                                            <th>Trạng Thái</th>
+                                            <th>Ngày Tạo</th>
+                                            <th>Ngày Cập Nhật</th>
+                                            <th>Chỉnh sửa</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @if (count($lstloaisp) > 0)
-                                            @foreach ($lstloaisp as $loai)
+                                            @foreach ($lstloaisp as $lsp)
                                                 <tr>
-                                                    <td>{{ $loai->id }}</td>
-                                                    <td>{{ $loai->ten_loai_san_pham }}</td>
-                                                    <td><img src="{{ asset("/storage/$loai->hinh_anh_loai_sp") }}"
+                                                    <td>{{ $lsp->id }}</td>
+                                                    <td>{{ $lsp->ten_loai_san_pham }}</td>
+                                                    <td><img src="{{ asset("storage/$lsp->hinh_anh") }}"
                                                             style="width: 100px;"></td>
-                                                    <td>{{ $loai->created_at }}</td>
-                                                    <td>{{ $loai->updated_at }}</td>
-                                                    @if (request()->has('view_deleted'))
-                                                        <td>{{ $loai->deleted_at }}</td>
-                                                        <td>
-                                                            <a href="{{ route('loaiSanPham.restore', $loai->id) }}">
-                                                                <button type="button"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-redo"></i>
-                                                                </button>
-                                                            </a>
-                                                        </td>
+                                                    {{-- <td><img src="{{ asset("/image/' . $lsp->hinh_anh . '") }}" style="width: 100px;"></td> --}}
+                                                    @if ($lsp->trang_thai  == 1)
+                                                        <td>Hoạt Động</td>
                                                     @else
-                                                        <td style=";width: 20px;">
-                                                            <a
-                                                                href='{{ route('loaiSanPham.edit', ['loaiSanPham' => $loai]) }}'>
-                                                                <button type="button"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-edit"></i>
-                                                                </button>
-                                                            </a>
-                                                        </td>
-                                                        <td style="width: 20px;">
-                                                            <form method="post"
-                                                                action="{{ route('loaiSanPham.destroy', ['loaiSanPham' => $loai]) }}">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
+                                                        <td>Ngưng Hoạt Động</td>
                                                     @endif
+                                                    <td>{{ $lsp->created_at }}</td>
+                                                    <td>{{ $lsp->updated_at }}</td>
+                                                    <td style=";width: 20px;">
+                                                        <a
+                                                            href='{{ route('loaiSanPham.edit', ['loaiSanPham' => $lsp]) }}'>
+                                                            <button type="button"
+                                                                class="btn btn-default btn-sm checkbox-toggle"><i
+                                                                    class="fas fa-edit"></i>
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                    <td style="width: 20px;">
+                                                        <form method="post"
+                                                            action="{{ route('loaiSanPham.destroy', ['loaiSanPham' => $lsp]) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-default btn-sm checkbox-toggle"><i
+                                                                    class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td colspan="100" class="text-center"
-                                                    style="font-style: italic;font-weight: bold;color: #4f5962;">No Product Type
-                                                    Found</td>
+                                                <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">
+                                                    Không tìm thấy loại SP
+                                                </td>
                                             </tr>
                                         @endif
                                     </tbody>
@@ -133,6 +115,7 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
+
     <script type="text/javascript">
         $flag = <?php echo "'I" . request()->has('view_deleted') . "I'"; ?>;
         if ($flag == "II") {
@@ -142,19 +125,7 @@
         }
         $('#search').on('keyup', function() {
             $value = $(this).val();
-            if ($flag == 0){
-                $.ajax({
-                type: 'get',
-                url: '{{ URL::to('searchLoaiSanPhamXoa') }}',
-                data: {
-                    'search': $value
-                },
-                success: function(data) {
-                    $('tbody').html(data);
-                }
-            });
-            }
-            else {
+            if ($flag == 1){
                 $.ajax({
                     type: 'get',
                     url: '{{ URL::to('searchLoaiSanPham') }}',
@@ -166,7 +137,6 @@
                     }
                 });
             }
-
         })
         $.ajaxSetup({
             headers: {

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CuaHang;
-use App\Http\Requests\StoreCuaHangRequest;
-use App\Http\Requests\UpdateCuaHangRequest;
+use App\Models\NoiLamViec;
+use Illuminate\Http\Request;
 
-class CuaHangController extends Controller
+class NoiLamViecController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +33,7 @@ class CuaHangController extends Controller
      * @param  \App\Http\Requests\StoreCuaHangRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCuaHangRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -45,7 +44,7 @@ class CuaHangController extends Controller
      * @param  \App\Models\CuaHang  $cuaHang
      * @return \Illuminate\Http\Response
      */
-    public function show(CuaHang $cuaHang)
+    public function show(NoiLamViec $noiLamViec)
     {
         //
     }
@@ -56,7 +55,7 @@ class CuaHangController extends Controller
      * @param  \App\Models\CuaHang  $cuaHang
      * @return \Illuminate\Http\Response
      */
-    public function edit(CuaHang $cuaHang)
+    public function edit(NoiLamViec $noiLamViec)
     {
         //
     }
@@ -68,7 +67,7 @@ class CuaHangController extends Controller
      * @param  \App\Models\CuaHang  $cuaHang
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCuaHangRequest $request, CuaHang $cuaHang)
+    public function update(Request $request, NoiLamViec $noiLamViec)
     {
         //
     }
@@ -79,7 +78,7 @@ class CuaHangController extends Controller
      * @param  \App\Models\CuaHang  $cuaHang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CuaHang $cuaHang)
+    public function destroy(NoiLamViec $noiLamViec)
     {
         //
     }

@@ -25,15 +25,15 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div style="float: right;margin-left:20px;margin-top: -0.3rem;width: 100px;">
+                                <div style="float: right; margin-left: 20px; margin-top: -0.3rem; width: 100px;">
                                     <a href='{{ route('loaiTaiKhoan.create') }}'>
                                         <button type="button" class="btn btn-block btn-default btn-sm">Thêm</button>
                                     </a>
                                 </div>
                                 <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" id="search" name="search"
-                                            placeholder="Search by Name">
+                                    <div class="input-group input-group-sm" style="width: 200px;">
+                                        <input type="text" name="table_search" class="form-control float-right" id="search" 
+                                            name="search" placeholder="Tìm kiếm theo tên loại TK">
 
                                         <div class="input-group-append">
 
@@ -51,7 +51,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên</th>
+                                            <th>Tên Loại TK</th>
                                             <th>Trạng Thái</th>
                                             <th>Ngày Tạo</th>
                                             <th>Ngày Cập Nhật</th>
@@ -83,7 +83,9 @@
                                             @endforeach
                                         @else
                                         <tr>
-                                            <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">No Account Type Found</td>
+                                            <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">
+                                                Không tìm thấy loại TK
+                                            </td>
                                         </tr>
                                         @endif
                                     </tbody>
@@ -97,8 +99,9 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
+
     <script type="text/javascript">
-    $flag = <?php echo "'I" . request()->has('view_deleted') . "I'"; ?>;
+        $flag = <?php echo "'I" . request()->has('view_deleted') . "I'"; ?>;
         if ($flag == "II") {
             $flag = 1;
         } else {
@@ -108,17 +111,21 @@
             $value = $(this).val();
             if ($flag == 1) {
                 $.ajax({
-                type: 'get',
-                url: '{{ URL::to('searchLoaiTaiKhoan') }}',
-                data: {
-                    'search': $value
-                },
-                success:function(data){
-                    $('tbody').html(data);
-                }
-            });
+                    type: 'get',
+                    url: '{{ URL::to('searchLoaiTaiKhoan') }}',
+                    data: {
+                        'search': $value
+                    },
+                    success:function(data){
+                        $('tbody').html(data);
+                    }
+                });
             }
         })
-        $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+        $.ajaxSetup({ 
+            headers: {
+                'csrftoken' : '{{ csrf_token() }}' 
+            } 
+        });
     </script>
     @endsection

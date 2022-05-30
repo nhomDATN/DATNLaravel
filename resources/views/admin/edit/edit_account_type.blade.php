@@ -35,8 +35,11 @@
                                 <div class="form-group">
                                     <label for="">Tên Loại Tài Khoản</label>
                                     <input type="id" class="form-control" name="tenltk"
-                                    value="{{ $loaiTaiKhoan ->ten_loai_tai_khoan }}">
-                                </br>
+                                    value="{{ $loaiTaiKhoan->ten_loai_tai_khoan }}"
+                                    placeholder="Tên Loại Tài Khoản">
+
+                                    </br>
+                                    
                                     <label for="">Trạng Thái</label>
                                     <select name = "status" class="form-control">
                                         <option value ="{{$loaiTaiKhoan->trang_thai}}">
@@ -60,9 +63,11 @@
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary" style="width: 100%">Gửi</button>
                             </div>
+
                             @if(session('alert'))
                             <section class='alert alert-danger'>{{session('alert')}}</section>
                             @endif
+
                             @if (count($errors) > 0)
                                 <div class="error-message">
                                     <ul>

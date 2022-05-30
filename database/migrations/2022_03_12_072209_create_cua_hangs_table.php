@@ -15,7 +15,7 @@ class CreateCuaHangsTable extends Migration
     {
         Schema::create('noi_lam_viecs', function (Blueprint $table) {
             $table->id();
-            $table->string('ma_noi_lam_viec'); // ch1 ch2 ch3... K1,K2,K3 ... Cua hang - Kho
+            $table->string('ma_noi_lam_viec'); // CH1, CH2, CH3... K1,K2,K3... [Cua hang - Kho]
             $table->string('dia_chi');
             $table->integer('trang_thai');
             $table->timestamps();

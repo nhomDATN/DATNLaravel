@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/layouts.app')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Add Product Type</h1>
+                        <h1 class="m-0">Thêm Loại Sản Phẩm</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('loaiSanPham.index') }}">Product Type</a></li>
-                            <li class="breadcrumb-item active">Add Product Type</li>
+                            <li class="breadcrumb-item"><a href="{{ route('loaiSanPham.index') }}">Loại Sản Phẩm</a></li>
+                            <li class="breadcrumb-item active">Thêm Loại Sản Phẩm</li>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -24,7 +24,7 @@
             <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Form Add Product Type</h3>
+                            <h3 class="card-title">Mẫu Thêm Loại Sản Phẩm</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -32,14 +32,14 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="">Name</label>
+                                    <label for="">Tên Loại Sản Phẩm</label>
                                     <input type="id" class="form-control" name="tenlsp">
                                 </div>
                                 <div class="form-group">
-                                    <label for="InputFile">File Picture Input</label>
+                                    <label for="InputFile">Hình Ảnh</label>
                                     <div class="custom-file">
                                       <input type="file" class="custom-file-input" id="customFile" name="file" accept="image/*" >
-                                      <label class="custom-file-label" for="customFile">Choose file</label>
+                                      <label class="custom-file-label" for="customFile">Chọn Tệp</label>
                                     </div>
                                 </div>
                                 

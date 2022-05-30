@@ -112,7 +112,7 @@ class TaiKhoanController extends Controller
             ]);
             return Redirect::route('taiKhoan.index');
         }
-        $alert = 'Email already in use';
+        $alert = 'Email đã tồn tại';
         return redirect()->back()->with('alert', $alert);
     }
 
@@ -147,19 +147,14 @@ class TaiKhoanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, TaiKhoan $taiKhoan)
-    {
-        if ($request->ngay_sinh == "")
-        {
-            $alert = "Ngày sinh không được để trống";
-            return redirect()->back()->with('alert', $alert);
-        }
-            
+    {   
         $taiKhoan->fill([
             'ho_ten' => $request->input('hoten'),
             'ngay_sinh' => $request->input('ngaysinh'),
             'dia_chi' => $request->input('diachi'),
             'sdt' => $request->input('sdt'),
             'loai_tai_khoan_id' => $request->input('loaitk'),
+            'trang_thai'  => $request->input('trangthai'),
         ]);
         $taiKhoan->save();
         return Redirect::route('taiKhoan.index');
@@ -192,61 +187,27 @@ class TaiKhoanController extends Controller
             if ($accounts) {
                 foreach ($accounts as $key => $tk) {
                     $output .= '<tr>
-                    <td>' . $tk->id . '</td>
-                    <td>' . $tk->email . '</td>
-                    <td>' . $tk->ho_ten . '</td>
-                    <td>' . $tk->ngay_sinh . '</td>
-                    <td>' . $tk->dia_chi . '</td>
-                    <td>' . $tk->sdt . '</td>
-                    <td>' . $tk->ten_loai_tai_khoan . '</td>
-                    <td>' . $tk->created_at . '</td>
-                    <td>' . $tk->updated_at . '</td>
-                    <td style=";width: 20px;">
-                        <a href="'.route('taiKhoan.edit', ['taiKhoan' => $tk]).'">
-                            <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-edit"></i></button>
-                        </a>
-                    </td>
-                    <td style="width: 20px;">
-                        <form method="post" action="'.route('taiKhoan.destroy', ['taiKhoan' => $tk]).'">
-                        '.@csrf_field().'
-                        '.@method_field("DELETE").'
-                            <button type="submit" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-trash"></i></button>
-                        </form>
-                    </td>
-                    </tr>';
-                }
-            }
-
-            return Response($output);
-        }
-    }
-
-    public function searchTaiKhoanXoa(Request $request)
-    {
-        if ($request->ajax()) {
-            $output = '';
-            $accounts = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
-            ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.hoten', 'tai_khoans.ngaysinh', 'tai_khoans.diachi', 'tai_khoans.sdt', 'loai_tai_khoans.ten_loai_tai_khoan', 'token', 'tai_khoans.created_at', 'tai_khoans.updated_at')
-            ->where('email', 'LIKE', '%' . $request->search . '%')
-            ->onlyTrashed()
-            ->get();
-            if ($accounts) {
-                foreach ($accounts as $key => $tk) {
-                    $output .= '<tr>
-                    <td>' . $tk->id . '</td>
-                    <td>' . $tk->email . '</td>
-                    <td>' . $tk->hoten . '</td>
-                    <td>' . $tk->ngaysinh . '</td>
-                    <td>' . $tk->diachi . '</td>
-                    <td>' . $tk->sdt . '</td>
-                    <td>' . $tk->ten_loai_tai_khoan . '</td>
-                    <td>' . $tk->created_at . '</td>
-                    <td>' . $tk->updated_at . '</td>
-                    <td style=";width: 20px;">
-                     <a href="'.route('taiKhoan.restore', $tk->id).'">
-                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-redo"></i></button>
-                     </a>
-                     </td>
+                        <td>' . $tk->id . '</td>
+                        <td>' . $tk->email . '</td>
+                        <td>' . $tk->ho_ten . '</td>
+                        <td>' . $tk->ngay_sinh . '</td>
+                        <td>' . $tk->dia_chi . '</td>
+                        <td>' . $tk->sdt . '</td>
+                        <td>' . $tk->ten_loai_tai_khoan . '</td>
+                        <td>' . $tk->created_at . '</td>
+                        <td>' . $tk->updated_at . '</td>
+                        <td style=";width: 20px;">
+                            <a href="'.route('taiKhoan.edit', ['taiKhoan' => $tk]).'">
+                                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-edit"></i></button>
+                            </a>
+                        </td>
+                        <td style="width: 20px;">
+                            <form method="post" action="'.route('taiKhoan.destroy', ['taiKhoan' => $tk]).'">
+                            '.@csrf_field().'
+                            '.@method_field("DELETE").'
+                                <button type="submit" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
                     </tr>';
                 }
             }

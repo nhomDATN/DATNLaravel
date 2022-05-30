@@ -41,7 +41,7 @@ class LoaiTaiKhoanController extends Controller
         $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $loaitaikhoanformat)->first(); 
         if(empty($tontai)){
             $kt_loaitaikhoan=str_replace(' ', '', $loaitaikhoanformat);
-            $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like',$kt_loaitaikhoan)->first();
+            $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $kt_loaitaikhoan)->first();
             if(empty($tontai))
             {
                 $loaiTaiKhoan = new LoaiTaiKhoan;
@@ -126,17 +126,16 @@ class LoaiTaiKhoanController extends Controller
             if ($accounttypes) {
                 foreach ($accounttypes as $key => $ltk) {
                     $output .= '<tr>
-                    <td>' . $ltk->id . '</td>
-                    <td>' . $ltk->ten_loai_tai_khoan . '</td>
-                    <td>' . $ltk->trang_thai . '</td>
-                    <td>' . $ltk->created_at . '</td>
-                    <td>' . $ltk->updated_at . '</td>
-                    <td style=";width: 20px;">
-                     <a href="'.route('loaiTaiKhoan.edit', ['loaiTaiKhoan' => $ltk]).'">
-                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-edit"></i></button>
-                     </a>
-                     </td>
-                     
+                        <td>' . $ltk->id . '</td>
+                        <td>' . $ltk->ten_loai_tai_khoan . '</td>
+                        <td>' . $ltk->trang_thai . '</td>
+                        <td>' . $ltk->created_at . '</td>
+                        <td>' . $ltk->updated_at . '</td>
+                        <td style=";width: 20px;">
+                            <a href="'.route('loaiTaiKhoan.edit', ['loaiTaiKhoan' => $ltk]).'">
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-edit"></i></button>
+                            </a>
+                        </td>
                     </tr>';
                 }
             }

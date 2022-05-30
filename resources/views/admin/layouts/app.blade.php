@@ -135,8 +135,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-image"></i>
+                            <a href="{{ route('nguyenLieu.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-hamburger"></i>
                                 <p>
                                     Nguyên Liệu
                                 </p>
@@ -144,7 +144,23 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tshirt"></i>
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>
+                                    Nơi Làm Việc
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Nhân Viên
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
                                 <p>
                                     Hóa Đơn
                                 </p>
@@ -152,7 +168,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tags"></i>
+                                <i class="nav-icon far fa-list-alt"></i>
                                 <p>
                                     Chi Tiết Hóa Đơn
                                 </p>
@@ -160,7 +176,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-comment-alt"></i>
+                                <i class="nav-icon fas fa-star"></i>
                                 <p>
                                     Đánh Giá 
                                 </p>
@@ -168,7 +184,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fab fa-stripe-s"></i>
+                                <i class="nav-icon fas fa-comment"></i>
                                 <p>
                                     Comment
                                 </p>
