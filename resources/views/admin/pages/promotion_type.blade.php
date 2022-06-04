@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/layouts.app')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Wishlist</h1>
+                        <h1 class="m-0">Loại Khuyến Mãi</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item active">Wishlist</li>
+                            <li class="breadcrumb-item"><a href="home">Trang Chủ</a></li>
+                            <li class="breadcrumb-item active">Loại Khuyến Mãi</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,18 +25,20 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Wishlist Management</h3>
+                                <div style="float: right;margin-left:20px;margin-top: -0.3rem;width: 100px;">
+                                    <a href='{{ route('loaiKhuyenMai.create') }}'>
+                                        <button type="button" class="btn btn-block btn-default btn-sm">Thêm</button>
+                                    </a>
+                                </div>
                                 <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                    <div class="input-group input-group-sm" style="width: 210px;">
                                         <input type="text" name="table_search" class="form-control float-right" id="search" name="search"
-                                            placeholder="Search by Email">
+                                            placeholder="Tìm kiếm theo tên loại khuyến mãi">
 
                                         <div class="input-group-append">
-
                                             <button type="submit" class="btn btn-default">
                                                 <i class="fas fa-search"></i>
                                             </button>
-
                                         </div>
                                     </div>
                                 </div>
@@ -48,36 +50,36 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Email</th>
-                                            <th>Product's Name</th>
-                                            <th>Color</th>
-                                            <th>Size</th>
-                                            <th>Status</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
+                                            <th>Loại Khuyến Mãi</th>
+                                            <th>Ngày Tạo</th>
+                                            <th>Ngày Cập Nhật</th>                            
+                                            <th>Chỉnh Sửa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if(count($lstyeuThich) > 0)
-                                        @foreach ($lstyeuThich as $yt)
-                                            <tr>
-                                                <td>{{ $yt->id }}</td>
-                                                <td>{{ $yt->email }}</td>
-                                                <td>{{ $yt->ten_san_pham }}</td>
-                                                <td>{{ $yt->ten_mau }}</td>
-                                                <td>{{ $yt->ten_size }}</td>
-                                                @if($yt->trang_thai == 1)
-                                                <td>Favorite</td>
-                                                @else
-                                                <td>Not Favorite</td>   
-                                                @endif
-                                                <td>{{ $yt->created_at }}</td>
-                                                <td>{{ $yt->updated_at }}</td>
-                                            </tr>
-                                        @endforeach
+                                        @if(count($lstlkm) > 0)
+                                            @foreach ($lstlkm as $lkm)
+                                                <tr>
+                                                    <td>{{ $lkm->id }}</td>
+                                                    <td>{{ $lkm->ten_loai_khuyen_mai }}</td>
+                                                    <td>{{ $lkm->created_at }}</td>
+                                                    <td>{{ $lkm->updated_at }}</td>
+
+                                                    <td style=";width: 20px;">
+                                                        <a href='{{ route('loaiKhuyenMai.edit', ['loaiKhuyenMai' => $lkm]) }}'>
+                                                            <button type="button"
+                                                                class="btn btn-default btn-sm checkbox-toggle"><i
+                                                                    class="fas fa-edit"></i>
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @else
                                         <tr>
-                                            <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">No Wishlist Found</td>
+                                            <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">
+                                                Không tìm thấy loại khuyến mãi.
+                                            </td>
                                         </tr>
                                         @endif
                                     </tbody>
@@ -91,12 +93,13 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
+
     <script type="text/javascript">
         $('#search').on('keyup',function(){
             $value = $(this).val();
             $.ajax({
                 type: 'get',
-                url: '{{ URL::to('searchYeuThich') }}',
+                url: '{{ URL::to('searchLoaiKhuyenMai') }}',
                 data: {
                     'search': $value
                 },
@@ -104,7 +107,8 @@
                     $('tbody').html(data);
                 }
             });
+            
         })
         $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
     </script>
-    @endsection
+@endsection

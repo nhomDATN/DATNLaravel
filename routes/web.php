@@ -10,6 +10,7 @@ use App\Http\Controllers\LoaiSanPhamController;
 use App\Http\Controllers\TaiKhoanController;
 use App\Http\Controllers\LoaiTaiKhoanController;
 use App\Http\Controllers\NguyenLieuController;
+use App\Http\Controllers\NoiLamViecController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\YeuThichController;
 use App\Http\Controllers\HinhAnhController;
@@ -18,8 +19,10 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\RecoverPasswordController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ChiTietDonHangController;
+use App\Http\Controllers\ChucVuController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HoaDonController;
+use App\Http\Controllers\LoaiKhuyenMaiController;
 
 
 /*
@@ -153,3 +156,18 @@ Route::resource('admin/nguyenLieu', NguyenLieuController::class);
 
 Route::get('/searchNguyenLieu', [NguyenLieuController::class, 'search'])->name('nguyenLieu.search');
 
+Route::resource('admin/noiLamViec', NoiLamViecController::class);
+
+Route::get('/searchNoiLamViec', [NoiLamViecController::class, 'search'])->name('noiLamViec.search');
+
+Route::resource('admin/danhGia', DanhGiaController::class);
+
+Route::get('/searchDanhGia', [DanhGiaController::class, 'search'])->name('danhGia.search');
+
+Route::resource('admin/chucVu', ChucVuController::class);
+
+Route::get('/searchChucVu', [ChucVuController::class, 'search'])->name('chucVu.search');
+
+Route::resource('admin/loaiKhuyenMai', LoaiKhuyenMaiController::class);
+
+Route::get('/searchLoaiKhuyenMai', [LoaiKhuyenMaiController::class, 'search'])->name('loaiKhuyenMai.search');

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ChucVu;
-use App\Http\Requests\StoreChucVuRequest;
-use App\Http\Requests\UpdateChucVuRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 
 class ChucVuController extends Controller
 {
@@ -15,7 +16,8 @@ class ChucVuController extends Controller
      */
     public function index()
     {
-        //
+        $lstcv = ChucVu::all();
+        return view('admin/pages.position', ['lstcv' => $lstcv]);
     }
 
     /**
@@ -25,7 +27,8 @@ class ChucVuController extends Controller
      */
     public function create()
     {
-        //
+        $lstcv = ChucVu::all();
+        return view('admin/add.add_position', ['lstcv' => $lstcv]);
     }
 
     /**
@@ -34,9 +37,20 @@ class ChucVuController extends Controller
      * @param  \App\Http\Requests\StoreChucVuRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreChucVuRequest $request)
+    public function store(Request $request)
     {
-        //
+        $tonTai = ChucVu::where('ten_chuc_vu', $request['tenchucvu'])->first();
+        if (empty($tonTai)) {
+            $chucVu = ChucVu::insert([
+                'ten_chuc_vu' => $request->input('tenchucvu'),
+                'thuong' => $request->input('thuong'),
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+                'updated_at' => null,
+            ]);
+            return Redirect::route('chucVu.index');
+        }
+        $alert = 'Tên chức vụ đã tồn tại';
+        return redirect()->back()->with('alert', $alert);
     }
 
     /**
@@ -58,7 +72,7 @@ class ChucVuController extends Controller
      */
     public function edit(ChucVu $chucVu)
     {
-        //
+        return view('admin/edit.edit_position', ['chucVu' => $chucVu]);
     }
 
     /**
@@ -68,9 +82,15 @@ class ChucVuController extends Controller
      * @param  \App\Models\ChucVu  $chucVu
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateChucVuRequest $request, ChucVu $chucVu)
+    public function update(Request $request, ChucVu $chucVu)
     {
-        //
+        $chucVu->fill([
+            'ten_chuc_vu' => $request->input('tenchucvu'),
+            'thuong' => $request->input('thuong'),
+        ]);
+        $chucVu->save();
+        #dd($request->all);
+        return Redirect::route('chucVu.index');
     }
 
     /**
@@ -82,5 +102,32 @@ class ChucVuController extends Controller
     public function destroy(ChucVu $chucVu)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = '';
+            $positions = ChucVu::where('ten_chuc_vu', 'LIKE', '%' . $request->search . '%')
+            ->get();
+            
+            if ($positions) {
+                foreach ($positions as $key => $cv) {
+                    $output .= '<tr>
+                        <td>' . $cv->id . '</td>
+                        <td>' . $cv->ten_chuc_vu . '</td>
+                        <td>' . $cv->thuong . '</td>
+                        <td>' . $cv->created_at . '</td>
+                        <td>' . $cv->updated_at . '</td>
+                        <td style=";width: 20px;">
+                            <a href="'.route('chucVu.edit', ['chucVu' => $cv]).'">
+                                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-edit"></i></button>
+                            </a>
+                        </td>
+                    </tr>';
+                }
+            }
+            return Response($output);
+        }
     }
 }

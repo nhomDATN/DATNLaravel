@@ -124,15 +124,8 @@
     </div>
 
     <script type="text/javascript">
-        $flag = <?php echo "'I" . request()->has('view_deleted') . "I'"; ?>;
-        if ($flag == "II") {
-            $flag = 1;
-        } else {
-            $flag = 0;
-        }
         $('#search').on('keyup', function() {
             $value = $(this).val();
-            if ($flag == 1){
                 $.ajax({
                     type: 'get',
                     url: '{{ URL::to('searchTaiKhoan') }}',
@@ -143,7 +136,6 @@
                         $('tbody').html(data);
                     }
                 });
-            }
         })
         $.ajaxSetup({
             headers: {

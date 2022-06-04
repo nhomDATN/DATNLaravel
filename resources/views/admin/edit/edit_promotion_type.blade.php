@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/layouts.app')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Add Brand</h1>
+                        <h1 class="m-0">Chỉnh Sửa Loại Khuyến Mãi</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('thuongHieu.index') }}">Brand</a></li>
-                            <li class="breadcrumb-item active">Add Brand</li>
+                            <li class="breadcrumb-item"><a href="{{ route('noiLamViec.index') }}">Loại Khuyến Mãi</a></li>
+                            <li class="breadcrumb-item active">Chỉnh Sửa Loại Khuyến Mãi</li>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -24,23 +24,24 @@
             <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Form Add Brand</h3>
+                            <h3 class="card-title">Mẫu Chỉnh Sửa Loại Khuyến Mãi</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" action="{{ route('thuongHieu.store') }}">
+                        <form method="post" action="{{ route('loaiKhuyenMai.update',['loaiKhuyenMai'=>$loaiKhuyenMai]) }}" enctype="multipart/form-data">
                             @csrf
+                            @method('PATCH')
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="">Name</label>
-                                    <input type="text" class="form-control" name="tenthuonghieu"
-                                        placeholder="Name Brand">
+                                    <label for="">Tên Loại Khuyến Mãi</label>
+                                    <input type="id" class="form-control" name="tenloaikhuyenmai"
+                                        placeholder="Tên Loại Khuyến Mãi" value="{{ $loaiKhuyenMai->ten_loai_khuyen_mai }}">
                                 </div>
-                            </div>
+                            </div>   
                             <!-- /.card-body -->
-                           
+
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%">Gửi</button>
                             </div>
                             @if(session('alert'))
                             <section class='alert alert-danger'>{{session('alert')}}</section>

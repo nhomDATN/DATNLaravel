@@ -183,7 +183,15 @@ class TaiKhoanController extends Controller
             ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.dia_chi', 'tai_khoans.ngay_sinh', 'tai_khoans.sdt', 'tai_khoans.ho_ten', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.created_at', 'tai_khoans.updated_at', 'tai_khoans.trang_thai')
             ->where('email', 'LIKE', '%' . $request->search . '%')
             ->get();
-            
+
+            // $trangthai = '';
+            // if ($accounts->trang_thai == 1) {
+            //     $trangthai = 'Hoạt Động';
+            // }
+            // else {
+            //     $trangthai = 'Không Hoạt Động';
+            // }
+
             if ($accounts) {
                 foreach ($accounts as $key => $tk) {
                     $output .= '<tr>
@@ -194,6 +202,7 @@ class TaiKhoanController extends Controller
                         <td>' . $tk->dia_chi . '</td>
                         <td>' . $tk->sdt . '</td>
                         <td>' . $tk->ten_loai_tai_khoan . '</td>
+                        <td>' . $tk->trang_thai . '</td>
                         <td>' . $tk->created_at . '</td>
                         <td>' . $tk->updated_at . '</td>
                         <td style=";width: 20px;">

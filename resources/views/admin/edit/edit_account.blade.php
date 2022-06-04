@@ -35,32 +35,27 @@
                                 <div class="form-group">
                                     <label for="">Email</label>
                                     <input type="text" class="form-control" name="email" 
-                                    value="{{ $taiKhoan->email }}" readonly
-                                    placeholder="Email">
+                                        placeholder="Email" value="{{ $taiKhoan->email }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Họ Tên</label>
                                     <input type="text" class="form-control" name="hoten" 
-                                    value="{{ $taiKhoan->ho_ten }}"
-                                    placeholder="Họ Tên">
+                                        placeholder="Họ Tên" value="{{ $taiKhoan->ho_ten }}">
                                 </div>                           
                                 <div class="form-group">
                                     <label for="">Ngày Sinh</label>
                                     <input type="date" class="form-control" name="ngaysinh" 
-                                    value="{{ $taiKhoan->ngay_sinh }}"
-                                    placeholder="Ngày Sinh">
+                                        placeholder="Ngày Sinh" value="{{ $taiKhoan->ngay_sinh }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Địa Chỉ</label>
                                     <input type="text" class="form-control" name="diachi" 
-                                    value="{{ $taiKhoan->dia_chi }}"
-                                    placeholder="Địa Chỉ">
+                                        placeholder="Địa Chỉ" value="{{ $taiKhoan->dia_chi }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="">SĐT</label>
                                     <input type="text" class="form-control" name="sdt" 
-                                    value="{{ $taiKhoan->sdt }}"
-                                    placeholder="SĐT">
+                                        placeholder="SĐT" value="{{ $taiKhoan->sdt }}" >
                                 </div>
                                 <div class="form-group">
                                     <label for="">Loại Tài Khoản</label>

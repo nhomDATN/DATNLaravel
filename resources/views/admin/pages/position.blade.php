@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Đánh Giá</h1>
+                        <h1 class="m-0">Chức Vụ</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Trang Chủ</a></li>
-                            <li class="breadcrumb-item active">Đánh Giá</li>
+                            <li class="breadcrumb-item active">Chức Vụ</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,18 +25,26 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
+                                <div style="float: right;margin-left:20px;margin-top: -0.3rem;width: 100px;">
+                                    <a href="{{ route('chucVu.create') }}">
+                                        <button type="button" class="btn btn-block btn-default btn-sm">Thêm</button>
+                                    </a>
+                                </div>
                                 <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 250px;">
-                                        <input type="text" name="table_search" class="form-control float-right" id="search" name="search"
-                                            placeholder="Tìm kiếm theo tên sản phẩm">
+                                    <div class="input-group input-group-sm" style="width: 210px;">
+                                        <input type="text" name="table_search" class="form-control float-right" id="search"
+                                            name="search" placeholder="Tìm kiếm theo tên chức vụ">
 
                                         <div class="input-group-append">
+
                                             <button type="submit" class="btn btn-default">
                                                 <i class="fas fa-search"></i>
                                             </button>
+
                                         </div>
                                     </div>
                                 </div>
+
 
                             </div>
                             <!-- /.card-header -->
@@ -45,45 +53,36 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Yêu Thích</th>
-                                            <th>Số Sao</th>
-                                            <th>Email</th>
-                                            <th>Tên Sản Phẩm</th>
-                                            <th>Trạng Thái</th>
+                                            <th>Tên Chức Vụ</th>
+                                            <th>Thưởng</th>
                                             <th>Ngày Tạo</th>
                                             <th>Ngày Cập Nhật</th>
+                                            <th>Chỉnh Sửa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if(count($lstdg) > 0)
-                                            @foreach ($lstdg as $dg)
+                                        @if(count($lstcv) > 0)
+                                            @foreach ($lstcv as $cv)
                                                 <tr>
-                                                    <td>{{ $dg->id }}</td>
-
-                                                    @if ($dg->yeu_thich  == 1)
-                                                        <td>Yêu Thích</td>
-                                                    @else
-                                                        <td>Không Chọn</td>
-                                                    @endif
-
-                                                    <td>{{ $dg->so_sao}}</td>
-                                                    <td>{{ $dg->email }}</td>
-                                                    <td>{{ $dg->ten_san_pham }}</td>
-
-                                                    @if ($dg->trang_thai  == 1)
-                                                        <td>Hoạt Động</td>
-                                                    @else
-                                                        <td>Ngưng Hoạt Động</td>
-                                                    @endif
-                                                    
-                                                    <td>{{ $dg->created_at }}</td>
-                                                    <td>{{ $dg->updated_at }}</td>
+                                                    <td>{{ $cv->id }}</td>
+                                                    <td>{{ $cv->ten_chuc_vu}}</td>
+                                                    <td>{{ $cv->thuong }}</td>
+                                                    <td>{{ $cv->created_at }}</td>
+                                                    <td>{{ $cv->updated_at }}</td>
+                                                    <td style=";width: 20px;">
+                                                        <a href="{{ route('chucVu.edit', ['chucVu' => $cv]) }}">
+                                                            <button type="button"
+                                                                class="btn btn-default btn-sm checkbox-toggle"><i
+                                                                    class="fas fa-edit"></i>
+                                                            </button>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @else
                                         <tr>
                                             <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">
-                                                Không tìm được đánh giá.
+                                                Không tìm thấy chức vụ.
                                             </td>
                                         </tr>
                                         @endif
@@ -98,21 +97,25 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
-
     <script type="text/javascript">
-        $('#search').on('keyup',function(){
+        $('#search').on('keyup', function() {
             $value = $(this).val();
             $.ajax({
                 type: 'get',
-                url: '{{ URL::to('searchDanhGia') }}',
+                url: '{{ URL::to('searchChucVu') }}',
                 data: {
                     'search': $value
                 },
-                success:function(data){
+                success: function(data) {
                     $('tbody').html(data);
                 }
             });
+           
         })
-        $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-        </script>
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
+    </script>
     @endsection

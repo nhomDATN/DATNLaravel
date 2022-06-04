@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\YeuThich;
-use App\Http\Requests\StoreYeuThichRequest;
-use App\Http\Requests\UpdateYeuThichRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class YeuThichController extends Controller
 {
@@ -15,7 +15,7 @@ class YeuThichController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -34,7 +34,7 @@ class YeuThichController extends Controller
      * @param  \App\Http\Requests\StoreYeuThichRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreYeuThichRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -68,7 +68,7 @@ class YeuThichController extends Controller
      * @param  \App\Models\YeuThich  $yeuThich
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateYeuThichRequest $request, YeuThich $yeuThich)
+    public function update(Request $request, YeuThich $yeuThich)
     {
         //
     }

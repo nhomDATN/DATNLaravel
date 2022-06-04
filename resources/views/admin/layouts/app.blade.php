@@ -78,7 +78,7 @@
                     <div class="image">
                         <img src="{{ asset('/../../../storage/assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
                             alt="User Image">
-                            Lê Công Tiến
+                            Quản Trị Viên
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">
@@ -142,7 +142,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('noiLamViec.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Nơi Làm Việc
@@ -174,7 +174,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('danhGia.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-star"></i>
                                 <p>
                                     Đánh Giá 
@@ -185,23 +185,31 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-comment"></i>
                                 <p>
-                                    Comment
+                                    Bình Luận
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('chucVu.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-cog"></i>
+                                <p>
+                                    Chức Vụ
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('loaiKhuyenMai.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-gift"></i>
+                                <p>
+                                    Loại Khuyến Mãi
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-heart"></i>
+                                <i class="nav-icon fas fa-gift"></i>
                                 <p>
-                                    DS Yêu Thích
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-images"></i>
-                                <p>
-                                    Banners
+                                    Khuyến Mãi
                                 </p>
                             </a>
                         </li>

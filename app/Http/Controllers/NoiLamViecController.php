@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\NoiLamViec;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 
 class NoiLamViecController extends Controller
 {
@@ -14,7 +16,8 @@ class NoiLamViecController extends Controller
      */
     public function index()
     {
-        //
+        $lstnoilamviec = NoiLamViec::all();
+        return view('admin/pages.workplace', ['lstnoilamviec' => $lstnoilamviec]);
     }
 
     /**
@@ -24,7 +27,8 @@ class NoiLamViecController extends Controller
      */
     public function create()
     {
-        //
+        $lstnoilamviec = NoiLamViec::all();
+        return view('admin/add.add_workplace', ['lstnoilamviec' => $lstnoilamviec]);
     }
 
     /**
@@ -35,7 +39,18 @@ class NoiLamViecController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tonTai = NoiLamViec::where('ma_noi_lam_viec', $request['manoilamviec'])->first();
+        if (empty($tonTai)) {
+            $noiLamViec = NoiLamViec::insert([
+                'ma_noi_lam_viec' => $request->input('manoilamviec'),
+                'dia_chi' => $request->input('diachi'),
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+                'updated_at' => null,
+            ]);
+            return Redirect::route('noiLamViec.index');
+        }
+        $alert = 'Mã nơi làm việc đã tồn tại';
+        return redirect()->back()->with('alert', $alert);
     }
 
     /**
@@ -57,7 +72,7 @@ class NoiLamViecController extends Controller
      */
     public function edit(NoiLamViec $noiLamViec)
     {
-        //
+        return view('admin/edit.edit_workplace', ['noiLamViec' => $noiLamViec]);
     }
 
     /**
@@ -69,7 +84,14 @@ class NoiLamViecController extends Controller
      */
     public function update(Request $request, NoiLamViec $noiLamViec)
     {
-        //
+        $noiLamViec->fill([
+            'ma_noi_lam_viec' => $request->input('manoilamviec'),
+            'dia_chi' => $request->input('diachi'),
+            'trang_thai'  => $request->input('trangthai'),
+        ]);
+        $noiLamViec->save();
+        #dd($request->all);
+        return Redirect::route('noiLamViec.index');
     }
 
     /**
@@ -80,6 +102,45 @@ class NoiLamViecController extends Controller
      */
     public function destroy(NoiLamViec $noiLamViec)
     {
-        //
+        $noiLamViec->fill([
+            'trang_thai' => 0,
+        ]);
+        $noiLamViec->save();
+        return Redirect::route('noiLamViec.index');
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = '';
+            $workplaces = NoiLamViec::where('ma_noi_lam_viec', 'LIKE', '%' . $request->search . '%')
+            ->get();
+            
+            if ($workplaces) {
+                foreach ($workplaces as $key => $nlv) {
+                    $output .= '<tr>
+                        <td>' . $nlv->id . '</td>
+                        <td>' . $nlv->ma_noi_lam_viec . '</td>
+                        <td>' . $nlv->dia_chi . '</td>
+                        <td>' . $nlv->trang_thai . '</td>
+                        <td>' . $nlv->created_at . '</td>
+                        <td>' . $nlv->updated_at . '</td>
+                        <td style=";width: 20px;">
+                            <a href="'.route('noiLamViec.edit', ['noiLamViec' => $nlv]).'">
+                                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-edit"></i></button>
+                            </a>
+                        </td>
+                        <td style="width: 20px;">
+                            <form method="post" action="'.route('noiLamViec.destroy', ['noiLamViec' => $nlv]).'">
+                            '.@csrf_field().'
+                            '.@method_field("DELETE").'
+                                <button type="submit" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>';
+                }
+            }
+            return Response($output);
+        }
     }
 }

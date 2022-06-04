@@ -24,8 +24,6 @@ class HoaDonController extends Controller
     }
     public function cart(Request $request)
     {
-        
-        
         $lstgiohang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id','=', 'hoa_dons.id')
         ->join('san_phams','san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
         ->join('tai_khoans', 'tai_khoans.id', '=', 'hoa_dons.tai_khoan_id')
@@ -33,7 +31,7 @@ class HoaDonController extends Controller
         ->where('hoa_dons.id', Session::get('cartId'))
         ->where('tai_khoans.id', 1)
         ->get();
-        dd($lstgiohang);
+        // dd($lstgiohang);
         return view('cart', ['lstgiohang'=>$lstgiohang]);
     }
 

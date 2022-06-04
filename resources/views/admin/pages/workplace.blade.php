@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Nguyên Liệu</h1>
+                        <h1 class="m-0">Nơi Làm Việc</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="home">Tran Chủ</a></li>
-                            <li class="breadcrumb-item active">Nguyên Liệu</li>
+                            <li class="breadcrumb-item"><a href="{{ route('homeadmin') }}">Trang Chủ</a></li>
+                            <li class="breadcrumb-item active">Nơi Làm Việc</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -26,14 +26,15 @@
                         <div class="card">
                             <div class="card-header">
                                 <div style="float: right;margin-left:20px;margin-top: -0.3rem;width: 100px;">
-                                    <a href='{{ route('nguyenLieu.create') }}'>
+                                    <a href='{{ route('noiLamViec.create') }}'>
                                         <button type="button" class="btn btn-block btn-default btn-sm">Thêm</button>
                                     </a>
                                 </div>
                                 <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 250px;">
-                                        <input type="text" name="table_search" class="form-control float-right"
-                                            placeholder="Tìm kiếm theo tên nguyên liệu" id="search" name="search">
+                                    <div class="input-group input-group-sm" style="width: 200px;">
+                                        <input type="text" name="table_search" class="form-control float-right" id="search" name="search"
+                                            placeholder="Tìm kiếm theo mã nơi làm việc">
+
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-default">
                                                 <i class="fas fa-search"></i>
@@ -49,37 +50,32 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên Nguyên Liệu</th>
-                                            <th>Đơn Giá</th>
-                                            <th>Số Lượng</th>
-                                            <th>Đơn Vị Tính</th>
-                                            <th>Kho</th>
+                                            <th>Mã Nơi Làm Việc</th>
+                                            <th>Địa Chỉ</th>
                                             <th>Trạng Thái</th>
                                             <th>Ngày Tạo</th>
-                                            <th>Ngày Sửa</th>
+                                            <th>Ngày Cập Nhật</th>                            
                                             <th>Chỉnh Sửa</th>
                                             <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (count($lstnguyenlieu) > 0)
-                                            @foreach ($lstnguyenlieu as $nguyenlieu)
+                                        @if(count($lstnoilamviec) > 0)
+                                            @foreach ($lstnoilamviec as $nlv)
                                                 <tr>
-                                                    <td>{{ $nguyenlieu->id }}</td>
-                                                    <td>{{ $nguyenlieu->ten_nguyen_lieu }}</td>
-                                                    <td>{{ $nguyenlieu->don_gia }}</td>
-                                                    <td>{{ $nguyenlieu->so_luong }}</td>
-                                                    <td>{{ $nguyenlieu->ten_don_vi_tinh }}</td>
-                                                    <td>{{ $nguyenlieu->ma_noi_lam_viec }}</td>
-                                                    @if ($nguyenlieu->trang_thai  == 1)
+                                                    <td>{{ $nlv->id }}</td>
+                                                    <td>{{ $nlv->ma_noi_lam_viec }}</td>
+                                                    <td>{{ $nlv->dia_chi }}</td>
+                                                    @if ($nlv->trang_thai  == 1)
                                                         <td>Hoạt Động</td>
                                                     @else
                                                         <td>Ngưng Hoạt Động</td>
                                                     @endif
-                                                    <td>{{ $nguyenlieu->created_at }}</td>
-                                                    <td>{{ $nguyenlieu->updated_at }}</td>
+                                                    <td>{{ $nlv->created_at }}</td>
+                                                    <td>{{ $nlv->updated_at }}</td>
+
                                                     <td style=";width: 20px;">
-                                                        <a href='{{ route('nguyenLieu.edit', ['nguyenLieu' => $nguyenlieu]) }}'>
+                                                        <a href='{{ route('noiLamViec.edit', ['noiLamViec' => $nlv]) }}'>
                                                             <button type="button"
                                                                 class="btn btn-default btn-sm checkbox-toggle"><i
                                                                     class="fas fa-edit"></i>
@@ -88,7 +84,7 @@
                                                     </td>
                                                     <td style="width: 20px;">
                                                         <form method="post"
-                                                            action="{{ route('nguyenLieu.destroy', ['nguyenLieu' => $nguyenlieu]) }}">
+                                                            action="{{ route('noiLamViec.destroy', ['noiLamViec' => $nlv]) }}">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
@@ -97,14 +93,13 @@
                                                             </button>
                                                         </form>
                                                     </td>
+                                            
                                                 </tr>
                                             @endforeach
                                         @else
-                                            <tr>
-                                                <td colspan="100" class="text-center"
-                                                    style="font-style: italic;font-weight: bold;color: #4f5962;">No Banner
-                                                    Found</td>
-                                            </tr>
+                                        <tr>
+                                            <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">Không tìm thấy nơi làm việc.</td>
+                                        </tr>
                                         @endif
                                     </tbody>
                                 </table>
@@ -117,24 +112,22 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
+
     <script type="text/javascript">
-        $('#search').on('keyup', function() {
+        $('#search').on('keyup',function(){
             $value = $(this).val();
             $.ajax({
                 type: 'get',
-                url: '{{ URL::to('searchNguyenLieu') }}',
+                url: '{{ URL::to('searchNoiLamViec') }}',
                 data: {
                     'search': $value
                 },
-                success: function(data) {
+                success:function(data){
                     $('tbody').html(data);
                 }
             });
+            
         })
-        $.ajaxSetup({
-            headers: {
-                'csrftoken': '{{ csrf_token() }}'
-            }
-        });
+        $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
     </script>
 @endsection
