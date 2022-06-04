@@ -24,7 +24,6 @@
                     <h3 class="mb-4 billing-heading" style="color: red;">CHI TIẾT HÓA ĐƠN</h3>
                     <div style="color: red; font-size: 18px">THÔNG TIN NGƯỜI NHẬN HÀNG</div>
                     <div class="row align-items-end">
-                        
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="firstname" style="color: green; font-size: 18px">Họ tên</label>
@@ -134,12 +133,11 @@
                             <form action="{{ url('vnpay_payment') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="total_vnpay" value="{{  $tongtien - $giamgia }}">
-                                <button type="submit" class="btn btn-default check_out" name="redirect">Thanh toán VNPAY</button>
                             </form>
                             <div class="form-group">
                                 <div class="col-md-8">
                                     <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2">  Thanh toán tiền mặt trực tiếp</label>
+                                        <label><input type="radio" name="optradio" class="mr-2" checked>  Thanh toán tiền mặt trực tiếp</label>
                                     </div>
                                 </div>
                             </div>

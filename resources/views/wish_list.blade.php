@@ -14,7 +14,8 @@
 <section class="ftco-section ftco-cart">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 ftco-animate">
+            <p>Không có sản phẩm nào được yêu thích!</p>
+            {{-- <div class="col-md-12 ftco-animate">
                 <div class="cart-list">
                     <table class="table ">
                         <thead class="thead-light">
@@ -47,7 +48,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>

@@ -27,5 +27,6 @@
     </div>
     <p class="mt-4">Chưa Có Tài Khoản?<a href="/register">Đăng Ký Ngay</a></p>
 </div>
+{{-- <p>{!! QrCode::size(250)->generate('www.google.com'); !!}</p> --}}
 <hr>
 @endsection

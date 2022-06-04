@@ -31,27 +31,24 @@
                 <div class="product">
                     <a href="{{ route('productdetail',['id'=>$items->id])}}" class="img-prod">
                         <img class="img-fluid w-100" style="height: 160px;" src="/images/{{ $items->hinh }}" alt="Colorlib Template">
-                        @if ($items->khuyen_mai_id != 1)
+                        @if ($items->khuyen_mai_id != 3)
                         <span class="status">{{ $items->gia_tri }} %</span>
                         @endif
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">{{ $items->ten_san_pham }}</a></h3>
+                        <h3><a href="{{ route('productdetail',['id'=>$items->id])}}">{{ $items->ten_san_pham }}</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span>{{ $items->gia }} đ</span></p>
+                                <p class="price"><span>{{ number_format($items->gia, 0, ",", ".") }} đ</span></p>
                             </div>
                         </div>
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <a href="{{ route('cart.add',['productId' => $items->id,'quantity' => 1]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                <a href="{{ route('like',['id' => $items->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart " onclick="">
                                     <span><i class="ion-ios-heart"></i></span>
                                 </a>
                             </div>
@@ -92,6 +89,7 @@
             </div>
         </div>
     </div>
+    <hr>
 </section>
 <script>
     function searchAjax(active){
@@ -106,7 +104,7 @@
                     }
                 });
             }
- 
-    
+</script>
+<script>
 </script>
 @endsection

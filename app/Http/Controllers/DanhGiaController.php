@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\DanhGia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class DanhGiaController extends Controller
 {
@@ -26,9 +30,33 @@ class DanhGiaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function like($id)
     {
-        //
+        $liked = DB::table('danh_gias')
+        ->where('tai_khoans_id','=',Session::get('UserId'))
+        ->where('san_pham_id','=',$id)
+        ->get();
+        if(count($liked) == 0)
+        {
+            $like = new DanhGia();
+            $like->fill([
+                'yeu_thich' => 1,
+                'so_sao' => 0,
+                'tai_khoan_id' => Session::get('UserId'),
+                'san_pham_id' => $id,
+                'trang_thai' => 1
+            ]);
+            $like->save();
+        }
+        else
+        {
+            if($liked->yeu_thich == 1)
+                DB::update('update danh_gias set yeu_thich = 0 where tai_khoan_id = ?, san_pham_id = ?', [Session::get('UserId'),$id]);
+            else
+                DB::update('update danh_gias set yeu_thich = 1 where tai_khoan_id = ?, san_pham_id = ?', [Session::get('UserId'),$id]);
+        }
+        return redirect()->back();
+       
     }
 
     /**

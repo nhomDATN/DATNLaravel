@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md pr-4 d-flex  align-items-center">
 
-                            <a class="text text-white" href=" {{ route('login') }}" > Đăng Nhập </a>/
+                            <a class="text text-white" href=" {{ route('user.login') }}" > Đăng Nhập </a>/
                             <a class="text text-white" href="{{ route('register') }}" >Đăng Ký </a>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             <a class="dropdown-item" href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" >Mua Thực Phẩm</a>
                             <a class="dropdown-item" href="/wishlist" >Danh Sách Yêu Thích</a>
-                            <a class="dropdown-item" href="/sale" >Ưu Đãi</a>
+                            <a class="dropdown-item" href="{{ route('sale') }}" >Ưu Đãi</a>
                             <a class="dropdown-item" href="/cart" >Giỏ Hàng</a>
                             <a class="dropdown-item" href="/checkout" >Thanh Toán</a>
                         </div>
@@ -101,8 +101,7 @@
                         <p>Liên hệ chúng tôi qua </p>
                         <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
 
-                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                            <li class="ftco-animate"><a href="https://www.facebook.com/profile.php?id=100010403162844"><span class="icon-facebook"></span></a></li>
                         </ul>
                     </div>
                 </div>

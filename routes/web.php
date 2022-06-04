@@ -55,21 +55,27 @@ Route::get('/register', function () {
 
 Route::get('/product/{key}/{page}',[SanPhamController::class,'index'])->name('productpage');
 
+Route::get('/like/{id}',[DanhGiaController::class,'like'])->name('like')->middleware('CheckLogin');
+
 Route::get('/productdetail/{id}',[SanPhamController::class,'show'])->name('productdetail');
 
 Route::get('/wishlist', function () {
-    return view('wishlist');
+    return view('wish_list');
 });
 
 // Route::get('/sale', function () {
 //     return view('sale');
 // });
 
-Route::get('/sale',[SanPhamController::class,'sale'])->name('sale');
+Route::get('/GiamGia',[SanPhamController::class,'sale'])->name('sale');
 
-Route::get('/cart', [HoaDonController::class, 'cart']);
+Route::get('/ThucAn',[SanPhamController::class,'food'])->name('food');
 
-Route::post('/cart', [HoaDonController::class, 'addCart'])->name('cart.add');
+Route::get('/NuocUong',[SanPhamController::class,'drink'])->name('drink');
+
+Route::get('/GioHang', [HoaDonController::class, 'cart']);
+
+Route::get('/cart', [HoaDonController::class, 'addCart'])->name('cart.add')->middleware('CheckLogin');
 
 // Route::post('/checkout', function () {
 //     return view('checkout');
@@ -79,7 +85,8 @@ Route::post('/cart', [HoaDonController::class, 'addCart'])->name('cart.add');
 //     return view('checkout');
 // });
 
-Route::get('/checkout', [TaiKhoanController::class, 'checkout']);
+Route::get('/ThanhToan', [TaiKhoanController::class, 'checkout']);
+
 Route::post('/capNhatSoLuong', [HoaDonController::class, 'capNhatSoLuong'])->name('capNhatSoLuong');
 
 Route::get('/about', function () {
@@ -122,11 +129,15 @@ Route::get('forgotpassword', function () {
     return view('pages.forgotpassword');
 });
 
-Route::get('login',[AuthController::class,'showLogin'])->name('loginadmin');
+Route::get('/login',function () {
+    return view('login');
+})->name('user.login');
+
+Route::get('admin/login',[AuthController::class,'showLogin'])->name('loginadmin');
 
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
-Route::post('login',[AuthController::class,'authenticate'])->name('login');
+//Route::post('login',[AuthController::class,'authenticate'])->name('login');
 
 // Route::get('home', function () {
 //     return view('pages.home');

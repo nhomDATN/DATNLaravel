@@ -4,6 +4,14 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ #category{
+   border-top-right-radius: 15px;
+   box-shadow: 3px 4px rgba(0, 0, 0, 0.3);
+ }
+ hr
+ {
+   box-shadow: 2px 3px rgba(0, 0, 0, 0.05);
+ }
  .addCart{
    background-color: black;
    color: white;
@@ -29,6 +37,7 @@
   position: fixed;     
   border-radius: 50%;
   align-items: center;
+  box-shadow: 3px 4px rgba(0, 0, 0, 0.3);
 }
 .type-active
 {
@@ -2578,7 +2587,10 @@ input[type="button"].btn-block {
 
 .dropdown-toggle:empty::after {
   margin-left: 0; }
-
+ a{
+    user-select: none;
+    cursor: pointer;
+  }
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -2730,6 +2742,7 @@ input[type="button"].btn-block {
   border-top: 1px solid #e9ecef; }
 
 .dropdown-item {
+  user-select: none;
   display: block;
   width: 100%;
   padding: 0.25rem 1.5rem;

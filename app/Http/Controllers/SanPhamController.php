@@ -43,12 +43,27 @@ class SanPhamController extends Controller
     public function sale(Request $request)
     {
         $lstsp = SanPham::join('khuyen_mais', 'khuyen_mais.id', '=', 'san_phams.khuyen_mai_id')
-        ->select('san_phams.id', 'hinh', 'ten_san_pham', 'gia')
-        ->where('san_phams.khuyen_mai_id', 2)
+        ->select('san_phams.id', 'hinh', 'ten_san_pham', 'gia','gia_tri','khuyen_mai_id')
+        ->where('san_phams.khuyen_mai_id','!=',3)
         ->get();
         return view('sale', ['lstsp'=>$lstsp]);
     }
-
+    public function food(Request $request)
+    {
+        $lstsp = SanPham::select('san_phams.id', 'hinh', 'ten_san_pham', 'gia','gia_tri','khuyen_mai_id')
+        ->join('khuyen_mais','khuyen_mais.id','=','khuyen_mai_id')
+        ->where('loai_san_pham_id','=',1)
+        ->get();
+        return view('food', ['lstsp'=>$lstsp]);
+    }
+    public function drink(Request $request)
+    {
+        $lstsp = SanPham::select('san_phams.id', 'hinh', 'ten_san_pham', 'gia','gia_tri','khuyen_mai_id')
+        ->join('khuyen_mais','khuyen_mais.id','=','khuyen_mai_id')
+        ->where('loai_san_pham_id','=',2)
+        ->get();
+        return view('drink', ['lstsp'=>$lstsp]);
+    }
     
     public function home(Request $request)
     {

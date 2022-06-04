@@ -62,8 +62,7 @@
                     <div class="input-group col-md-6 d-flex mb-3">
                        
                         
-                   <form action="{{ route('cart.add') }}" method="POST" > 
-                    @csrf
+                   <form action="{{ route('cart.add') }}" method="get" > 
                        <input type="hidden" value="{{ $product[0]->id }}" name = "productId">
                        <input type="hidden" value="
                             @if ($product[0]->khuyen_mai_id == 3)

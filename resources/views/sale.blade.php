@@ -20,7 +20,9 @@
                 <div class="product">
                     <a href="{{ route('productdetail',['id'=>$sp->id]) }}" class="img-prod">
                         <img class="img-fluid w-100" style="height: 160px;" src="{{ asset("/images/$sp->hinh") }}" alt="Colorlib Template">
-                        <span class="status">30%</span>
+                        @if($sp->khuyen_mai_id != 3)
+                        <span class="status">{{ $sp->gia_tri }}%</span>
+                         @endif
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
@@ -32,13 +34,10 @@
                         </div>
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <a href="{{ route('cart.add',['productId' => $sp->id,'quantity' => 1]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                <a href="{{ route('like',['id' => $sp->id]) }}" class="heart d-flex justify-content-center align-items-center ">
                                     <span><i class="ion-ios-heart"></i></span>
                                 </a>
                             </div>
@@ -47,7 +46,8 @@
                 </div>
             </div>
             @endforeach
-        </div
+        </div>
     </div>
+<hr>
 </section>
 @endsection

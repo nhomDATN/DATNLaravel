@@ -46,12 +46,12 @@ class HoaDonController extends Controller
     {
         // Session::forget('cartId');
         $product = $request->productId;
-        $date = new CarBon();
+        $date =  CarBon::now('Asia/Ho_Chi_Minh');
         if(empty(Session::get('cartId')))
         {
             $idNew = DB::table('hoa_dons')->max('id');
             Session::put('cartId',$idNew + 1);
-            DB::insert('insert into hoa_dons (tai_khoan_id,tong_tien,nhan_vien_id, trang_thai,created_at) values (?,?,?,?,?)', [1, 0, 1, -1, $date]);
+            DB::insert('insert into hoa_dons (tai_khoan_id,tong_tien,nhan_vien_id, trang_thai,created_at) values (?,?,?,?,?)', [Session::get('UserId'), 0, 1, -1, $date]);
         }
         else
         {

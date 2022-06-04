@@ -90,26 +90,26 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/hamburger.jpg);height: 300px;">
-                <div class="text px-3 py-1 bg-danger ">
-                    <h2 class="mb-0 "><a href="#" class="text-white">Thức ăn</a></h2>
+            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/hamburger.jpg);height: 300px;" id="category">
+                <div class="text px-3 py-1 bg-danger " id="category">
+                    <h2 class="mb-0 "><a href="{{ route('food') }}" class="text-white">Thức ăn</a></h2>
                 </div>
             </div>
 
         </div>
 
         <div class="col-md-4">
-            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/trasua.jpg);height: 300px;">
-                <div class="text px-3 py-1 bg-danger ">
-                    <h2 class="mb-0 "><a href="#" class="text-white">Thức uống</a></h2>
+            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/trasua.jpg);height: 300px;" id="category">
+                <div class="text px-3 py-1 bg-danger " id="category">
+                    <h2 class="mb-0 "><a href="{{ route('drink') }}" class="text-white">Thức uống</a></h2>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/sale.jpg);height: 300px;">
-                <div class="text px-3 py-1 bg-danger ">
-                    <h2 class="mb-0 "><a href="#" class="text-white">Giảm giá</a></h2>
+            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/sale.jpg);height: 300px;" id="category">
+                <div class="text px-3 py-1 bg-danger" id="category">
+                    <h2 class="mb-0 "><a href="{{ route('sale') }}" class="text-white">Giảm giá</a></h2>
                 </div>
             </div>
         </div>
@@ -137,16 +137,13 @@
                         <div class="product">
                             <a href="{{ route('productdetail',['id'=>$sp->id]) }}" class="img-prod">
                                 <img class="img-fluid w-100" style="height: 160px;" src="{{ asset("/images/$sp->hinh") }}" alt="Colorlib Template">
-                                @if($sp->khuyen_mai_id == 1)
-                                    <span class="status">50%</span>
-                                @endif
-                                @if($sp->khuyen_mai_id == 2)
-                                    <span class="status">30%</span>
+                                @if($sp->khuyen_mai_id != 3)
+                                    <span class="status">{{ $sp->gia_tri }}%</span>
                                 @endif
                                 <div class="overlay"></div>
                             </a>
                             <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">{{ $sp->ten_san_pham }}</a></h3>
+                                <h3><a href="{{ route('productdetail',['id'=>$sp->id]) }}">{{ $sp->ten_san_pham }}</a></h3>
                                 <div class="d-flex">
                                     <div class="pricing">
                                         <p class="price"><span>{{ number_format($sp->gia, 0, ",", ".") }} VNĐ</span></p>
@@ -154,13 +151,10 @@
                                 </div>
                                 <div class="bottom-area d-flex px-3">
                                     <div class="m-auto d-flex">
-                                        <a href="/productdetail" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
                                         <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                             <span><i class="ion-ios-cart"></i></span>
                                         </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                        <a href="{{ route('like',['id' => $sp->id]) }}" class="heart d-flex justify-content-center align-items-center ">
                                             <span><i class="ion-ios-heart"></i></span>
                                         </a>
                                     </div>

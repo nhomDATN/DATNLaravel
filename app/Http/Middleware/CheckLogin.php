@@ -17,8 +17,8 @@ class CheckLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(empty(Session::get('accountId')))
-            return redirect()->route('login');
+        if(empty(Session::get('UserId')))
+            return redirect()->route('user.login');
         return $next($request);
     }
 }

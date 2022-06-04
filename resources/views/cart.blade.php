@@ -26,7 +26,8 @@
         <form action="/checkout" method="get">
         <div class="row">
             <div class="col-md-12 ftco-animate">
-                <div class="cart-list">
+                <p>Không có sản phẩm nào trong giỏ hàng</p>
+                {{-- <div class="cart-list">
                     <table class="table">
                         <thead class="thead-primary bg-danger">
                             <tr class="text-center">
@@ -53,7 +54,7 @@
                                         echo $mo_ta[0] . '.';
                                     @endphp</p>
                                     {{-- <p>Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p> --}}
-                                </td>
+                                {{-- </td>
 
                                 @php
                                     $gia_tam = $gh->gia
@@ -73,12 +74,12 @@
                             @endif
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
             </div>
         </div>
         </br>
-        <p style="text-align: center"><button type="submit" class="btn btn-primary py-3 px-4">Thanh Toán Ngay</button></p>
-        </form>
+        {{-- <p style="text-align: center"><button type="submit" class="btn btn-primary py-3 px-4">Thanh Toán Ngay</button></p> --}}
+        {{-- </form> --}}
     </div>
 </section>
 <script type="text/javascript">
