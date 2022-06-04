@@ -34,14 +34,14 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Tên Loại Tài Khoản</label>
-                                    <input type="id" class="form-control" name="tenltk"
+                                    <input type="id" class="form-control" name="tenloaitaikhoan"
                                         placeholder="Tên Loại Tài Khoản" value="{{ $loaiTaiKhoan->ten_loai_tai_khoan }}">
                                     
                                     </br>
                                     
                                     <label for="">Trạng Thái</label>
-                                    <select name = "status" class="form-control">
-                                        <option value ="{{$loaiTaiKhoan->trang_thai}}">
+                                    <select name = "trangthai" class="form-control">
+                                        <option value ="{{ $loaiTaiKhoan->trang_thai }}">
                                         @if($loaiTaiKhoan->trang_thai == 1)
                                             Hoạt Động
                                         @else

@@ -39,6 +39,11 @@ class LoaiKhuyenMaiController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->input('tenloaikhuyenmai') == null) {
+            $alert = 'Tên loại khuyến mãi không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $tonTai = LoaiKhuyenMai::where('ten_loai_khuyen_mai', $request['tenloaikhuyenmai'])->first();
         if (empty($tonTai)) {
             $loaiKhuyenMai = LoaiKhuyenMai::insert([

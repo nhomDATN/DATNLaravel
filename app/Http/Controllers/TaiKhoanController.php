@@ -97,6 +97,21 @@ class TaiKhoanController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->input('password') == null) {
+            $alert = 'Mật khẩu không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('hoten') == null) {
+            $alert = 'Họ tên không được bỏ trống';
+        return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('sdt') == null) {
+            $alert = 'Số điện thoại không được bỏ trống';
+        return redirect()->back()->with('alert', $alert);
+        }
+
         $tonTai = TaiKhoan::where('email', $request['email'])->first();
         if (empty($tonTai)) {
             $taiKhoan = TaiKhoan::insert([

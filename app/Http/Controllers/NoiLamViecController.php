@@ -39,6 +39,16 @@ class NoiLamViecController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->input('manoilamviec') == null) {
+            $alert = 'Mã nơi làm việc không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('diachi') == null) {
+            $alert = 'Địa chỉ nơi làm việc không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $tonTai = NoiLamViec::where('ma_noi_lam_viec', $request['manoilamviec'])->first();
         if (empty($tonTai)) {
             $noiLamViec = NoiLamViec::insert([
@@ -84,15 +94,27 @@ class NoiLamViecController extends Controller
      */
     public function update(Request $request, NoiLamViec $noiLamViec)
     {
-        $noiLamViec->fill([
-            'ma_noi_lam_viec' => $request->input('manoilamviec'),
-            'dia_chi' => $request->input('diachi'),
-            'trang_thai'  => $request->input('trangthai'),
-        ]);
-        $noiLamViec->save();
-        #dd($request->all);
-        return Redirect::route('noiLamViec.index');
+        $noilamviecformat = trim( $request->input('manoilamviec')); 
+        $tontai = NoiLamViec::where('ma_noi_lam_viec','like', $noilamviecformat)->first();
+        if(empty($tontai)){
+            $kt_noilamviec = str_replace(' ', '', $noilamviecformat);
+            $tontai = NoiLamViec::where('ma_noi_lam_viec','like',$kt_noilamviec)->first();
+            if(empty($tontai)){
+                $noiLamViec->fill([
+                    'ma_noi_lam_viec' => $noilamviecformat,
+                    'dia_chi' => $request->input('diachi'),
+                    'trang_thai'  => $request->input('trangthai'),
+                ]);
+                $noiLamViec->save();
+                return Redirect::route('noiLamViec.index');
+            }
+        }
+        $alert = 'Mã nơi làm việc đã tồn tại';
+        return redirect()->back()->with('alert', $alert);
+
     }
+
+    
 
     /**
      * Remove the specified resource from storage.

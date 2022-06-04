@@ -50,7 +50,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="home" class="nav-link">Trang Chủ</a>
+                    <a href="{{ route('homeadmin') }}" class="nav-link">Trang Chủ</a>
                 </li>
             </ul>
 
@@ -206,7 +206,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('khuyenMai.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-gift"></i>
                                 <p>
                                     Khuyến Mãi
