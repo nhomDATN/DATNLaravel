@@ -33,7 +33,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Tên Loại Tài Khoản</label>
-                                    <input type="text" class="form-control" name="tenltk"
+                                    <input type="text" class="form-control" name="tenloaitaikhoan"
                                         placeholder="Tên Loại TK">
                                 </div>
                             </div>

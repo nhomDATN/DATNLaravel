@@ -23,6 +23,7 @@ use App\Http\Controllers\ChucVuController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HoaDonController;
 use App\Http\Controllers\LoaiKhuyenMaiController;
+use App\Http\Controllers\KhuyenMaiController;
 
 
 /*
@@ -182,3 +183,7 @@ Route::get('/searchChucVu', [ChucVuController::class, 'search'])->name('chucVu.s
 Route::resource('admin/loaiKhuyenMai', LoaiKhuyenMaiController::class);
 
 Route::get('/searchLoaiKhuyenMai', [LoaiKhuyenMaiController::class, 'search'])->name('loaiKhuyenMai.search');
+
+Route::resource('admin/khuyenMai', KhuyenMaiController::class);
+
+Route::get('/searchKhuyenMai', [KhuyenMaiController::class, 'search'])->name('khuyenMai.search');

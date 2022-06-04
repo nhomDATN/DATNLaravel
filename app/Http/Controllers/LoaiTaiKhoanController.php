@@ -37,7 +37,12 @@ class LoaiTaiKhoanController extends Controller
      */
     public function store(Request $request)
     {
-        $loaitaikhoanformat=trim( $request->input('tenltk')); 
+        if ($request->input('tenloaitaikhoan') == null) {
+            $alert = 'Tên loại tài khoản không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        $loaitaikhoanformat=trim( $request->input('tenloaitaikhoan')); 
         $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $loaitaikhoanformat)->first(); 
         if(empty($tontai)){
             $kt_loaitaikhoan=str_replace(' ', '', $loaitaikhoanformat);
@@ -52,7 +57,7 @@ class LoaiTaiKhoanController extends Controller
                 return Redirect::route('loaiTaiKhoan.index');
             }
         }
-        $alert = 'Account type name already in use';
+        $alert = 'Tên loại tài khoản đã tồn tại';
         return redirect()->back()->with('alert', $alert);
     }
 
@@ -87,24 +92,25 @@ class LoaiTaiKhoanController extends Controller
      */
     public function update(Request $request, LoaiTaiKhoan $loaiTaiKhoan)
     {
-        $loaitaikhoan = trim( $request->input('tenltk')); 
-        $trangthai = $request->status;
-        
-        $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $loaitaikhoan)
-        ->where('trang_thai', '=', $trangthai)
-        ->first(); 
+        $loaitaikhoanformat = trim( $request->input('tenloaitaikhoan')); 
+        $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $loaitaikhoanformat)->first();
         if(empty($tontai)){
-            $loaitaikhoanformat=str_replace(' ', '', $loaitaikhoan);
-            $loaiTaiKhoan->fill([
-                'ten_loai_tai_khoan' => $loaitaikhoanformat,
-                'trang_thai' => $trangthai,
-            ]);
-            $loaiTaiKhoan->save();
-            return Redirect::route('loaiTaiKhoan.index');
+            $kt_loaitaikhoan = str_replace(' ', '', $loaitaikhoanformat);
+            $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like',$kt_loaitaikhoan)->first();
+            if(empty($tontai)){
+                $loaiTaiKhoan->fill([
+                    'ten_loai_tai_khoan' => $loaitaikhoanformat,
+                    'trang_thai' => $request->input('trangthai'),
+                ]);
+                $loaiTaiKhoan->save();
+                return Redirect::route('loaiTaiKhoan.index');
+            }
         }
-        $alert = 'Tên loại tài khoản đã tồn tại';
+        $alert = 'Mã khuyến mãi đã tồn tại';
         return redirect()->back()->with('alert', $alert);
     }
+
+   
 
     /**
      * Remove the specified resource from storage.

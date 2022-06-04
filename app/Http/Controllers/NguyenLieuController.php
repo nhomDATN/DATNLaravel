@@ -45,6 +45,11 @@ class NguyenLieuController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->input('tennguyenlieu') == null) {
+            $alert = 'Tên nguyên liệu không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $tonTai = NguyenLieu::where('ten_nguyen_lieu', $request['tennguyenlieu'])->first();
         if (empty($tonTai)) {
             $nguyenLieu = NguyenLieu::insert([
@@ -95,18 +100,29 @@ class NguyenLieuController extends Controller
      */
     public function update(Request $request, NguyenLieu $nguyenLieu)
     {
-        $nguyenLieu->fill([
-            'ten_nguyen_lieu' => $request->input('tennguyenlieu'),
-            'don_gia' => $request->input('dongia'),
-            'so_luong' => $request->input('soluong'),
-            'don_vi_tinh_id' => $request->input('donvitinh'),
-            'kho_id' => $request->input('kho'),
-            'trang_thai'  => $request->input('trangthai'),
-        ]);
-        $nguyenLieu->save();
-        #dd($request->all);
-        return Redirect::route('nguyenLieu.index');
+        $nguyenlieuformat = trim( $request->input('tennguyenlieu')); 
+        $tontai = NguyenLieu::where('ten_nguyen_lieu','like', $nguyenlieuformat)->first();
+        if(empty($tontai)){
+            $kt_nguyenlieu = str_replace(' ', '', $nguyenlieuformat);
+            $tontai = NguyenLieu::where('ten_nguyen_lieu','like',$kt_nguyenlieu)->first();
+            if(empty($tontai)){
+                $nguyenLieu->fill([
+                    'ten_nguyen_lieu' => $nguyenlieuformat,
+                    'don_gia' => $request->input('dongia'),
+                    'so_luong' => $request->input('soluong'),
+                    'don_vi_tinh_id' => $request->input('donvitinh'),
+                    'kho_id' => $request->input('kho'),
+                    'trang_thai'  => $request->input('trangthai'),
+                ]);
+                $nguyenLieu->save();
+                return Redirect::route('nguyenLieu.index');
+            }
+        }
+        $alert = 'Tên nguyên liệu đã tồn tại';
+        return redirect()->back()->with('alert', $alert);
     }
+
+    
 
     /**
      * Remove the specified resource from storage.

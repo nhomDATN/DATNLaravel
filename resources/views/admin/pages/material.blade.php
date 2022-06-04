@@ -101,9 +101,9 @@
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td colspan="100" class="text-center"
-                                                    style="font-style: italic;font-weight: bold;color: #4f5962;">No Banner
-                                                    Found</td>
+                                                <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">
+                                                    Không tìm thấy nguyên liệu.
+                                                </td>
                                             </tr>
                                         @endif
                                     </tbody>
