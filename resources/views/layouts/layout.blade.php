@@ -48,11 +48,18 @@
                             <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
                             <span class="text">ckc_fastfood@email.com</span>
                         </div>
+                        @if(empty(Session::get('UserId')))
                         <div class="col-md pr-4 d-flex  align-items-center">
 
                             <a class="text text-white" href=" {{ route('user.login') }}" > Đăng Nhập </a>/
                             <a class="text text-white" href="{{ route('register') }}" >Đăng Ký </a>
                         </div>
+                        @else
+                        <div class="col-md pr-4 d-flex  align-items-center">
+                            <a class="text text-white"><img src="/imageUsers/{{ Session::get('UserPicture') }}" alt="avatar" class="imgUser"></a>
+                            <a class="text text-white" >{{ Session::get('UserName') }} </a>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

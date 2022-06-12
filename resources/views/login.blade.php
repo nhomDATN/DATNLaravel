@@ -3,14 +3,14 @@
 <hr />
 <div class="container">
     <h2>Đăng Nhập</h2>
-    <form action="{{ route('homeuser') }}" data-id="login" method="POST">
+    <form action="{{ route('login') }}" method="POST">
         @csrf
         <div class="form-group">
-            Tài Khoản <input type="email" class="form-control" placeholder="Nhập Tài Khoản" id="email">
+            Email <input type="email" class="form-control" placeholder="Nhập Email" name="Email" required>
         </div>
         <div class="form-group">
 
-            Mật Khẩu <input type="password" class="form-control" placeholder="Nhập Mật Khẩu" id="pwd">
+            Mật Khẩu <input type="password" class="form-control" placeholder="Nhập Mật Khẩu" name="Password" required>
         </div>
         <div class="form-group form-check">
             <label class="form-check-label">
@@ -19,14 +19,19 @@
         </div>
         <button type="submit" class="btn btn-primary">Đăng Nhập</button>
     </form>
-    <div class="mt-4 w-25 text-center">
+    {{-- <div class="mt-4 w-25 text-center">
         <a class="btn btn-outline-info" href="#"><img src="images/fb.jpg" style="height: 20px;" /> Đăng nhập bằng Facebook</a></br>
     </div>
     <div class="mt-4  w-25 text-center" style="border-radius: 10px 10px 10px 10px;">
         <a class="btn btn-outline-info" href="#"><img src="images/Google.jpg" style="height: 20px;" /> Đăng nhập bằng Google</a></br>
-    </div>
-    <p class="mt-4">Chưa Có Tài Khoản?<a href="/register">Đăng Ký Ngay</a></p>
+    </div> --}}
+    <p class="mt-4">Chưa Có Tài Khoản? <a href="/register">Đăng Ký Ngay</a></p>
 </div>
 {{-- <p>{!! QrCode::size(250)->generate('www.google.com'); !!}</p> --}}
 <hr>
+    @if(session('message'))
+    <script>
+            alert('Sai tài khoản hoặc mật khẩu!');
+    </script>
+    @endif
 @endsection

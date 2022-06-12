@@ -11,6 +11,7 @@ use App\Models\ChiTietHoaDon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class TaiKhoanController extends Controller
 {
@@ -29,7 +30,25 @@ class TaiKhoanController extends Controller
         }
         return view('admin/pages.account', ['lsttk' => $lsttk]); 
     }
-
+    public function login(Request $request){
+        $account = TaiKhoan::where('email', $request->Email)->where('mat_khau', $request->Password)->get();
+        if(count($account) > 0){
+            Session::put('UserId', $account[0]->id);
+            Session::put('UserPicture', $account[0]->hinh_anh);
+            Session::put('UserName', $account[0]->ho_ten);
+            return redirect()->route('homeuser',['welcome' => Session::get('UserName')]);
+        }
+        else {
+            return redirect()->back()->with('message', 'Sai tài khoản hoặc mật khẩu!');
+        }
+    }
+    public function logout()
+    {
+        Session::forget('UserId');
+        Session::forget('UserPicture');
+        Session::put('UserName');
+        return redirect()->route('homeuser');
+    }
     public function checkout(Request $request)
     {
         $maxid = ChiTietHoaDon::max('hoa_don_id');

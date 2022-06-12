@@ -21,9 +21,9 @@
                 <h3>{{ $product[0]->ten_san_pham }}</h3>
                 <div class="rating d-flex">
                     <p class="text-left mr-4">
-                        <a href="#" class="mr-2">{{ $so_sao }}</a>
+                        <a class="mr-2" id="countStar">{{ $so_sao }}</a>
                         @for ($i = 0; $i<5;$i++)
-                        <a href="#"><span class="@if ($i < $so_sao)
+                        <a href="#countStar" onclick="(assess({{ $i + 1 }}))"><span class="@if ($i < $so_sao)
                             ion-ios-star
                             @elseif ($i < $so_sao && $i + 1 > $so_sao)
                             ion-ios-star-half
@@ -161,5 +161,39 @@
             @endforeach
         </div>
     </div>
+    <script>
+       function assess(star){
+        $('.modal-assess').css('display', 'flex');
+        var modal = ` <div class="form">
+        <div class="modal-header">
+            <div class="modal-exit">X</div>
+        </div>
+       <div class="star">`;
+        for (var i = 0; i < 5 ;i++)
+        {
+            if(i < star)
+            {
+                modal +=`<a><span class="ion-ios-star"></span></a>`;
+            }
+        else
+        {
+            modal +=`<a><span class="ion-ios-star-outline"></span></a>`;
+        } 
+        }
+        modal +=`  </div>
+        <form action="">
+                <input type="text" placeholder="Đánh giá sản phẩm">
+                <button type="submit">Đánh giá</button>
+            </form>
+            </div>
+        </div>`; 
+    document.getElementById("modal").innerHTML = modal;
+    $('.modal-exit').click(function(){
+            $('.modal-assess').css('display', 'none')
+        });
+       }
+    </script>
 </section>
 @endsection
+<div class="modal-assess" id="modal">
+</div>

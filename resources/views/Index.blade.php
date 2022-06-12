@@ -129,7 +129,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row" id="listSP">
             @foreach ($lstsp as $sp)
                 <div id="idsp" class="carousel-item active" style="margin-right: 0; width: 25%;">
                     

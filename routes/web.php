@@ -62,7 +62,7 @@ Route::get('/productdetail/{id}',[SanPhamController::class,'show'])->name('produ
 
 Route::get('/wishlist', function () {
     return view('wish_list');
-});
+})->middleware('CheckLogin');
 
 // Route::get('/sale', function () {
 //     return view('sale');
@@ -82,9 +82,9 @@ Route::get('/cart', [HoaDonController::class, 'addCart'])->name('cart.add')->mid
 //     return view('checkout');
 // });
 
-// Route::get('/checkout', function () {
-//     return view('checkout');
-// });
+Route::get('/checkout', function () {
+    return view('checkout');
+})->middleware('CheckLogin');
 
 Route::get('/ThanhToan', [TaiKhoanController::class, 'checkout']);
 
@@ -134,9 +134,11 @@ Route::get('/login',function () {
     return view('login');
 })->name('user.login');
 
+Route::post('/accountLogin',[TaiKhoanController::class,'login'])->name('login');
 Route::get('admin/login',[AuthController::class,'showLogin'])->name('loginadmin');
 
-Route::get('logout',[AuthController::class,'logout'])->name('logout');
+Route::get('accountLogout',[TaiKhoanController::class,'logout'])->name('logout');
+//Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
 //Route::post('login',[AuthController::class,'authenticate'])->name('login');
 
