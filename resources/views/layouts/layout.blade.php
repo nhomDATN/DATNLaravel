@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @php
+         $isCart = DB::table('hoa_dons')
+        ->where('trang_thai', -1)
+        ->where('tai_khoan_id', Session::get('UserId'))
+        ->get();
+        if(count($isCart) > 0)
+            Session::put('cartId', $isCart[0]->id);
+  
+    @endphp
     <title>Index</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
@@ -29,11 +38,13 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/bootstrap/font-awesome.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <style>
-        
-        
-    </style>
 </head>
+@php
+    $quantityFoodInCart = DB::table('hoa_dons')
+    ->join('chi_tiet_hoa_dons','hoa_don_id','=','hoa_dons.id')
+    ->where('hoa_dons.id',Session::get('cartId'))
+    ->count('*');
+@endphp
 <body class="goto-here" id="head">
     <div class="py-1 bg-danger">
         <div class="container">
@@ -57,7 +68,8 @@
                         @else
                         <div class="col-md pr-4 d-flex  align-items-center">
                             <a class="text text-white"><img src="/imageUsers/{{ Session::get('UserPicture') }}" alt="avatar" class="imgUser"></a>
-                            <a class="text text-white" >{{ Session::get('UserName') }} </a>
+                            <a class="text text-white" >{{ Session::get('UserName') }} </a>/
+                            <a class="cookie-logout text text-dark" href="{{ route('user.logout')}}">Đăng Xuất </a>
                         </div>
                         @endif
                     </div>
@@ -81,14 +93,14 @@
                             <a class="dropdown-item" href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" >Mua Thực Phẩm</a>
                             <a class="dropdown-item" href="/wishlist" >Danh Sách Yêu Thích</a>
                             <a class="dropdown-item" href="{{ route('sale') }}" >Ưu Đãi</a>
-                            <a class="dropdown-item" href="/cart" >Giỏ Hàng</a>
-                            <a class="dropdown-item" href="/checkout" >Thanh Toán</a>
+                            <a class="dropdown-item" href="{{ route('cart') }}" >Giỏ Hàng</a>
+                            <a class="dropdown-item" href="{{ route('checkout') }}" >Thanh Toán</a>
                         </div>
                     </li>
                     <li class="nav-item"><a  href="/about" class="nav-link" style="font-size: 15px">Chúng Tôi</a></li>
                     <li class="nav-item"><a href="/blog"  class="nav-link" style="font-size: 15px">Blog</a></li>
                     <li class="nav-item"><a href="/contact"  class="nav-link" style="font-size: 15px">Liên Hệ</a></li>
-                    <li class="nav-item"><a href="/cart"  class="nav-link" style="font-size: 15px"><span class="icon-shopping_cart"></span>[0]</a></li>
+                    <li class="nav-item "><a href="{{ route('cart') }}"  class="nav-link" style="font-size: 15px"><span class="icon-shopping_cart"></span>[{{ $quantityFoodInCart }}]</a></li>
 
                 </ul>
             </div>

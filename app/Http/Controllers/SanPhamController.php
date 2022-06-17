@@ -111,7 +111,7 @@ class SanPhamController extends Controller
      * @param  \App\Models\SanPham  $sanPham
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id,Request $request)
     {
         $daban = 0;
         $binhchon = 0;
@@ -136,7 +136,9 @@ class SanPhamController extends Controller
             }
         }
         
-        $product = SanPham::where('id','=',$request->id)->get();
+        $product = SanPham::join('khuyen_mais','khuyen_mais.id', '=','khuyen_mai_id')
+        ->select('san_phams.id','ten_san_pham','mo_ta','gia','hinh','san_phams.trang_thai','tim_kiem','gia_tri')
+        ->where('san_phams.id','=',$id)->get();
         $select = SanPham::select('tim_kiem')->where('id','=',$request->id)->get();
         $explore = explode(",",$select[0]->tim_kiem);
         $string = '';

@@ -58,11 +58,11 @@ Route::get('/product/{key}/{page}',[SanPhamController::class,'index'])->name('pr
 
 Route::get('/like/{id}',[DanhGiaController::class,'like'])->name('like')->middleware('CheckLogin');
 
+Route::get('notLike/{id}',[DanhGiaController::class,'notLike'])->name('notLike');
+
 Route::get('/productdetail/{id}',[SanPhamController::class,'show'])->name('productdetail');
 
-Route::get('/wishlist', function () {
-    return view('wish_list');
-})->middleware('CheckLogin');
+Route::get('/wishlist', [DanhGiaController::class,'liked'])->name('wishlist')->middleware('CheckLogin');
 
 // Route::get('/sale', function () {
 //     return view('sale');
@@ -74,19 +74,14 @@ Route::get('/ThucAn',[SanPhamController::class,'food'])->name('food');
 
 Route::get('/NuocUong',[SanPhamController::class,'drink'])->name('drink');
 
-Route::get('/GioHang', [HoaDonController::class, 'cart']);
+Route::get('/GioHang', [HoaDonController::class, 'cart'])->name('cart')->middleware('CheckLogin');
 
-Route::get('/cart', [HoaDonController::class, 'addCart'])->name('cart.add')->middleware('CheckLogin');
+Route::get('/addCart', [HoaDonController::class, 'addCart'])->name('cart.add')->middleware('CheckLogin');
 
-// Route::post('/checkout', function () {
-//     return view('checkout');
-// });
+Route::get('/addFast', [HoaDonController::class, 'addCartFast'])->name('cart.addFast')->middleware('CheckLogin');
 
-Route::get('/checkout', function () {
-    return view('checkout');
-})->middleware('CheckLogin');
-
-Route::get('/ThanhToan', [TaiKhoanController::class, 'checkout']);
+Route::get('/deleteProductInCart/{id}',[HoaDonController::class, 'deleteProductInCart'])->name('deleteProductInCart');
+Route::get('/ThanhToan', [TaiKhoanController::class, 'checkout'])->middleware('CheckLogin')->name('checkout');
 
 Route::post('/capNhatSoLuong', [HoaDonController::class, 'capNhatSoLuong'])->name('capNhatSoLuong');
 
@@ -132,7 +127,9 @@ Route::get('forgotpassword', function () {
 
 Route::get('/login',function () {
     return view('login');
-})->name('user.login');
+})->name('user.login')->middleware('IsLogin');
+
+Route::get('/logout',[TaiKhoanController::class,'logout'])->name('user.logout');
 
 Route::post('/accountLogin',[TaiKhoanController::class,'login'])->name('login');
 Route::get('admin/login',[AuthController::class,'showLogin'])->name('loginadmin');

@@ -41,8 +41,12 @@
                         <a href="#" class="mr-2" style="color: #000;">{{ $daban }} <span style="color: #bbb;">Đã Bán</span></a>
                     </p>
                 </div>
+                @if($product[0]->gia_tri > 0)
+                <p class="priceOld"><span>{{ number_format($product[0]->gia, 0, ",", ".") }} VNĐ</span></p>
+                <p class="priceSales"><span>{{ number_format(($product[0]->gia - ($product[0]->gia * $product[0]->gia_tri)/100), 0, ",", ".") }} VNĐ</span></p>
+                @else
                 <p class="price"><span>{{ number_format($product[0]->gia, 0, ",", ".") }} VNĐ</span></p>
-                
+                @endif
                 <p>{{ $product[0]->mo_ta }}</p>
                 <div class="row mt-4">
                     <div class="col-md-6">
@@ -65,23 +69,19 @@
                    <form action="{{ route('cart.add') }}" method="get" > 
                        <input type="hidden" value="{{ $product[0]->id }}" name = "productId">
                        <input type="hidden" value="
-                            @if ($product[0]->khuyen_mai_id == 3)
+                            @if ($product[0]->gia_tri == 0)
                                 0
                             @else
                                 {{ $product[0]->gia_tri }}
                             @endif
                                 " name = "sales">
                        <input type="hidden" value="{{ $product[0]->gia }}" name = "price">
-                       @if (!empty(Session::get('accountId')))
-                       <input type="hidden" value="{{ Session::get('accountId')}}" name = "accountId">
-                       @endif
-                      
                             <span class="input-group-btn mr-2">
                                 <button style="z-index: 2000;" type="button" class="quantity-left-minus btn" data-type="minus"  data-field=""onclick="minus()">
                                     <i class="ion-ios-remove" ></i>
                                 </button>
                             </span>
-                        <input  type="text" id="quantity" name="quantity" class="form-control input-number" onchange="quantity()" value="1" min="1" max="100">
+                        <input  type="number" id="quantity" name="quantity" class="form-control input-number" onchange="quantity()" value="1" min="1" max="100">
                         <span class="input-group-btn ml-2">
                             <button  type="button" class="quantity-right-plus btn" data-type="plus"  data-field="" onclick="plus()" style="margin-left: 202px;">
                                 <i class="ion-ios-add"></i>

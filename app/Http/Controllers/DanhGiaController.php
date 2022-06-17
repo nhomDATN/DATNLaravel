@@ -24,7 +24,21 @@ class DanhGiaController extends Controller
         ->get();
         return view('admin/pages.review', ['lstdg' => $lstdg]);
     }
-
+    public function liked()
+    {
+        $wishlist = DB::table('danh_gias')
+        ->join('san_phams', 'san_phams.id', '=','san_pham_id')
+        ->where('tai_khoan_id',Session::get('UserId'))
+        ->where('yeu_thich',1)
+        ->where('danh_gias.trang_thai', 1)
+        ->get();
+        return view('wish_list',['wishList' => $wishlist]);
+    }
+    public function notLike($id)
+    {
+        DB::update('update danh_gias set yeu_thich = 0 where tai_khoan_id = ? and san_pham_id = ?',  [Session::get('UserId'),$id]);
+        return redirect()->back();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -33,7 +47,7 @@ class DanhGiaController extends Controller
     public function like($id)
     {
         $liked = DB::table('danh_gias')
-        ->where('tai_khoans_id','=',Session::get('UserId'))
+        ->where('tai_khoan_id','=',Session::get('UserId'))
         ->where('san_pham_id','=',$id)
         ->get();
         if(count($liked) == 0)
@@ -50,10 +64,10 @@ class DanhGiaController extends Controller
         }
         else
         {
-            if($liked->yeu_thich == 1)
-                DB::update('update danh_gias set yeu_thich = 0 where tai_khoan_id = ?, san_pham_id = ?', [Session::get('UserId'),$id]);
+            if($liked[0]->yeu_thich == 1)
+                DB::update('update danh_gias set yeu_thich = 0 where tai_khoan_id = ? and san_pham_id = ?', [Session::get('UserId'),$id]);
             else
-                DB::update('update danh_gias set yeu_thich = 1 where tai_khoan_id = ?, san_pham_id = ?', [Session::get('UserId'),$id]);
+                DB::update('update danh_gias set yeu_thich = 1 where tai_khoan_id = ? and san_pham_id = ?', [Session::get('UserId'),$id]);
         }
         return redirect()->back();
        

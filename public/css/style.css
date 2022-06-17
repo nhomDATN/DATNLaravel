@@ -4,9 +4,25 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ .priceOld{
+  text-decoration: line-through;
+ }
+ .priceSales{
+  color: red;
+  font-size: 25px;
+ }
+ .cookie-logout{
+  text-decoration: underline;
+  font-size: 12px;
+ }
  #category{
    border-top-right-radius: 15px;
-   box-shadow: 3px 4px rgba(0, 0, 0, 0.3);
+   box-shadow: 3px 4px rgba(0, 0, 0, 0.2);
+   cursor: pointer;
+ }
+ #category:hover{
+  border: solid 2px red;
+  box-shadow: none;
  }
  hr
  {
@@ -8960,14 +8976,13 @@ h1, h2, h3, h4, h5,
   color: #000000; }
 
 .product-details .quantity-left-minus {
-  background: transparent;
   position: relative;
   float: left;
   padding: 0 15px; }
 
 .product-details .quantity-right-plus {
-  background: transparent;
-  padding: 0 15px; }
+  padding: 0 15px; 
+}
 
 .product-details button[type="button"], .product-details .form-control {
   position: absolute;

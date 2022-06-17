@@ -1,5 +1,14 @@
 @extends('layouts.layout')
 @section('content')
+@php
+      function hasLike($userId = 0, $id = 0)
+    {
+        $liked = DB::table('danh_gias')->where('yeu_thich',1)->where('tai_khoan_id', $userId)->where('san_pham_id', $id)->get();
+        if(count($liked) > 0)
+            return true;
+        return false;
+    }
+@endphp
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-2.png');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -33,12 +42,20 @@
                         </div>
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="{{ route('cart.add',['productId' => $sp->id,'quantity' => 1]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
+                                <a href="{{ route('cart.addFast',['productId' => $sp->id,'quantity' => 1,'price' => $sp->gia,'sales' => $sp->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
-                                <a href="{{ route('like',['id' => $sp->id]) }}" class="heart d-flex justify-content-center align-items-center ">
-                                    <span><i class="ion-ios-heart"></i></span>
-                                </a>
+                                @if(!empty(Session::get('UserId')))
+                                    @if (hasLike(Session::get('UserId'),$sp->id))
+                                        <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center bg-danger" id="heart">
+                                            <span><i class="ion-ios-heart"></i></span>
+                                        </a>
+                                    @else
+                                    <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                     </div>
