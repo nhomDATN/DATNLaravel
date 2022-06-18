@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 
+
 class TaiKhoanController extends Controller
 {
     /**
@@ -23,6 +24,7 @@ class TaiKhoanController extends Controller
     public function index(Request $request)
     {
         $lsttk = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
+        ->where('tai_khoans.loai_tai_khoan_id', '!=', 1)
         ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.dia_chi', 'tai_khoans.ngay_sinh', 'tai_khoans.sdt', 'tai_khoans.ho_ten', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.created_at', 'tai_khoans.updated_at', 'tai_khoans.trang_thai')
         ->get();
         if ($request->has('view_deleted')) {
@@ -198,7 +200,24 @@ class TaiKhoanController extends Controller
         ]);
         $taiKhoan->save();
         return Redirect::route('taiKhoan.index');
+
+        // $taiKhoan->delete();
+        // return Redirect::route('taiKhoan.index');
     }
+
+    // public function restore($id)
+    // {
+    //     TaiKhoan::withTrashed()->find($id)->restore();
+
+    //     return back();
+    // }
+
+    // public function restoreAll()
+    // {
+    //     TaiKhoan::onlyTrashed()->restore();
+
+    //     return back();
+    // }
 
     public function search(Request $request)
     {
@@ -206,28 +225,31 @@ class TaiKhoanController extends Controller
             $output = '';
             $accounts = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
             ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.dia_chi', 'tai_khoans.ngay_sinh', 'tai_khoans.sdt', 'tai_khoans.ho_ten', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.created_at', 'tai_khoans.updated_at', 'tai_khoans.trang_thai')
+            ->where('tai_khoans.loai_tai_khoan_id', '!=', 1)
             ->where('email', 'LIKE', '%' . $request->search . '%')
             ->get();
 
-            // $trangthai = '';
-            // if ($accounts->trang_thai == 1) {
-            //     $trangthai = 'Hoạt Động';
-            // }
-            // else {
-            //     $trangthai = 'Không Hoạt Động';
-            // }
+            $stt = 0;
 
             if ($accounts) {
                 foreach ($accounts as $key => $tk) {
                     $output .= '<tr>
-                        <td>' . $tk->id . '</td>
+                        <td>' . ++$stt . '</td>
                         <td>' . $tk->email . '</td>
                         <td>' . $tk->ho_ten . '</td>
                         <td>' . $tk->ngay_sinh . '</td>
                         <td>' . $tk->dia_chi . '</td>
                         <td>' . $tk->sdt . '</td>
-                        <td>' . $tk->ten_loai_tai_khoan . '</td>
-                        <td>' . $tk->trang_thai . '</td>
+                        <td>' . $tk->ten_loai_tai_khoan . '</td>';                            
+                        if($tk->trang_thai == 1) {
+                            $output .= '<td>Hoạt Động</td>';
+                        }
+                        else {
+                            $output .= '<td>Ngưng Hoạt Động</td>';
+                        } 
+                        
+                        $output .= '
+
                         <td>' . $tk->created_at . '</td>
                         <td>' . $tk->updated_at . '</td>
                         <td style=";width: 20px;">

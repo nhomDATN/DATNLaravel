@@ -57,10 +57,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $stt = 0;
+                                        @endphp
                                         @if(count($lstlkm) > 0)
                                             @foreach ($lstlkm as $lkm)
                                                 <tr>
-                                                    <td>{{ $lkm->id }}</td>
+                                                    <td>{{ ++$stt }}</td>
                                                     <td>{{ $lkm->ten_loai_khuyen_mai }}</td>
                                                     <td>{{ $lkm->created_at }}</td>
                                                     <td>{{ $lkm->updated_at }}</td>

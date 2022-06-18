@@ -64,7 +64,7 @@
                             </div>
 
                             @if(session('alert'))
-                            <section class='alert alert-danger'>{{session('alert')}}</section>
+                            <section class='alert alert-danger'>{{ session('alert') }}</section>
                             @endif
 
                             @if (count($errors) > 0)

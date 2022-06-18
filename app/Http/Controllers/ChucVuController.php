@@ -111,10 +111,12 @@ class ChucVuController extends Controller
             $positions = ChucVu::where('ten_chuc_vu', 'LIKE', '%' . $request->search . '%')
             ->get();
             
+            $stt =0; 
+
             if ($positions) {
                 foreach ($positions as $key => $cv) {
                     $output .= '<tr>
-                        <td>' . $cv->id . '</td>
+                        <td>' . ++$stt . '</td>
                         <td>' . $cv->ten_chuc_vu . '</td>
                         <td>' . $cv->thuong . '</td>
                         <td>' . $cv->created_at . '</td>

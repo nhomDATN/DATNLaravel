@@ -95,10 +95,14 @@ class NoiLamViecController extends Controller
     public function update(Request $request, NoiLamViec $noiLamViec)
     {
         $noilamviecformat = trim( $request->input('manoilamviec')); 
-        $tontai = NoiLamViec::where('ma_noi_lam_viec','like', $noilamviecformat)->first();
+        $tontai = NoiLamViec::where('ma_noi_lam_viec','like', $noilamviecformat)
+        ->where('id', '!=', $noiLamViec->id)
+        ->first();
         if(empty($tontai)){
             $kt_noilamviec = str_replace(' ', '', $noilamviecformat);
-            $tontai = NoiLamViec::where('ma_noi_lam_viec','like',$kt_noilamviec)->first();
+            $tontai = NoiLamViec::where('ma_noi_lam_viec','like',$kt_noilamviec)
+            ->where('id', '!=', $noiLamViec->id)
+            ->first();
             if(empty($tontai)){
                 $noiLamViec->fill([
                     'ma_noi_lam_viec' => $noilamviecformat,
@@ -113,8 +117,6 @@ class NoiLamViecController extends Controller
         return redirect()->back()->with('alert', $alert);
 
     }
-
-    
 
     /**
      * Remove the specified resource from storage.
@@ -138,13 +140,21 @@ class NoiLamViecController extends Controller
             $workplaces = NoiLamViec::where('ma_noi_lam_viec', 'LIKE', '%' . $request->search . '%')
             ->get();
             
+            $stt = 0;
             if ($workplaces) {
                 foreach ($workplaces as $key => $nlv) {
                     $output .= '<tr>
-                        <td>' . $nlv->id . '</td>
+                        <td>' . ++$stt . '</td>
                         <td>' . $nlv->ma_noi_lam_viec . '</td>
-                        <td>' . $nlv->dia_chi . '</td>
-                        <td>' . $nlv->trang_thai . '</td>
+                        <td>' . $nlv->dia_chi . '</td>';
+                        if($nlv->trang_thai == 1) {
+                            $output .= '<td>Hoạt Động</td>';
+                        }
+                        else {
+                            $output .= '<td>Ngưng Hoạt Động</td>';
+                        } 
+                        
+                        $output .= '
                         <td>' . $nlv->created_at . '</td>
                         <td>' . $nlv->updated_at . '</td>
                         <td style=";width: 20px;">

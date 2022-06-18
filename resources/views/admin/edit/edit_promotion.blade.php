@@ -51,13 +51,13 @@
 
                                 <div class="form-group">
                                     <label for="">Ngày Bắt Đầu</label>
-                                    <input type="date" class="form-control" name="ngaybatdau" 
+                                    <input type="datetime" class="form-control" name="ngaybatdau" 
                                         placeholder="Ngày Bắt Đầu" value="{{ $khuyenMai->ngay_bat_dau }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Ngày Kết Thúc</label>
-                                    <input type="date" class="form-control" name="ngayketthuc" 
+                                    <input type="datetime" class="form-control" name="ngayketthuc" 
                                         placeholder="Ngày Kết Thúc" value="{{ $khuyenMai->ngay_ket_thuc }}">
                                 </div>
 

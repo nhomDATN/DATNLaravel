@@ -139,15 +139,35 @@ class DanhGiaController extends Controller
             ->where('san_phams.ten_san_pham', 'LIKE', '%' . $request->search . '%')
             ->get();
             
+            $stt = 0;
+
             if ($reviews) {
                 foreach ($reviews as $key => $dg) {
                     $output .= '<tr>
-                        <td>' . $dg->id . '</td>
-                        <td>' . $dg->yeu_thich . '</td>
-                        <td>' . $dg->so_sao . '</td>
+                        <td>' . ++$stt . '</td>';
+                        if($dg->yeu_thich == 1) {
+                            $output .= '<td>Yêu Thích</td>';
+                        }
+                        else {
+                            $output .= '<td>Ngưng Hoạt Động</td>';
+                        } 
+                        $output .= '<td>';
+
+                            for ($i = 1; $i <= $dg->so_sao; $i++)
+                                $output .= '<i class="nav-icon fas fa-star" style="color: orange"> </i>';
+
+                        $output .='</td> 
+
                         <td>' . $dg->email . '</td>
-                        <td>' . $dg->ten_san_pham . '</td>
-                        <td>' . $dg->trang_thai . '</td>
+                        <td>' . $dg->ten_san_pham . '</td>';
+                        if($dg->trang_thai == 1) {
+                            $output .= '<td>Hoạt Động</td>';
+                        }
+                        else {
+                            $output .= '<td>Ngưng Hoạt Động</td>';
+                        } 
+                        
+                        $output .= '
                         <td>' . $dg->created_at . '</td>
                         <td>' . $dg->updated_at . '</td>
                     </tr>';

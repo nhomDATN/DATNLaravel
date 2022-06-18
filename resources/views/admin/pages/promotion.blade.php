@@ -61,10 +61,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $stt = 0;
+                                        @endphp
                                         @if(count($lstkm) > 0)
                                             @foreach ($lstkm as $km)
                                                 <tr>
-                                                    <td>{{ $km->id }}</td>
+                                                    <td>{{ ++$stt }}</td>
                                                     <td>{{ $km->ma_khuyen_mai }}</td>
                                                     <td>{{ $km->ten_loai_khuyen_mai }}</td>
                                                     <td>{{ $km->ngay_bat_dau }}</td>

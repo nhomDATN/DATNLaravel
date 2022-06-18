@@ -129,10 +129,14 @@ class KhuyenMaiController extends Controller
             return redirect()->back()->with('alert', $alert);
         }   
         $khuyenmaiformat=trim( $request->input('makhuyenmai')); 
-        $tontai = KhuyenMai::where('ma_khuyen_mai','like', $khuyenmaiformat)->first(); 
+        $tontai = KhuyenMai::where('ma_khuyen_mai','like', $khuyenmaiformat)
+        ->where('khuyen_mais.ma_khuyen_mai', '!=', $request->input('makhuyenmai'))
+        ->first(); 
         if(empty($tontai)){
             $kt_khuyenmai=str_replace(' ', '', $khuyenmaiformat);
-            $tontai = KhuyenMai::where('ma_khuyen_mai','like',$kt_khuyenmai)->first();
+            $tontai = KhuyenMai::where('ma_khuyen_mai','like',$kt_khuyenmai)
+            ->where('khuyen_mais.ma_khuyen_mai', '!=', $request->input('makhuyenmai'))
+            ->first();
             if(empty($tontai))
             {
                 $khuyenMai->fill([
@@ -173,17 +177,26 @@ class KhuyenMaiController extends Controller
             ->where('khuyen_mais.ma_khuyen_mai', 'LIKE', '%' . $request->search . '%')
             ->get();
             
+            $stt = 0;
+
             if ($promotions) {
                 foreach ($promotions as $key => $km) {
                     $output .= '<tr>
-                        <td>' . $km->id . '</td>
+                        <td>' . ++$stt . '</td>
                         <td>' . $km->ma_khuyen_mai . '</td>
                         <td>' . $km->ten_loai_khuyen_mai . '</td>
                         <td>' . $km->ngay_bat_dau . '</td>
                         <td>' . $km->ngay_ket_thuc . '</td>
                         <td>' . $km->gia_tri . '</td>
-                        <td>' . $km->maximum . '</td>
-                        <td>' . $km->trang_thai . '</td>
+                        <td>' . $km->maximum . '</td>';
+                        if($km->trang_thai == 1) {
+                            $output .= '<td>Hoạt Động</td>';
+                        }
+                        else {
+                            $output .= '<td>Ngưng Hoạt Động</td>';
+                        } 
+                        
+                        $output .= '
                         <td style=";width: 20px;">
                             <a href="'.route('khuyenMai.edit', ['khuyenMai' => $km]).'">
                                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fas fa-edit"></i></button>

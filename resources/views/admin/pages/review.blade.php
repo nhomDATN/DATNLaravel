@@ -55,18 +55,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $stt = 0;
+                                        @endphp
                                         @if(count($lstdg) > 0)
                                             @foreach ($lstdg as $dg)
                                                 <tr>
-                                                    <td>{{ $dg->id }}</td>
+                                                    <td>{{ ++$stt }}</td>
 
                                                     @if ($dg->yeu_thich  == 1)
                                                         <td>Yêu Thích</td>
                                                     @else
                                                         <td>Không Chọn</td>
                                                     @endif
-
-                                                    <td>{{ $dg->so_sao}}</td>
+                                                    <td>
+                                                        @for ($i = 1; $i <= $dg->so_sao; $i++)
+                                                            <i class="nav-icon fas fa-star" style="color: orange"> </i>
+                                                        @endfor
+                                                    </td>
+                                                    {{-- <td>{{ $dg->so_sao}}</td> --}}
                                                     <td>{{ $dg->email }}</td>
                                                     <td>{{ $dg->ten_san_pham }}</td>
 
