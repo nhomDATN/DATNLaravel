@@ -21,7 +21,7 @@
                 <h3>{{ $product[0]->ten_san_pham }}</h3>
                 <div class="rating d-flex">
                     <p class="text-left mr-4">
-                        <a class="mr-2" id="countStar">{{ $so_sao }}</a>
+                        <a class="mr-2" id="countStar">{{ number_format($so_sao,1,',','.') }}</a>
                         @for ($i = 0; $i<5;$i++)
                         <a href="#countStar" onclick="(assess({{ $i + 1 }}))"><span class="@if ($i < $so_sao)
                             ion-ios-star

@@ -124,7 +124,7 @@ class SanPhamController extends Controller
         $daban = 0;
         $binhchon = 0;
         $so_sao = 0;
-        $select = DB::select('select so_sao from danh_gias where san_pham_id = ?', [$request->id]);
+        $select = DB::select('select so_sao from danh_gias where  so_sao > 0 and san_pham_id = ?', [$request->id]);
         if(!empty($select))
         {
             foreach($select as $i)

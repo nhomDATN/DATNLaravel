@@ -50,18 +50,18 @@ Route::get('/search',[SanPhamController::class,'search'])->name('productSearch')
 //     return view('login');
 // })->name('loginuser');
 
-Route::get('/register', function () {
+Route::get('/dangky', function () {
     return view('register');
 })->name('register');
 
 
-Route::get('/product/{key}/{page}',[SanPhamController::class,'index'])->name('productpage');
+Route::get('/thucpham/{key}/{page}',[SanPhamController::class,'index'])->name('productpage');
 
 Route::get('/like/{id}',[DanhGiaController::class,'like'])->name('like')->middleware('CheckLogin');
 
 Route::get('notLike/{id}',[DanhGiaController::class,'notLike'])->name('notLike');
 
-Route::get('/productdetail/{id}',[SanPhamController::class,'show'])->name('productdetail');
+Route::get('/chitietsanpham/{id}',[SanPhamController::class,'show'])->name('productdetail');
 
 Route::get('/wishlist', [DanhGiaController::class,'liked'])->name('wishlist')->middleware('CheckLogin');
 
