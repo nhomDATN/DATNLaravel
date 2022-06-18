@@ -166,6 +166,7 @@
         $('.modal-assess').css('display', 'flex');
         var modal = ` <div class="form">
         <div class="modal-header">
+            <img src="/images/kfc.jpg" width="30px" alt="logo">
             <div class="modal-exit">X</div>
         </div>
        <div class="star">`;

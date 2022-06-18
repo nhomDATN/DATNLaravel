@@ -27,13 +27,14 @@ class SanPhamController extends Controller
     {
         Session::put('productType',['Tất cả','Gà Rán','Khoai Tây Chiên','Bánh Mì','Hamburger','Trà Sữa']);
         $active= $request->key;
-        $offset = (($request->page - 1) * 8);
+        $limit = 16;
+        $offset = (($request->page - 1) * $limit);
         $select = '';
         $page = $request->page;
         if($active != "Tất cả")
             $select = $request->key;
         $allProduct = DB::select('select mo_ta from san_phams where mo_ta like "%'.$select.'%" ');
-        $product =  DB::select('select mo_ta,san_phams.id,ten_san_pham,gia,gia_tri,khuyen_mai_id,hinh from san_phams,khuyen_mais where khuyen_mai_id = khuyen_mais.id and mo_ta like "%'.$select.'%" limit 8 offset '.$offset.'');
+        $product =  DB::select('select mo_ta,san_phams.id,ten_san_pham,gia,gia_tri,khuyen_mai_id,hinh from san_phams,khuyen_mais where khuyen_mai_id = khuyen_mais.id and mo_ta like "%'.$select.'%" limit '.$limit.' offset '.$offset.'');
         $maxpage = ceil(count($allProduct)/8);
         //dd($allProduct);
       return view('product',['key' => $active , 'product' =>$product,'page' => $page,'maxpage' => $maxpage]);
@@ -45,6 +46,7 @@ class SanPhamController extends Controller
         $lstsp = SanPham::join('khuyen_mais', 'khuyen_mais.id', '=', 'san_phams.khuyen_mai_id')
         ->select('san_phams.id', 'hinh', 'ten_san_pham', 'gia','gia_tri','khuyen_mai_id')
         ->where('san_phams.khuyen_mai_id','!=',3)
+        ->limit(16)
         ->get();
         return view('sale', ['lstsp'=>$lstsp]);
     }
@@ -53,6 +55,7 @@ class SanPhamController extends Controller
         $lstsp = SanPham::select('san_phams.id', 'hinh', 'ten_san_pham', 'gia','gia_tri','khuyen_mai_id')
         ->join('khuyen_mais','khuyen_mais.id','=','khuyen_mai_id')
         ->where('loai_san_pham_id','=',1)
+        ->limit(16)
         ->get();
         return view('food', ['lstsp'=>$lstsp]);
     }
@@ -61,13 +64,18 @@ class SanPhamController extends Controller
         $lstsp = SanPham::select('san_phams.id', 'hinh', 'ten_san_pham', 'gia','gia_tri','khuyen_mai_id')
         ->join('khuyen_mais','khuyen_mais.id','=','khuyen_mai_id')
         ->where('loai_san_pham_id','=',2)
+        ->limit(16)
         ->get();
+        
         return view('drink', ['lstsp'=>$lstsp]);
     }
     
     public function home(Request $request)
     {
-        $lstsp = SanPham::Paginate(4);
+        $lstsp = SanPham::join('khuyen_mais', 'khuyen_mais.id', '=', 'san_phams.khuyen_mai_id')
+        ->select('san_phams.id', 'hinh', 'ten_san_pham', 'gia','gia_tri','khuyen_mai_id')
+        ->limit(16)
+        ->get();
         return view('index', ['lstsp'=>$lstsp]);
     }
     

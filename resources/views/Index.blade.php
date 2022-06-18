@@ -134,6 +134,14 @@
                 <span class="subheading">THỰC PHẨM CHẤT LƯỢNG</span>
                 <h2 class="mb-4">Thực Phẩm Của Chúng Tôi</h2>
                 <p style="color: black">Chế biến ngay bán ngay, không để qua ngày</p>
+                <div class="tab">
+                    <div style="border-radius: 0 24px 0 0; background-color: rgba(255, 255, 250);box-shadow: 3px 1px rgba(0, 0, 0, 0.5); width: 150px; height: 60px">
+                        <img src="images/hot.png" alt="hot" width="50px" style="float: left; background: transparent;">
+                        <p style="color: red;float: left;font-size: 25px; padding-left: 10px; margin-top:15px">Hot</p>
+                    </div>
+                    <a href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" style="color:rgb(74, 74, 250); text-decoration: underline;">Mua thêm</a>
+                </div>
+               
             </div>
         </div>
     </div>
@@ -173,6 +181,10 @@
                                                 <span><i class="ion-ios-heart"></i></span>
                                             </a>
                                             @endif
+                                            @else
+                                            <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart">
+                                                <span><i class="ion-ios-heart"></i></span>
+                                            </a>
                                         @endif
                                     </div>
                                 </div>
@@ -186,9 +198,7 @@
                 <div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27">
-                            <ul>
-                                {{ $lstsp->links('pagination.my-pagination'); }}
-                            </ul>
+                                <a href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" style="padding: 12px 24px;color:rgb(74, 74, 250); text-decoration: underline">Mua thêm</a> 
                         </div>
                     </div>
                 </div>
@@ -197,7 +207,7 @@
             <div class="container">
                 </br>
                 </br>
-                <section class="ftco-section img font-weight-bold" style="background-image: url(images/1.jpg);">
+                <section class="ftco-section img font-weight-bold" style="background-image: url(images/1.jpg);"  id="sales">
                     <div class="row justify-content-end" style="margin: inherit;">
                         <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate" style="background: rgba(141, 243, 148, 0.4)">
                             <span class="subheading">Giá Tốt Cho Bạn</span>
@@ -279,6 +289,33 @@
         </div>
     </div>
 </section>
+@if(isset($_GET['success']))
 
+<div class="modal-assess" id="modal">
+    <div class="form">
+        <div class="modal-header">
+            <img src="/images/kfc.jpg" width="30px" alt="logo">
+            <div class="modal-exit">X</div>
+        </div>
+        <div class="star">
+        <p>Cảm ơn quý khách đã ủng hộ!</p>
+    </div>
+    <div class="star">
+        <p>Tổng số tiền của hóa đơn:</p>
+    </div>
+    <div class="star">
+        <p style="font-weight: bold">{{ number_format($_GET['amount'],0,',','.') }} VNĐ</p>
+    </div>
+</div>
+</div>
+<script>
+    $('.modal-assess').css('display', 'flex');
+</script>
+<script>
+        $('.modal-exit').on('click',function(){
+            $('.modal-assess').css('display', 'none')
+        });
+</script>
+@endif
 <hr>
 @endsection

@@ -88,7 +88,10 @@ Route::post('/capNhatSoLuong', [HoaDonController::class, 'capNhatSoLuong'])->nam
 Route::get('/about', function () {
     return view('about');
 });
+Route::post('/checkout', [HoaDonController::class, 'thanhtoan'])->name('thanhtoan')->middleware('CheckLogin');
 
+Route::get('/vnpay_payment', [HoaDonController::class, 'vnpay_payment'])->middleware('CheckLogin')->name('vnpayment');
+Route::get('/checkout/vnpay_payment', [HoaDonController::class, 'vnpay_payment_updateDB'])->middleware('CheckLogin');
 // Route::get('/blog', function () {
 //     return view('blog');
 // });

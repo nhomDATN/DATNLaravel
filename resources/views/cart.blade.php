@@ -22,7 +22,7 @@
 
 <section class="ftco-section ftco-cart">
     <div class="container">
-        @if (empty($lstgiohang))
+        @if (count($lstgiohang) == 0)
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-8 ftco-animate text-center">
@@ -79,7 +79,7 @@
                                 <td class="total" id="total @php echo $gh->id @endphp" >@php echo number_format(($gh->so_luong * $gia_tam),0,',','.') @endphp VNĐ</td>
                             </tr>
                             @endforeach
-                            @endif
+                            
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -96,6 +96,7 @@
         </br>
         <p style="text-align: center"><a href="{{ route('checkout') }}" class="btn btn-primary py-3 px-4">Thanh Toán Ngay</a></p>
     </div>
+    @endif
 </section>
 <script type="text/javascript">
     let total, checkout;
