@@ -1,5 +1,14 @@
 ﻿@extends('layouts.layout')
 @section('content')
+@php
+      function hasLike($userId = 0, $id = 0)
+    {
+        $liked = DB::table('danh_gias')->where('yeu_thich',1)->where('tai_khoan_id', $userId)->where('san_pham_id', $id)->get();
+        if(count($liked) > 0)
+            return true;
+        return false;
+    }
+@endphp
 {{-- _MultiBanner --}}
 <div class="container">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -90,8 +99,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/hamburger.jpg);height: 300px;" id="category">
-                <div class="text px-3 py-1 bg-danger " id="category">
+            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/hamburger.jpg);height: 300px;">
+                <div class="text px-3 py-1 bg-danger" id="category">
                     <h2 class="mb-0 "><a href="{{ route('food') }}" class="text-white">Thức ăn</a></h2>
                 </div>
             </div>
@@ -99,7 +108,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/trasua.jpg);height: 300px;" id="category">
+            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/trasua.jpg);height: 300px;" >
                 <div class="text px-3 py-1 bg-danger " id="category">
                     <h2 class="mb-0 "><a href="{{ route('drink') }}" class="text-white">Thức uống</a></h2>
                 </div>
@@ -107,7 +116,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/sale.jpg);height: 300px;" id="category">
+            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/sale.jpg);height: 300px;">
                 <div class="text px-3 py-1 bg-danger" id="category">
                     <h2 class="mb-0 "><a href="{{ route('sale') }}" class="text-white">Giảm giá</a></h2>
                 </div>
@@ -129,7 +138,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row" id="listSP">
             @foreach ($lstsp as $sp)
                 <div id="idsp" class="carousel-item active" style="margin-right: 0; width: 25%;">
                     
@@ -151,12 +160,20 @@
                                 </div>
                                 <div class="bottom-area d-flex px-3">
                                     <div class="m-auto d-flex">
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                        <a href="{{ route('cart.addFast',['productId' => $sp->id,'quantity' => 1,'price' => $sp->gia,'sales' => $sp->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
                                             <span><i class="ion-ios-cart"></i></span>
                                         </a>
-                                        <a href="{{ route('like',['id' => $sp->id]) }}" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
-                                        </a>
+                                        @if(!empty(Session::get('UserId')))
+                                            @if (hasLike(Session::get('UserId'),$sp->id))
+                                                <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center bg-danger" id="heart">
+                                                    <span><i class="ion-ios-heart"></i></span>
+                                                </a>
+                                            @else
+                                            <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart">
+                                                <span><i class="ion-ios-heart"></i></span>
+                                            </a>
+                                            @endif
+                                        @endif
                                     </div>
                                 </div>
                             </div>

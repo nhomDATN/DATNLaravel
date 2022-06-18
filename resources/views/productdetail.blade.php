@@ -21,9 +21,9 @@
                 <h3>{{ $product[0]->ten_san_pham }}</h3>
                 <div class="rating d-flex">
                     <p class="text-left mr-4">
-                        <a href="#" class="mr-2">{{ $so_sao }}</a>
+                        <a class="mr-2" id="countStar">{{ $so_sao }}</a>
                         @for ($i = 0; $i<5;$i++)
-                        <a href="#"><span class="@if ($i < $so_sao)
+                        <a href="#countStar" onclick="(assess({{ $i + 1 }}))"><span class="@if ($i < $so_sao)
                             ion-ios-star
                             @elseif ($i < $so_sao && $i + 1 > $so_sao)
                             ion-ios-star-half
@@ -41,8 +41,12 @@
                         <a href="#" class="mr-2" style="color: #000;">{{ $daban }} <span style="color: #bbb;">Đã Bán</span></a>
                     </p>
                 </div>
+                @if($product[0]->gia_tri > 0)
+                <p class="priceOld"><span>{{ number_format($product[0]->gia, 0, ",", ".") }} VNĐ</span></p>
+                <p class="priceSales"><span>{{ number_format(($product[0]->gia - ($product[0]->gia * $product[0]->gia_tri)/100), 0, ",", ".") }} VNĐ</span></p>
+                @else
                 <p class="price"><span>{{ number_format($product[0]->gia, 0, ",", ".") }} VNĐ</span></p>
-                
+                @endif
                 <p>{{ $product[0]->mo_ta }}</p>
                 <div class="row mt-4">
                     <div class="col-md-6">
@@ -65,23 +69,19 @@
                    <form action="{{ route('cart.add') }}" method="get" > 
                        <input type="hidden" value="{{ $product[0]->id }}" name = "productId">
                        <input type="hidden" value="
-                            @if ($product[0]->khuyen_mai_id == 3)
+                            @if ($product[0]->gia_tri == 0)
                                 0
                             @else
                                 {{ $product[0]->gia_tri }}
                             @endif
                                 " name = "sales">
                        <input type="hidden" value="{{ $product[0]->gia }}" name = "price">
-                       @if (!empty(Session::get('accountId')))
-                       <input type="hidden" value="{{ Session::get('accountId')}}" name = "accountId">
-                       @endif
-                      
                             <span class="input-group-btn mr-2">
                                 <button style="z-index: 2000;" type="button" class="quantity-left-minus btn" data-type="minus"  data-field=""onclick="minus()">
                                     <i class="ion-ios-remove" ></i>
                                 </button>
                             </span>
-                        <input  type="text" id="quantity" name="quantity" class="form-control input-number" onchange="quantity()" value="1" min="1" max="100">
+                        <input  type="number" id="quantity" name="quantity" class="form-control input-number" onchange="quantity()" value="1" min="1" max="100">
                         <span class="input-group-btn ml-2">
                             <button  type="button" class="quantity-right-plus btn" data-type="plus"  data-field="" onclick="plus()" style="margin-left: 202px;">
                                 <i class="ion-ios-add"></i>
@@ -161,5 +161,39 @@
             @endforeach
         </div>
     </div>
+    <script>
+       function assess(star){
+        $('.modal-assess').css('display', 'flex');
+        var modal = ` <div class="form">
+        <div class="modal-header">
+            <div class="modal-exit">X</div>
+        </div>
+       <div class="star">`;
+        for (var i = 0; i < 5 ;i++)
+        {
+            if(i < star)
+            {
+                modal +=`<a><span class="ion-ios-star"></span></a>`;
+            }
+        else
+        {
+            modal +=`<a><span class="ion-ios-star-outline"></span></a>`;
+        } 
+        }
+        modal +=`  </div>
+        <form action="">
+                <input type="text" placeholder="Đánh giá sản phẩm">
+                <button type="submit">Đánh giá</button>
+            </form>
+            </div>
+        </div>`; 
+    document.getElementById("modal").innerHTML = modal;
+    $('.modal-exit').click(function(){
+            $('.modal-assess').css('display', 'none')
+        });
+       }
+    </script>
 </section>
 @endsection
+<div class="modal-assess" id="modal">
+</div>

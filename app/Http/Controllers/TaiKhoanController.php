@@ -11,6 +11,7 @@ use App\Models\ChiTietHoaDon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 
 class TaiKhoanController extends Controller
@@ -31,39 +32,47 @@ class TaiKhoanController extends Controller
         }
         return view('admin/pages.account', ['lsttk' => $lsttk]); 
     }
-
+    public function login(Request $request){
+        $account = TaiKhoan::where('email', $request->Email)->where('mat_khau', $request->Password)->get();
+        if(count($account) > 0){
+            Session::put('UserId', $account[0]->id);
+            Session::put('UserPicture', $account[0]->hinh_anh);
+            Session::put('UserName', $account[0]->ho_ten);
+            return redirect()->route('homeuser',['welcome' => Session::get('UserName')]);
+        }
+        else {
+            return redirect()->back()->with('message', 'Sai tài khoản hoặc mật khẩu!');
+        }
+    }
+    public function logout()
+    {
+        Session::forget('UserId');
+        Session::forget('UserPicture');
+        Session::forget('UserName');
+        Session::forget('cartId');
+        //Session::forget('dem');
+        return redirect()->route('homeuser');
+    }
     public function checkout(Request $request)
     {
         $maxid = ChiTietHoaDon::max('hoa_don_id');
 
-        $tttk = TaiKhoan::join('hoa_dons', 'hoa_dons.tai_khoan_id', '=', 'tai_khoans.id')
-        // ->join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
-        // ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
-        ->select('tai_khoans.ho_ten', 'tai_khoans.dia_chi', 'tai_khoans.sdt', 'tai_khoans.email')
-        ->where('tai_khoans.id', 1)
-        ->where('hoa_dons.id', 1)
+        $tttk = TaiKhoan::where('tai_khoans.id', Session::get('UserId'))
         ->get();
 
-        $giohang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
-        ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
+        $lstgiohang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id','=', 'hoa_dons.id')
+        ->join('san_phams','san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
         ->join('tai_khoans', 'tai_khoans.id', '=', 'hoa_dons.tai_khoan_id')
-        ->where('tai_khoans.id', 1)
-        ->where('hoa_dons.id', $maxid)
-        ->select('san_phams.ten_san_pham', 'chi_tiet_hoa_dons.so_luong', 'san_phams.gia')
-        ->get();
-
-        $lstctdh = TaiKhoan::join('hoa_dons', 'hoa_dons.tai_khoan_id', '=', 'tai_khoans.id')
-        ->join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
-        ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
-        ->select('san_phams.gia', 'chi_tiet_hoa_dons.so_luong')
-        ->where('tai_khoans.id', 1)
+        ->join('khuyen_mais','khuyen_mais.id', '=', 'san_phams.khuyen_mai_id')
+        ->select('chi_tiet_hoa_dons.id','san_phams.ten_san_pham', 'san_phams.gia', 'san_phams.mo_ta', 'san_phams.hinh','chi_tiet_hoa_dons.so_luong','chi_tiet_hoa_dons.chiet_khau')
+        ->where('hoa_dons.trang_thai', -1)
+        ->where('tai_khoans.id', Session::get('UserId'))
         ->get();
         $tongtien = 0;
-        foreach($lstctdh as $ctdh)
+        foreach ($lstgiohang as $i)
         {
-            $tongtien += $ctdh->so_luong * $ctdh->gia;
+            $tongtien += ($i->gia - ($i->gia * $i->chiet_khau) / 100);
         }
-
         $khuyenmai = KhuyenMai::join('san_phams', 'san_phams.khuyen_mai_id', '=', 'khuyen_mais.id')
         ->join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.san_pham_id', '=', 'san_phams.id')
         ->join('hoa_dons','hoa_dons.id', '=', 'chi_tiet_hoa_dons.hoa_don_id')
@@ -76,7 +85,7 @@ class TaiKhoanController extends Controller
             $giamgia += $km->gia * $km->gia_tri / 100;
         }
 
-        return view('checkout', ['tttk'=>$tttk, 'giohang'=>$giohang, 'tongtien'=>$tongtien, 'giamgia'=>$giamgia]);
+        return view('checkout', ['tttk'=>$tttk, 'giohang'=>$lstgiohang, 'tongtien'=>$tongtien, 'giamgia'=>$giamgia]);
     }
     
 

@@ -7,7 +7,6 @@
         header("Refresh:0; url=cart");
         Session::put('dem', 1);
     }
-        
 @endphp
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-1.jpg');">
     <div class="container">
@@ -23,11 +22,21 @@
 
 <section class="ftco-section ftco-cart">
     <div class="container">
-        <form action="/checkout" method="get">
+        @if (empty($lstgiohang))
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-8 ftco-animate text-center">
+                    <div style="background-color: rgba(243, 219, 212, 0.5);">
+                        <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(247, 116, 87)">Không Có Sản Phẩm Nào Trong Giỏ Hàng</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @else
         <div class="row">
             <div class="col-md-12 ftco-animate">
-                <p>Không có sản phẩm nào trong giỏ hàng</p>
-                {{-- <div class="cart-list">
+                <p></p>
+                <div class="cart-list">
                     <table class="table">
                         <thead class="thead-primary bg-danger">
                             <tr class="text-center">
@@ -40,10 +49,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (!empty($lstgiohang))
+                           
                             @foreach($lstgiohang as $gh)
                             <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                                <td class="product-remove"><a href="{{ route('deleteProductInCart',['id' => $gh->id]) }}"><span class="ion-ios-close"></span></a></td>
 
                                 <td class="image-prod"><div class="img" style="background-image:url('{{ asset("/images/$gh->hinh") }}');"></div></td>
 
@@ -53,44 +62,45 @@
                                         $mo_ta = explode('.',$gh->mo_ta);
                                         echo $mo_ta[0] . '.';
                                     @endphp</p>
-                                    {{-- <p>Hamburger là một loại thức ăn bao gồm bánh mì kẹp thịt xay (thường là thịt bò) ở giữa.</p> --}}
-                                {{-- </td>
+                                 </td>
 
                                 @php
-                                    $gia_tam = $gh->gia
+                                    $gia_tam =($gh->gia - (($gh->gia * $gh->chiet_khau) / 100));
                                 @endphp
-                                <td class="price" name="price" id="price @php echo $gh->id @endphp">@php echo $gh->gia @endphp</td>
+                                <td class="price" name="price" id="price @php echo $gh->id @endphp">{{  number_format(($gh->gia - (($gh->gia * $gh->chiet_khau) / 100)),0,',','.') }} VNĐ</td>
                                 
                                 <td class="quantity">
                                     <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity" value="@php echo $gh->so_luong @endphp" min="1" max="100" id="@php echo $gh->id @endphp" onclick="sum(@php echo $gh->id @endphp)">
+                                        <input type="number" name="quantity" class="quantity" value="@php echo $gh->so_luong @endphp" min="1" max="100" id="@php echo $gh->id @endphp" onchange="sum({{ $gh->id}})">
                                     </div>
                                 </td>
                                 
-                                <input type="hidden" value="1" name="taikhoanid">
-                                <td class="total" id="total @php echo $gh->id @endphp" onclick="checkout(@php echo $gh->id @endphp)">@php echo $gh->gia @endphp</td>
+                                <input type="hidden" value="{{ Session::get('UserId') }}" name="taikhoanid">
+                                <td class="total" id="total @php echo $gh->id @endphp" >@php echo number_format(($gh->so_luong * $gia_tam),0,',','.') @endphp VNĐ</td>
                             </tr>
                             @endforeach
                             @endif
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td> <p style="text-align: center"><a href="{{ route('cart') }}" class="btn btn-primary py-3 px-4 text text-white">Cập Nhật Số Lượng</a></p></td>
+                            </tr>
                         </tbody>
                     </table>
-                </div> --}}
+                </div>
             </div>
         </div>
         </br>
-        {{-- <p style="text-align: center"><button type="submit" class="btn btn-primary py-3 px-4">Thanh Toán Ngay</button></p> --}}
-        {{-- </form> --}}
+        <p style="text-align: center"><a href="{{ route('checkout') }}" class="btn btn-primary py-3 px-4">Thanh Toán Ngay</a></p>
     </div>
 </section>
 <script type="text/javascript">
     let total, checkout;
         function sum(id){
-            var quantity = document.getElementById(id);
-            $(quantity).on('keyup',function(){
                 var quantity = document.getElementById(id).value;
-                var price = document.getElementById('price '+id).innerHTML;
-                total = document.getElementById('total '+ id);
-                total.innerHTML = quantity * price;
                 $.ajaxSetup({
                 headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -105,30 +115,8 @@
                     },
         
                 });
-                
-            });
         }   
 
 </script>
 
-{{-- <script>
-    $('input.input-qty').each(function() {
-      var $this = $(this),
-        qty = $this.parent().find('.is-form'),
-        min = Number($this.attr('min')),
-        max = Number($this.attr('max'))
-      if (min == 0) {
-        var d = 0
-      } else d = min
-      $(qty).on('click', function() {
-        if ($(this).hasClass('minus')) {
-          if (d > min) d += -1
-        } else if ($(this).hasClass('plus')) {
-          var x = Number($this.val()) + 1
-          if (x <= max) d += 1
-        }
-        $this.attr('value', d).val(d)
-      })
-    })
- </script> --}}
 @endsection

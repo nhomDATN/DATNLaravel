@@ -4,15 +4,115 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ .priceOld{
+  text-decoration: line-through;
+ }
+ .priceSales{
+  color: red;
+  font-size: 25px;
+ }
+ .cookie-logout{
+  text-decoration: underline;
+  font-size: 12px;
+ }
  #category{
    border-top-right-radius: 15px;
-   box-shadow: 3px 4px rgba(0, 0, 0, 0.3);
+   box-shadow: 3px 4px rgba(0, 0, 0, 0.2);
+   cursor: pointer;
+ }
+ #category:hover{
+  border: solid 2px red;
+  box-shadow: none;
  }
  hr
  {
    box-shadow: 2px 3px rgba(0, 0, 0, 0.05);
  }
+.modal-assess
+{
+  position: fixed;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  z-index: 10000000000;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.modal-assess .form{
+  border-radius: 12px;
+  position: fixed;
+  background: white;
+  z-index: 10000000001;
+  width: 350px;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  animation: modalShow 0.2s linear;
+  overflow: hidden;
+}
+.imgUser{
+  height: 25px;
+  padding: 0 12px;
+  border-radius: 50%;
+}
+@keyframes modalShow{
+  from{
+    top: -300px;
+  }
+  to {
+    top: 0;
+  }
+}
+.modal-assess .form .star{
+  display: flex;
+  justify-content: space-around;
+
+}
+.modal-assess .modal-header{
+  display: flex;
+  justify-content:end;
+  width: 100%;
+  background-color: red;
+}
+.modal-assess .modal-exit{
+  position: relative;
+  cursor: pointer;
+  font-weight: bold;
+}
+.modal-assess .modal-exit:hover{
+  color: white;
+}
+.modal-assess .form .star a{
+  padding: 0 12px;
+  font-size: 38px;
+  color:red;
+}
+.modal-assess .form form input{
+  margin:10px;
+  width: 340px;
+  border-top: none;
+  border-right: none;
+  outline: none;
+}
+.modal-assess .form form button{
+  position: relative;
+  right: -250px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+}
+.modal-assess .form form button:hover{
+
+  border: solid 1px black;
+}
  .addCart{
+   margin-top: 15px;
+   margin-left: 10px;
    background-color: black;
    color: white;
    border-radius: 20px;
@@ -21,7 +121,10 @@
    padding-top: 10px;
    padding-bottom: 10px;
    height: 20px;
-   width: 200px;
+  
+ }
+ #countStar{
+   cursor: default;
  }
  .addCart:hover{
    background-color: red;
@@ -101,6 +204,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
 body {
+
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
@@ -8872,14 +8976,13 @@ h1, h2, h3, h4, h5,
   color: #000000; }
 
 .product-details .quantity-left-minus {
-  background: transparent;
   position: relative;
   float: left;
   padding: 0 15px; }
 
 .product-details .quantity-right-plus {
-  background: transparent;
-  padding: 0 15px; }
+  padding: 0 15px; 
+}
 
 .product-details button[type="button"], .product-details .form-control {
   position: absolute;
