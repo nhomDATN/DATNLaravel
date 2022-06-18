@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\BinhLuan;
 use Illuminate\Database\Seeder;
 
 class BinhLuanSeeder extends Seeder
@@ -13,6 +14,6 @@ class BinhLuanSeeder extends Seeder
      */
     public function run()
     {
-        //
+       
     }
 }

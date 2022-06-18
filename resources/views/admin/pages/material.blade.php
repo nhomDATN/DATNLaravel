@@ -48,7 +48,7 @@
                                 <table class="table table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>STT</th>
                                             <th>Tên Nguyên Liệu</th>
                                             <th>Đơn Giá</th>
                                             <th>Số Lượng</th>
@@ -62,10 +62,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $stt = 0;
+                                        @endphp
                                         @if (count($lstnguyenlieu) > 0)
                                             @foreach ($lstnguyenlieu as $nguyenlieu)
                                                 <tr>
-                                                    <td>{{ $nguyenlieu->id }}</td>
+                                                    <td>{{ ++$stt }}</td>
                                                     <td>{{ $nguyenlieu->ten_nguyen_lieu }}</td>
                                                     <td>{{ $nguyenlieu->don_gia }}</td>
                                                     <td>{{ $nguyenlieu->so_luong }}</td>

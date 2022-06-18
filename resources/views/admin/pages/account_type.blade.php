@@ -59,10 +59,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $stt = 0;
+                                        @endphp
                                         @if(count($lstltk) > 0)
                                             @foreach ($lstltk as $ltk)
                                                 <tr>
-                                                    <td>{{ $ltk->id }}</td>
+                                                    <td>{{ ++$stt }}</td>
                                                     <td>{{ $ltk->ten_loai_tai_khoan }}</td>
                                                     @if ($ltk->trang_thai  == 1)
                                                         <td>Hoạt Động</td>

@@ -101,10 +101,14 @@ class NguyenLieuController extends Controller
     public function update(Request $request, NguyenLieu $nguyenLieu)
     {
         $nguyenlieuformat = trim( $request->input('tennguyenlieu')); 
-        $tontai = NguyenLieu::where('ten_nguyen_lieu','like', $nguyenlieuformat)->first();
+        $tontai = NguyenLieu::where('ten_nguyen_lieu','like', $nguyenlieuformat)
+        ->where('id', '!=', $nguyenLieu->id)
+        ->first();
         if(empty($tontai)){
             $kt_nguyenlieu = str_replace(' ', '', $nguyenlieuformat);
-            $tontai = NguyenLieu::where('ten_nguyen_lieu','like',$kt_nguyenlieu)->first();
+            $tontai = NguyenLieu::where('ten_nguyen_lieu','like', $kt_nguyenlieu)
+            ->where('id', '!=', $nguyenLieu->id)
+            ->first();
             if(empty($tontai)){
                 $nguyenLieu->fill([
                     'ten_nguyen_lieu' => $nguyenlieuformat,
@@ -149,16 +153,25 @@ class NguyenLieuController extends Controller
             ->where('ten_nguyen_lieu', 'LIKE', '%' . $request->search . '%')
             ->get();
             
+            $stt = 0;
+
             if ($materials) {
                 foreach ($materials as $key => $nl) {
                     $output .= '<tr>
-                        <td>' . $nl->id . '</td>
+                        <td>' . ++$stt . '</td>
                         <td>' . $nl->ten_nguyen_lieu . '</td>
                         <td>' . $nl->don_gia . '</td>
                         <td>' . $nl->so_luong . '</td>
                         <td>' . $nl->ten_don_vi_tinh . '</td>
-                        <td>' . $nl->ma_noi_lam_viec . '</td>
-                        <td>' . $nl->trang_thai . '</td>
+                        <td>' . $nl->ma_noi_lam_viec . '</td>';
+                        if($nl->trang_thai == 1) {
+                            $output .= '<td>Hoạt Động</td>';
+                        }
+                        else {
+                            $output .= '<td>Ngưng Hoạt Động</td>';
+                        } 
+                        
+                        $output .= '
                         <td>' . $nl->created_at . '</td>
                         <td>' . $nl->updated_at . '</td>
                         <td style=";width: 20px;">

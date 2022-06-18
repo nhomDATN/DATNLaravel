@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BinhLuanController;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\MauController;
 use App\Http\Controllers\ThuongHieuController;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HoaDonController;
 use App\Http\Controllers\LoaiKhuyenMaiController;
 use App\Http\Controllers\KhuyenMaiController;
-
+use App\Http\Controllers\NhanVienController;
 
 /*
 |--------------------------------------------------------------------------
@@ -187,3 +188,11 @@ Route::get('/searchLoaiKhuyenMai', [LoaiKhuyenMaiController::class, 'search'])->
 Route::resource('admin/khuyenMai', KhuyenMaiController::class);
 
 Route::get('/searchKhuyenMai', [KhuyenMaiController::class, 'search'])->name('khuyenMai.search');
+
+Route::resource('admin/binhLuan', BinhLuanController::class);
+
+Route::get('/searchBinhLuan', [BinhLuanController::class, 'search'])->name('binhLuan.search');
+
+Route::resource('admin/nhanVien', NhanVienController::class);
+
+Route::get('/searchNhanVien', [NhanVienController::class, 'search'])->name('nhanVien.search');

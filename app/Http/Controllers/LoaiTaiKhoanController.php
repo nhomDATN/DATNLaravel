@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LoaiTaiKhoan;
+use App\Models\TaiKhoan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -15,7 +16,7 @@ class LoaiTaiKhoanController extends Controller
      */
     public function index()
     {
-        $lstltk = LoaiTaiKhoan::all();
+        $lstltk = LoaiTaiKhoan::where('id', '!=', 1)->get();
         return view('admin/pages.account_type', ['lstltk' => $lstltk]);
     }
 
@@ -42,7 +43,7 @@ class LoaiTaiKhoanController extends Controller
             return redirect()->back()->with('alert', $alert);
         }
 
-        $loaitaikhoanformat=trim( $request->input('tenloaitaikhoan')); 
+        $loaitaikhoanformat=trim($request->input('tenloaitaikhoan')); 
         $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $loaitaikhoanformat)->first(); 
         if(empty($tontai)){
             $kt_loaitaikhoan=str_replace(' ', '', $loaitaikhoanformat);
@@ -93,20 +94,25 @@ class LoaiTaiKhoanController extends Controller
     public function update(Request $request, LoaiTaiKhoan $loaiTaiKhoan)
     {
         $loaitaikhoanformat = trim( $request->input('tenloaitaikhoan')); 
-        $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $loaitaikhoanformat)->first();
+        $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $loaitaikhoanformat)
+        ->where('loai_tai_khoans.ten_loai_tai_khoan', '!=', $request->input('tenloaitaikhoan'))
+        ->first();
+    
         if(empty($tontai)){
-            $kt_loaitaikhoan = str_replace(' ', '', $loaitaikhoanformat);
-            $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like',$kt_loaitaikhoan)->first();
-            if(empty($tontai)){
+            // $kt_loaitaikhoan = str_replace(' ', '', $loaitaikhoanformat);
+            // $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $kt_loaitaikhoan)
+            // ->where('id', '!=', '$loaiTaiKhoan->id')
+            // ->first();
+            // if(empty($tontai)){
                 $loaiTaiKhoan->fill([
                     'ten_loai_tai_khoan' => $loaitaikhoanformat,
                     'trang_thai' => $request->input('trangthai'),
                 ]);
                 $loaiTaiKhoan->save();
                 return Redirect::route('loaiTaiKhoan.index');
-            }
+            // }
         }
-        $alert = 'Mã khuyến mãi đã tồn tại';
+        $alert = 'Loại Tài Khoản đã tồn tại';
         return redirect()->back()->with('alert', $alert);
     }
 
@@ -127,14 +133,24 @@ class LoaiTaiKhoanController extends Controller
     {
         if ($request->ajax()) {
             $output = '';
-            $accounttypes = LoaiTaiKhoan::where('ten_loai_tai_khoan', 'LIKE', '%' . $request->search . '%')
+            $accounttypes = LoaiTaiKhoan::where('id', '!=', 1)
+            ->where('ten_loai_tai_khoan', 'LIKE', '%' . $request->search . '%')
             ->get();
+            $stt = 0;
             if ($accounttypes) {
                 foreach ($accounttypes as $key => $ltk) {
                     $output .= '<tr>
-                        <td>' . $ltk->id . '</td>
-                        <td>' . $ltk->ten_loai_tai_khoan . '</td>
-                        <td>' . $ltk->trang_thai . '</td>
+                        <td>' . ++$stt . '</td>
+                        <td>' . $ltk->ten_loai_tai_khoan . '</td>';
+                        if($ltk->trang_thai == 1) {
+                            $output .= '<td>Hoạt Động</td>';
+                        }
+                        else {
+                            $output .= '<td>Ngưng Hoạt Động</td>';
+                        } 
+                        
+                        $output .= '
+
                         <td>' . $ltk->created_at . '</td>
                         <td>' . $ltk->updated_at . '</td>
                         <td style=";width: 20px;">
