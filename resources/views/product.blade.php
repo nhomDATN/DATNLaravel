@@ -49,7 +49,7 @@
                         <h3><a href="{{ route('productdetail',['id'=>$items->id])}}">{{ $items->ten_san_pham }}</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span>{{ number_format($items->gia, 0, ",", ".") }} đ</span></p>
+                                <p class="price"><span>{{ number_format($items->gia, 0, ",", ".") }} VNĐ</span></p>
                             </div>
                         </div>
                         <div class="bottom-area d-flex px-3">
@@ -67,6 +67,10 @@
                                         <span><i class="ion-ios-heart"></i></span>
                                     </a>
                                     @endif
+                                    @else
+                                    <a href="{{ route('like',['id' => $items->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
                                 @endif
                             </div>
                         </div>

@@ -92,7 +92,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             <a class="dropdown-item" href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" >Mua Thực Phẩm</a>
                             <a class="dropdown-item" href="/wishlist" >Danh Sách Yêu Thích</a>
-                            <a class="dropdown-item" href="{{ route('sale') }}" >Ưu Đãi</a>
+                            <a class="dropdown-item" href="#sales" >Ưu Đãi</a>
                             <a class="dropdown-item" href="{{ route('cart') }}" >Giỏ Hàng</a>
                             <a class="dropdown-item" href="{{ route('checkout') }}" >Thanh Toán</a>
                         </div>

@@ -22,7 +22,8 @@ class CreateHoaDonsTable extends Migration
             $table->float('tong_tien');
             $table->unsignedBigInteger('tai_khoan_id');
             $table->unsignedBigInteger('nhan_vien_id');
-            $table->string('trang_thai');
+            $table->integer('trang_thai');
+            $table->string('phuong_thuc_thanh_toan');
             $table->timestamps();
         });
     }

@@ -55,6 +55,10 @@
                                         <span><i class="ion-ios-heart"></i></span>
                                     </a>
                                     @endif
+                                    @else
+                                    <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
                                 @endif
                             </div>
                         </div>

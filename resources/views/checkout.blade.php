@@ -27,7 +27,7 @@
             </div>
         </div>
         </br>
-        <form action="{{ url('vnpay_payment') }}" method="POST">
+        <form action="{{ route('thanhtoan') }}" method="POST">
             @csrf
             <h3 class="mb-4 billing-heading" style="color: red;">CHI TIẾT HÓA ĐƠN</h3>
              <div class="col-xl-20">
@@ -60,21 +60,21 @@
                             </p>
                             <p class="d-flex">
                                 <span>Vận chuyển</span>
-                                <span>15.000 VNĐ</span>
+                                <span>{{ number_format($feeShipping,0,',','.') }} VNĐ</span>
                             </p>
                             <p class="d-flex">
                                 <span style="color: green; font-size: 18px">Hạ giá</span>
-                                <span style="color: black; font-size: 18px">0</span>
+                                <span style="color: black; font-size: 18px">0 VNĐ</span>
                             </p>
                             <hr>
                             <p class="d-flex total-price">
                                 <span style="color: green; font-size: 18px">Tổng tiền cần thanh toán</span>
-                                <span style="color: black; font-size: 18px">{{ number_format($tongtien,0,',','.') }} VNĐ</span>
+                                <span style="color: black; font-size: 18px">{{ number_format($tongtien + $feeShipping,0,',','.') }} VNĐ</span>
                             </p>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="postcodezip" style="color: green; font-size: 18px">Mã giảm giá / ZIP *</label>
-                                    <input type="text" class="form-control" placeholder="Nhập mã giảm giá nếu có" value="" style="color: black !important; font-size: 16px">
+                                    <input type="text" name="voucher" class="form-control" placeholder="Nhập mã giảm giá nếu có" value="" style="color: black !important; font-size: 16px">
                                 </div>
                             </div>
                         </div>
@@ -84,24 +84,22 @@
                     <div class="row align-items-end">
                          <div class="col-md-6">
                             <div class="form-group">
-                                <label for="lastname">Tên Người Nhận</label>
-                                <input type="text" class="form-control" placeholder="" value="{{ $tttk[0]->ho_ten }}">
+                                <label for="people" style="color: green; font-size: 18px">Tên Người Nhận</label>
+                                <input type="text" class="form-control" placeholder="Nhập tên người nhận" name="people" value="{{ $tttk[0]->ho_ten }}">
                             </div>
                         </div>
-                      
-                        <div class="w-100"></div>
+                    
                         
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="streetaddress" style="color: green; font-size: 18px">Địa Chỉ Giao Hàng</label>
-                                <input type="text" class="form-control" placeholder="Số nhà và tên đường" value="{{ $tttk[0]->dia_chi }}" style="color: black !important; font-size: 16px">
+                                <label for="address" style="color: green; font-size: 18px">Địa Chỉ Giao Hàng</label>
+                                <input type="text" class="form-control" placeholder="Số nhà và tên đường" name="address" value="{{ $tttk[0]->dia_chi }}" style="color: black !important; font-size: 16px">
                             </div>
                         </div>
-                        <div class="w-100"></div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="phone" style="color: green; font-size: 18px">Số điện thoại liên hệ</label>
-                                <input type="text" class="form-control" placeholder="SĐT" style="color: black !important; font-size: 16px" value="{{ $tttk[0]->sdt }}">
+                                <input type="text" class="form-control" placeholder="SĐT" name="phone" style="color: black !important; font-size: 16px" value="{{ $tttk[0]->sdt }}">
                             </div>
                         </div> 
 
@@ -113,19 +111,19 @@
                      <div class="col-md-6">
                         <div class="cart-detail p-3 p-md-4">
                             <h3 class="billing-heading mb-4" style="color: red">PHƯƠNG THỨC THANH TOÁN</h3>
-                                <input type="hidden" name="total_vnpay" value="">
-                          
                             <div class="form-group">
                                 <div class="col-md-8">
                                     <div class="radio">
                                         <label><input type="radio" name="optradio" class="mr-2" value="cast" checked>  Thanh toán bằng tiền mặt </label>
-                                        <label><input type="radio" name="optradio" class="mr-2" value="momo">  Thanh toán qua ví Momo <img src="/images/momo.jpg" alt="" style="width: 30px; height: 30px"></label>
+                                        {{-- <label><input type="radio" name="optradio" class="mr-2" value="momo">  Thanh toán qua ví Momo <img src="/images/momo.jpg" alt="" style="width: 30px; height: 30px"></label> --}}
                                         <label><input type="radio" name="optradio" class="mr-2" value="VNPay">  Thanh toán qua VNPay <img src="/images/VNPay.png" alt="" style="width: 30px; height: 30px"></label>
                                     </div>
                                 </div>
                             </div>
-
-                            <p><button type="submit" class="btn btn-primary py-3 px-4">ĐẶT HÀNG</button></p>
+                            <input type="hidden" name="id" value="{{ Session::get('cartId') }}"">
+                            <input type="hidden" name="userId" value="{{ Session::get('UserId') }}"">
+                            <input type="hidden" name="total" value="{{ $tongtien + $feeShipping }}">
+                            <p><button type="submit" class="btn btn-primary py-3 px-4" id="formSubmit">ĐẶT HÀNG</button></p>
                         </form>
                         </div>
                     </div>
@@ -134,4 +132,28 @@
         @endif
     </div>
 </section> 
+<script>
+    $(document).ready(function(){ 
+        formSubmit.addEventListener('click', function(e) {
+            if($('input[name="people"]').val() == '') {
+                $('input[name="people"]').css('border','solid 1px red')
+                e.preventDefault();
+            }
+            if($('input[name="address"]').val() == '') {
+                $('input[name="address"]').css('border',' solid 1px red')
+                e.preventDefault();
+            }
+            if($('input[name="phone"]').val() == '') {
+                $('input[name="phone"]').css('border','solid 1px red')
+                e.preventDefault();
+            }
+            else
+            {
+                e.submit();
+            }
+       
+    });
+    });
+   
+</script>
 @endsection

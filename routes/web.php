@@ -51,18 +51,18 @@ Route::get('/search',[SanPhamController::class,'search'])->name('productSearch')
 //     return view('login');
 // })->name('loginuser');
 
-Route::get('/register', function () {
+Route::get('/dangky', function () {
     return view('register');
 })->name('register');
 
 
-Route::get('/product/{key}/{page}',[SanPhamController::class,'index'])->name('productpage');
+Route::get('/thucpham/{key}/{page}',[SanPhamController::class,'index'])->name('productpage');
 
 Route::get('/like/{id}',[DanhGiaController::class,'like'])->name('like')->middleware('CheckLogin');
 
 Route::get('notLike/{id}',[DanhGiaController::class,'notLike'])->name('notLike');
 
-Route::get('/productdetail/{id}',[SanPhamController::class,'show'])->name('productdetail');
+Route::get('/chitietsanpham/{id}',[SanPhamController::class,'show'])->name('productdetail');
 
 Route::get('/wishlist', [DanhGiaController::class,'liked'])->name('wishlist')->middleware('CheckLogin');
 
@@ -90,7 +90,10 @@ Route::post('/capNhatSoLuong', [HoaDonController::class, 'capNhatSoLuong'])->nam
 Route::get('/about', function () {
     return view('about');
 });
+Route::post('/checkout', [HoaDonController::class, 'thanhtoan'])->name('thanhtoan')->middleware('CheckLogin');
 
+Route::get('/vnpay_payment', [HoaDonController::class, 'vnpay_payment'])->middleware('CheckLogin')->name('vnpayment');
+Route::get('/checkout/vnpay_payment', [HoaDonController::class, 'vnpay_payment_updateDB'])->middleware('CheckLogin');
 // Route::get('/blog', function () {
 //     return view('blog');
 // });
