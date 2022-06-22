@@ -27,8 +27,8 @@ class NoiLamViecController extends Controller
      */
     public function create()
     {
-        $lstnoilamviec = NoiLamViec::all();
-        return view('admin/add.add_workplace', ['lstnoilamviec' => $lstnoilamviec]);
+        
+        return view('admin/add.add_workplace');
     }
 
     /**

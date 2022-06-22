@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Nguyên Liệu</h1>
+                        <h1 class="m-0">Đơn Vị Tính</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Trang Chủ</a></li>
-                            <li class="breadcrumb-item active">Nguyên Liệu</li>
+                            <li class="breadcrumb-item active">Đơn Vị Tính</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -26,22 +26,22 @@
                         <div class="card">
                             <div class="card-header">
                                 <div style="float: right;margin-left:20px;margin-top: -0.3rem;width: 100px;">
-                                    <a href='{{ route('nguyenLieu.create') }}'>
+                                    <a href='{{ route('donViTinh.create') }}'>
                                         <button type="button" class="btn btn-block btn-default btn-sm">Thêm</button>
                                     </a>
                                 </div>
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm" style="width: 250px;">
                                         <input type="text" name="table_search" class="form-control float-right"
-                                            placeholder="Tìm kiếm theo tên nguyên liệu" id="search" name="search">
-                                        <div class="input-group-append">
+                                            placeholder="Tìm kiếm theo tên đơn vị tính" id="search" name="search">
+                                        
+                                            <div class="input-group-append">
                                             <button type="submit" class="btn btn-default">
                                                 <i class="fas fa-search"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body table-responsive p-0" style="height: 480px;">
@@ -49,11 +49,7 @@
                                     <thead>
                                         <tr>
                                             <th>STT</th>
-                                            <th>Tên Nguyên Liệu</th>
-                                            <th>Đơn Giá</th>
-                                            <th>Số Lượng</th>
-                                            <th>Đơn Vị Tính</th>
-                                            <th>Kho</th>
+                                            <th>Tên Đơn Vị Tính</th>
                                             <th>Trạng Thái</th>
                                             <th>Ngày Tạo</th>
                                             <th>Ngày Sửa</th>
@@ -65,24 +61,21 @@
                                         @php
                                             $stt = 0;
                                         @endphp
-                                        @if (count($lstnguyenlieu) > 0)
-                                            @foreach ($lstnguyenlieu as $nguyenlieu)
+
+                                        @if (count($lstdvt) > 0)
+                                            @foreach ($lstdvt as $dvt)
                                                 <tr>
                                                     <td>{{ ++$stt }}</td>
-                                                    <td>{{ $nguyenlieu->ten_nguyen_lieu }}</td>
-                                                    <td>{{ $nguyenlieu->don_gia }}</td>
-                                                    <td>{{ $nguyenlieu->so_luong }}</td>
-                                                    <td>{{ $nguyenlieu->ten_don_vi_tinh }}</td>
-                                                    <td>{{ $nguyenlieu->ma_noi_lam_viec }}</td>
-                                                    @if ($nguyenlieu->trang_thai  == 1)
+                                                    <td>{{ $dvt->ten_don_vi_tinh }}</td>
+                                                    @if ($dvt->trang_thai  == 1)
                                                         <td>Hoạt Động</td>
                                                     @else
                                                         <td>Ngưng Hoạt Động</td>
                                                     @endif
-                                                    <td>{{ $nguyenlieu->created_at }}</td>
-                                                    <td>{{ $nguyenlieu->updated_at }}</td>
+                                                    <td>{{ $dvt->created_at }}</td>
+                                                    <td>{{ $dvt->updated_at }}</td>
                                                     <td style=";width: 20px;">
-                                                        <a href='{{ route('nguyenLieu.edit', ['nguyenLieu' => $nguyenlieu]) }}'>
+                                                        <a href='{{ route('donViTinh.edit', ['donViTinh' => $dvt]) }}'>
                                                             <button type="button"
                                                                 class="btn btn-default btn-sm checkbox-toggle"><i
                                                                     class="fas fa-edit"></i>
@@ -91,7 +84,7 @@
                                                     </td>
                                                     <td style="width: 20px;">
                                                         <form method="post"
-                                                            action="{{ route('nguyenLieu.destroy', ['nguyenLieu' => $nguyenlieu]) }}">
+                                                            action="{{ route('donViTinh.destroy', ['donViTinh' => $dvt]) }}">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
@@ -105,7 +98,7 @@
                                         @else
                                             <tr>
                                                 <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">
-                                                    Không tìm thấy nguyên liệu.
+                                                    Không tìm thấy đơn vị tính.
                                                 </td>
                                             </tr>
                                         @endif
@@ -125,7 +118,7 @@
             $value = $(this).val();
             $.ajax({
                 type: 'get',
-                url: '{{ URL::to('searchNguyenLieu') }}',
+                url: '{{ URL::to('searchDonViTinh') }}',
                 data: {
                     'search': $value
                 },

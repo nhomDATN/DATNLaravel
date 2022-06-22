@@ -1,8 +1,6 @@
 ﻿@extends('layouts.layout')
 @section('content')
-@php 
-    Session::put('dem', 0);
-@endphp
+
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-1.jpg');">
 </div>
 

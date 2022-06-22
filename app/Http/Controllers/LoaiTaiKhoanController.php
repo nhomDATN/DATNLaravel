@@ -45,6 +45,7 @@ class LoaiTaiKhoanController extends Controller
 
         $loaitaikhoanformat=trim($request->input('tenloaitaikhoan')); 
         $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $loaitaikhoanformat)->first(); 
+        
         if(empty($tontai)){
             $kt_loaitaikhoan=str_replace(' ', '', $loaitaikhoanformat);
             $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $kt_loaitaikhoan)->first();
@@ -95,22 +96,16 @@ class LoaiTaiKhoanController extends Controller
     {
         $loaitaikhoanformat = trim( $request->input('tenloaitaikhoan')); 
         $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $loaitaikhoanformat)
-        ->where('loai_tai_khoans.ten_loai_tai_khoan', '!=', $request->input('tenloaitaikhoan'))
+        ->where('loai_tai_khoans.id', '!=', $loaiTaiKhoan->id)
         ->first();
     
         if(empty($tontai)){
-            // $kt_loaitaikhoan = str_replace(' ', '', $loaitaikhoanformat);
-            // $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan','like', $kt_loaitaikhoan)
-            // ->where('id', '!=', '$loaiTaiKhoan->id')
-            // ->first();
-            // if(empty($tontai)){
-                $loaiTaiKhoan->fill([
-                    'ten_loai_tai_khoan' => $loaitaikhoanformat,
-                    'trang_thai' => $request->input('trangthai'),
-                ]);
-                $loaiTaiKhoan->save();
-                return Redirect::route('loaiTaiKhoan.index');
-            // }
+            $loaiTaiKhoan->fill([
+                'ten_loai_tai_khoan' => $loaitaikhoanformat,
+                'trang_thai' => $request->input('trangthai'),
+            ]);
+            $loaiTaiKhoan->save();
+            return Redirect::route('loaiTaiKhoan.index');
         }
         $alert = 'Loại Tài Khoản đã tồn tại';
         return redirect()->back()->with('alert', $alert);

@@ -27,8 +27,7 @@ class LoaiKhuyenMaiController extends Controller
      */
     public function create()
     {
-        $lstlkm = LoaiKhuyenMai::all();
-        return view('admin/add.add_promotion_type', ['lstlkm' => $lstlkm]);
+        return view('admin/add.add_promotion_type');
     }
 
     /**
@@ -88,12 +87,21 @@ class LoaiKhuyenMaiController extends Controller
      */
     public function update(Request $request, LoaiKhuyenMai $loaiKhuyenMai)
     {
-        $loaiKhuyenMai->fill([
-            'ten_loai_khuyen_mai' => $request->input('tenloaikhuyenmai'),
-        ]);
-        $loaiKhuyenMai->save();
-        #dd($request->all);
-        return Redirect::route('loaiKhuyenMai.index');
+        $donvitinhformat = trim( $request->input('tenloaikhuyenmai')); 
+        $tontai = LoaiKhuyenMai::where('ten_loai_khuyen_mai','like', $donvitinhformat)
+        ->where('loai_khuyen_mais.id', '!=', $loaiKhuyenMai->id)
+        ->first();
+
+        if(empty($tontai)){
+            $loaiKhuyenMai->fill([
+                'ten_loai_khuyen_mai' => $request->input('tenloaikhuyenmai'),
+            ]);
+            $loaiKhuyenMai->save();
+            
+            return Redirect::route('loaiKhuyenMai.index');
+        }
+        $alert = 'Tên loại khuyến mãi đã tồn tại đã tồn tại';
+        return redirect()->back()->with('alert', $alert);
     }
 
     /**

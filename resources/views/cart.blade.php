@@ -1,13 +1,6 @@
 ﻿@extends('layouts.layout')
 @section('content')
-@php 
-    
-    if (Session::get('dem') == 0)
-    {
-        header("Refresh:0; url=cart");
-        Session::put('dem', 1);
-    }
-@endphp
+
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-1.jpg');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">

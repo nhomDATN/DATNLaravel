@@ -10,7 +10,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('khuyenMai.index') }}">Nhân Viên</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('nhanVien.index') }}">Nhân Viên</a></li>
                             <li class="breadcrumb-item active">Chỉnh Sửa Thông Tin Nhân Viên</li>
                         </ol>
                     </div>
