@@ -5,6 +5,7 @@ use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\MauController;
 use App\Http\Controllers\ThuongHieuController;
 use App\Http\Controllers\DanhGiaController;
+use App\Http\Controllers\DonViTinhController;
 use App\Http\Controllers\DonHangController;
 use App\Http\Controllers\ChiTietSanPhamController;
 use App\Http\Controllers\LoaiSanPhamController;
@@ -232,3 +233,7 @@ Route::get('/searchBinhLuan', [BinhLuanController::class, 'search'])->name('binh
 Route::resource('admin/nhanVien', NhanVienController::class);
 
 Route::get('/searchNhanVien', [NhanVienController::class, 'search'])->name('nhanVien.search');
+
+Route::resource('admin/donViTinh', DonViTinhController::class);
+
+Route::get('/searchDonViTinh', [DonViTinhController::class, 'search'])->name('donViTinh.search');

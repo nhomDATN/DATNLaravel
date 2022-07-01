@@ -157,6 +157,7 @@ class TaiKhoanController extends Controller
         }
 
         $tonTai = TaiKhoan::where('email', $request['email'])->first();
+        
         if (empty($tonTai)) {
             $taiKhoan = TaiKhoan::insert([
                 'email' => $request->input('email'),
@@ -239,16 +240,25 @@ class TaiKhoanController extends Controller
      */
     public function update(Request $request, TaiKhoan $taiKhoan)
     {   
-        $taiKhoan->fill([
-            'ho_ten' => $request->input('hoten'),
-            'ngay_sinh' => $request->input('ngaysinh'),
-            'dia_chi' => $request->input('diachi'),
-            'sdt' => $request->input('sdt'),
-            'loai_tai_khoan_id' => $request->input('loaitk'),
-            'trang_thai'  => $request->input('trangthai'),
-        ]);
-        $taiKhoan->save();
-        return Redirect::route('taiKhoan.index');
+        $donvitinhformat = trim( $request->input('tendonvitinh')); 
+        $tontai = TaiKhoan::where('email','like', $donvitinhformat)
+        ->where('tai_khoans.id', '!=', $taiKhoan->id)
+        ->first();
+
+        if(empty($tontai)){
+            $taiKhoan->fill([
+                'ho_ten' => $request->input('hoten'),
+                'ngay_sinh' => $request->input('ngaysinh'),
+                'dia_chi' => $request->input('diachi'),
+                'sdt' => $request->input('sdt'),
+                'loai_tai_khoan_id' => $request->input('loaitk'),
+                'trang_thai'  => $request->input('trangthai'),
+            ]);
+            $taiKhoan->save();
+            return Redirect::route('taiKhoan.index');
+        }
+        $alert = 'Email đã tồn tại';
+        return redirect()->back()->with('alert', $alert);
     }
 
     /**

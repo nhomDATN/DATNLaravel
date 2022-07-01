@@ -52,6 +52,7 @@ class NhanVienController extends Controller
         }
 
         $tonTai = NhanVien::where('CCCD', $request['CCCD'])->first();
+
         if (empty($tonTai)) {
             $nhanVien = NhanVien::insert([
                 'ten_nhan_vien' => $request->input('tennhanvien'),
@@ -107,31 +108,27 @@ class NhanVienController extends Controller
     {
         $nhavienformat = trim( $request->input('CCCD')); 
         $tontai = NhanVien::where('CCCD','like', $nhavienformat)
-        ->where('id', '!=', $nhanVien->id)
+        ->where('nhan_viens.id', '!=', $nhanVien->id)
         ->first();
+
         if(empty($tontai)){
-            $kt_nhanvien = str_replace(' ', '', $nhavienformat);
-            $tontai = NhanVien::where('CCCD','like', $kt_nhanvien)
-            ->where('id', '!=', $nhanVien->id)
-            ->first();
-            if(empty($tontai)){
-                $nhanVien->fill([
-                    'ten_nhan_vien' => $request->input('tennhanvien'),
-                    'dia_chi' => $request->input('diachi'),
-                    'ngay_sinh' => $request->input('ngaysinh'),
-                    'sdt' => $request->input('sdt'),
-                    'ho_ten' => $request->input('hoten'),
-                    'CCCD' => $nhavienformat,
-                    'sdt' => $request->input('sdt'),
-                    'luong' => $request->input('luong'),
-                    'thuong_thang' => $request->input('thuongthang'),
-                    'noi_lam_id' => $request->input('noilamviec'),
-                    'chuc_vu_id' => $request->input('chucvu'),
-                    'trang_thai'  => $request->input('trangthai'),
-                ]);
-                $nhanVien->save();
-                return Redirect::route('nhanVien.index');
-            }
+            $nhanVien->fill([
+                'ten_nhan_vien' => $request->input('tennhanvien'),
+                'dia_chi' => $request->input('diachi'),
+                'ngay_sinh' => $request->input('ngaysinh'),
+                'sdt' => $request->input('sdt'),
+                'ho_ten' => $request->input('hoten'),
+                'CCCD' => $nhavienformat,
+                'sdt' => $request->input('sdt'),
+                'luong' => $request->input('luong'),
+                'thuong_thang' => $request->input('thuongthang'),
+                'noi_lam_id' => $request->input('noilamviec'),
+                'chuc_vu_id' => $request->input('chucvu'),
+                'trang_thai'  => $request->input('trangthai'),
+            ]);
+            $nhanVien->save();
+            return Redirect::route('nhanVien.index');
+            
         }
         $alert = 'Nhân Viên có CCCD này đã tồn tại';
         return redirect()->back()->with('alert', $alert);
@@ -145,17 +142,21 @@ class NhanVienController extends Controller
      */
     public function destroy(NhanVien $nhanVien)
     {
-        //
+        $nhanVien->fill([
+            'trang_thai' => 0,
+        ]);
+        $nhanVien->save();
+        return Redirect::route('nhanVien.index');
     }
 
     public function search(Request $request)
     {
         if ($request->ajax()) {
             $output = '';
-            $staffs = NoiLamViec::join('noi_lam_viecs', 'noi_lam_viecs.id', '=', 'nhan_viens.noi_lam_id')
+            $staffs = NhanVien::join('noi_lam_viecs', 'noi_lam_viecs.id', '=', 'nhan_viens.noi_lam_id')
             ->join('chuc_vus', 'chuc_vus.id', '=', 'nhan_viens.chuc_vu_id')
             ->select('nhan_viens.id', 'nhan_viens.ten_nhan_vien', 'nhan_viens.dia_chi', 'nhan_viens.ngay_sinh', 'nhan_viens.sdt', 'nhan_viens.CCCD', 'nhan_viens.luong', 'nhan_viens.thuong_thang', 'noi_lam_viecs.ma_noi_lam_viec', 'chuc_vus.ten_chuc_vu', 'nhan_viens.trang_thai', 'nhan_viens.created_at', 'nhan_viens.updated_at')
-            ->where('nhan_viens.CCCD', 'LIKE', '%' . $request->search . '%')
+            ->where('CCCD', 'LIKE', '%' . $request->search . '%')
             ->get();
             
             $stt = 0;
@@ -168,7 +169,6 @@ class NhanVienController extends Controller
                         <td>' . $nv->dia_chi . '</td>
                         <td>' . $nv->ngay_sinh . '</td>
                         <td>' . $nv->sdt . '</td>
-                        <td>' . $nv->ho_ten . '</td>
                         <td>' . $nv->CCCD . '</td>
                         <td>' . $nv->luong . '</td>
                         <td>' . $nv->thuong_thang . '</td>

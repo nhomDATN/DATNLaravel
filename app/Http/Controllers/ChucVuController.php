@@ -27,8 +27,7 @@ class ChucVuController extends Controller
      */
     public function create()
     {
-        $lstcv = ChucVu::all();
-        return view('admin/add.add_position', ['lstcv' => $lstcv]);
+        return view('admin/add.add_position');
     }
 
     /**
@@ -84,13 +83,21 @@ class ChucVuController extends Controller
      */
     public function update(Request $request, ChucVu $chucVu)
     {
-        $chucVu->fill([
-            'ten_chuc_vu' => $request->input('tenchucvu'),
-            'thuong' => $request->input('thuong'),
-        ]);
-        $chucVu->save();
-        #dd($request->all);
-        return Redirect::route('chucVu.index');
+        $chucvuformat = trim( $request->input('tenchucvu')); 
+        $tontai = ChucVu::where('ten_chuc_vu','like', $chucvuformat)
+        ->where('chuc_vus.id', '!=', $chucVu->id)
+        ->first();
+
+        if(empty($tontai)){
+            $chucVu->fill([
+                'ten_chuc_vu' => $chucvuformat,
+                'thuong' => $request->input('thuong'),
+            ]);
+            $chucVu->save();
+            return Redirect::route('chucVu.index');
+        }
+        $alert = 'Tên chức vụ đã tồn tại';
+        return redirect()->back()->with('alert', $alert);
     }
 
     /**

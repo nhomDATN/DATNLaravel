@@ -201,6 +201,25 @@
                                 </p>
                             </a>
                         </li>
+<<<<<<< HEAD
+=======
+                        <li class="nav-item">
+                            <a href="{{ route('donViTinh.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-gift"></i>
+                                <p>
+                                    Đơn Vị Tính
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+>>>>>>> 24020bf3d0c2e70f7c751af4dc11b81b25112580
                         </li>
                     </ul>
                 </nav>

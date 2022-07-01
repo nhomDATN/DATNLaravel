@@ -51,6 +51,7 @@ class NguyenLieuController extends Controller
         }
 
         $tonTai = NguyenLieu::where('ten_nguyen_lieu', $request['tennguyenlieu'])->first();
+        
         if (empty($tonTai)) {
             $nguyenLieu = NguyenLieu::insert([
                 'ten_nguyen_lieu' => $request->input('tennguyenlieu'),
@@ -102,14 +103,14 @@ class NguyenLieuController extends Controller
     {
         $nguyenlieuformat = trim( $request->input('tennguyenlieu')); 
         $tontai = NguyenLieu::where('ten_nguyen_lieu','like', $nguyenlieuformat)
-        ->where('id', '!=', $nguyenLieu->id)
+        ->where('nguyen_lieus.id', '!=', $nguyenLieu->id)
         ->first();
         if(empty($tontai)){
-            $kt_nguyenlieu = str_replace(' ', '', $nguyenlieuformat);
-            $tontai = NguyenLieu::where('ten_nguyen_lieu','like', $kt_nguyenlieu)
-            ->where('id', '!=', $nguyenLieu->id)
-            ->first();
-            if(empty($tontai)){
+            // $kt_nguyenlieu = str_replace(' ', '', $nguyenlieuformat);
+            // $tontai = NguyenLieu::where('ten_nguyen_lieu','like', $kt_nguyenlieu)
+            // ->where('id', '!=', $nguyenLieu->id)
+            // ->first();
+            // if(empty($tontai)){
                 $nguyenLieu->fill([
                     'ten_nguyen_lieu' => $nguyenlieuformat,
                     'don_gia' => $request->input('dongia'),
@@ -120,7 +121,7 @@ class NguyenLieuController extends Controller
                 ]);
                 $nguyenLieu->save();
                 return Redirect::route('nguyenLieu.index');
-            }
+            // }
         }
         $alert = 'Tên nguyên liệu đã tồn tại';
         return redirect()->back()->with('alert', $alert);

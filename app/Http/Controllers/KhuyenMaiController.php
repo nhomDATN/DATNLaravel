@@ -128,6 +128,12 @@ class KhuyenMaiController extends Controller
             $alert = 'Ngày kết thúc không được bỏ trống';
             return redirect()->back()->with('alert', $alert);
         }   
+
+        if ($request->ngaybatdau > $request->ngayketthuc) {
+            $alert = 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $khuyenmaiformat=trim( $request->input('makhuyenmai')); 
         $tontai = KhuyenMai::where('ma_khuyen_mai','like', $khuyenmaiformat)
         ->where('khuyen_mais.ma_khuyen_mai', '!=', $request->input('makhuyenmai'))

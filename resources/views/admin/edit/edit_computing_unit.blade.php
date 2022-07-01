@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Chỉnh Sửa Loại Khuyến Mãi</h1>
+                        <h1 class="m-0">Chỉnh Sửa Đơn Vị Tính</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('loaiKhuyenMai.index') }}">Loại Khuyến Mãi</a></li>
-                            <li class="breadcrumb-item active">Chỉnh Sửa Loại Khuyến Mãi</li>
+                            <li class="breadcrumb-item"><a href="{{ route('donViTinh.index') }}">Đơn Vị Tính</a></li>
+                            <li class="breadcrumb-item active">Chỉnh Sửa Đơn Vị Tính</li>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -24,28 +24,49 @@
             <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Mẫu Chỉnh Sửa Loại Khuyến Mãi</h3>
+                            <h3 class="card-title">Mẫu Chỉnh Sửa Đơn Vị Tính</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" action="{{ route('loaiKhuyenMai.update',['loaiKhuyenMai'=>$loaiKhuyenMai]) }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('donViTinh.update',['donViTinh'=>$donViTinh]) }}">
                             @csrf
                             @method('PATCH')
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="">Tên Loại Khuyến Mãi</label>
-                                    <input type="id" class="form-control" name="tenloaikhuyenmai"
-                                        placeholder="Tên Loại Khuyến Mãi" value="{{ $loaiKhuyenMai->ten_loai_khuyen_mai }}">
+                                    <label for="">Tên Đơn Vị</label>
+                                    <input type="id" class="form-control" name="tendonvitinh"
+                                    value="{{ $donViTinh->ten_don_vi_tinh }}">
                                 </div>
-                            </div>   
+                                
+                                <div class="form-group">
+                                    <label for="">Trạng Thái</label>
+                                    <select name = "trangthai" class="form-control">
+                                        <option value ="{{$donViTinh->trang_thai}}">
+                                        @if($donViTinh->trang_thai == 1)
+                                            Hoạt Động
+                                        @else
+                                            Ngưng Hoạt Động
+                                        @endif
+                                        </option>
+                                        @if($donViTinh->trang_thai == 1)
+                                            <option value ="0"> Ngưng Hoạt Động </option>
+                                        @else
+                                            <option value ="1"> Hoạt Động </option>
+                                        @endif
+                                    </select>
+                                </div>   
+                            </div>
                             <!-- /.card-body -->
 
+                            <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary" style="width: 100%">Gửi</button>
                             </div>
+
                             @if(session('alert'))
-                            <section class='alert alert-danger'>{{session('alert')}}</section>
+                                <section class='alert alert-danger'>{{session('alert')}}</section>
                             @endif
+
                             @if (count($errors) > 0)
                                 <div class="error-message">
                                     <ul>

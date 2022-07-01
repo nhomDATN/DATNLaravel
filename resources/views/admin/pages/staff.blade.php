@@ -63,46 +63,60 @@
                                         <th>Ngày Tạo</th>
                                         <th>Ngày Cập Nhật</th>
                                         <th>Chỉnh Sửa</th>
+                                        <th>Xóa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php 
+                                        $stt = 0;
+                                    @endphp
                                     @if(count($lstnv) > 0)
-                                    @foreach ($lstnv as $nv)
-                                    <tr>
-                                        <td>{{ $nv->id }}</td>
-                                        <td>{{ $nv->ten_nhan_vien }}</td>
-                                        <td>{{ $nv->dia_chi }}</td>
-                                        <td>{{ $nv->ngay_sinh }}</td>
-                                        <td>{{ $nv->sdt }}</td>
-                                        <td>{{ $nv->CCCD }}</td>
-                                        <td>{{ $nv->luong }}</td>
-                                        <td>{{ $nv->thuong_thang }}</td>
-                                        <td>{{ $nv->ma_noi_lam_viec }}</td>
-                                        <td>{{ $nv->ten_chuc_vu }}</td>
-                                        @if ($nv->trang_thai  == 1)
-                                            <td>Hoạt Động</td>
-                                        @else
-                                            <td>Ngưng Hoạt Động</td>
-                                        @endif
-                                        <td>{{ $nv->created_at }}</td>
-                                        <td>{{ $nv->updated_at }}</td>
-                                        <td style=";width: 20px;">
-                                            <a href='{{ route('nhanVien.edit', ['nhanVien' => $nv]) }}'>
-                                                <button type="button"
-                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                        class="fas fa-edit"></i>
-                                                </button>
-                                            </a>
-                                        </td>
-
-                                    </tr>
-                                    @endforeach
+                                        @foreach ($lstnv as $nv)
+                                        <tr>
+                                            <td>{{ ++$stt }}</td>
+                                            <td>{{ $nv->ten_nhan_vien }}</td>
+                                            <td>{{ $nv->dia_chi }}</td>
+                                            <td>{{ $nv->ngay_sinh }}</td>
+                                            <td>{{ $nv->sdt }}</td>
+                                            <td>{{ $nv->CCCD }}</td>
+                                            <td>{{ $nv->luong }}</td>
+                                            <td>{{ $nv->thuong_thang }}</td>
+                                            <td>{{ $nv->ma_noi_lam_viec }}</td>
+                                            <td>{{ $nv->ten_chuc_vu }}</td>
+                                            @if ($nv->trang_thai  == 1)
+                                                <td>Hoạt Động</td>
+                                            @else
+                                                <td>Ngưng Hoạt Động</td>
+                                            @endif
+                                            <td>{{ $nv->created_at }}</td>
+                                            <td>{{ $nv->updated_at }}</td>
+                                            <td style=";width: 20px;">
+                                                <a href='{{ route('nhanVien.edit', ['nhanVien' => $nv]) }}'>
+                                                    <button type="button"
+                                                        class="btn btn-default btn-sm checkbox-toggle"><i
+                                                            class="fas fa-edit"></i>
+                                                    </button>
+                                                </a>
+                                            </td>
+                                            <td style="width: 20px;">
+                                                <form method="post"
+                                                    action="{{ route('nhanVien.destroy', ['nhanVien' => $nv]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="btn btn-default btn-sm checkbox-toggle"><i
+                                                            class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
                                     @else
-                                    <tr>
-                                        <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">
-                                            Không tìm thấy nhân viên.
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="100" class="text-center" style="font-style: italic;font-weight: bold;color: #4f5962;">
+                                                Không tìm thấy nhân viên.
+                                            </td>
+                                        </tr>
                                     @endif
                                 </tbody>
                             </table>
