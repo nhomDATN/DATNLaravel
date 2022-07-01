@@ -78,7 +78,7 @@
                                         @endif
                                         </option>
                                         @if($taiKhoan->trang_thai == 1)
-                                            <option value ="0"> Ngưng Hoạt Động </option>
+                                            <option value ="-1"> Ngưng Hoạt Động </option>
                                         @else
                                             <option value ="1"> Hoạt Động </option>
                                         @endif

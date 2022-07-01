@@ -17,15 +17,15 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="/"><b>Forgot Password |</b>CKC FastFood</a>
+    <a href="/"><b>Xác thực tài khoản |</b>CKC FastFood</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Bạn quên mật khẩu? Vui lòng nhập email để lấy lại mật khẩu của bạn!.</p>
+      <p class="login-box-msg">Bạn chưa xác thực tài khoản? Vui lòng nhập email để xác thực tài khoản của bạn!.</p>
 
-      <form action="{{ route('send-mail') }}" method="post">
-        @csrf
+      <form action="{{ route('sendMailVerifyAccount') }}" method="get">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if(session()->has('success'))
         <div class="alert alert-success">
           {{ session()->get('success') }}
@@ -37,7 +37,7 @@
         </div>
         @endif
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email" required >
+          <input type="email" class="form-control" placeholder="Email" name="EmailAddress" required >
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -46,7 +46,7 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block" >Yêu Cầu Mật Khẩu Mới</button>
+            <button type="submit" class="btn btn-primary btn-block" >Yêu Cầu Xác Thực Tài Khoản</button>
           </div>
           <!-- /.col -->
         </div>

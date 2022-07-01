@@ -26,7 +26,7 @@ use App\Http\Controllers\HoaDonController;
 use App\Http\Controllers\LoaiKhuyenMaiController;
 use App\Http\Controllers\KhuyenMaiController;
 use App\Http\Controllers\NhanVienController;
-
+use App\Http\Controllers\MailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,14 +52,22 @@ Route::get('/search',[SanPhamController::class,'search'])->name('productSearch')
 
 Route::get('/dangky', function () {
     return view('register');
-})->name('register');
+})->name('register')->middleware('IsLogin');
 
+Route::post('/register',[TaiKhoanController::class, 'register'])->name('dangky')->middleware('IsLogin');
+
+Route::get('vertifyEmail/{id}/{token}',[MailController::class,'verifyAccount']);
+
+Route::get('sendMail',[MailController::class,'sendMailVerifyAccount'])->name('sendMailVerifyAccount');
 
 Route::get('/thucpham/{key}/{page}',[SanPhamController::class,'index'])->name('productpage');
 
 Route::get('/like/{id}',[DanhGiaController::class,'like'])->name('like')->middleware('CheckLogin');
 
 Route::get('notLike/{id}',[DanhGiaController::class,'notLike'])->name('notLike');
+
+//deleteAlotWish
+Route::get('deleteAlotWish',[DanhGiaController::class,'notLikeAlot'])->name('notLikeAlot');
 
 Route::get('/chitietsanpham/{id}',[SanPhamController::class,'show'])->name('productdetail');
 
@@ -68,6 +76,8 @@ Route::get('/wishlist', [DanhGiaController::class,'liked'])->name('wishlist')->m
 // Route::get('/sale', function () {
 //     return view('sale');
 // });
+
+Route::get('/feedback',[MailController::class,'feedback'])->name('feedback');
 
 Route::get('/GiamGia',[SanPhamController::class,'sale'])->name('sale');
 
@@ -82,6 +92,7 @@ Route::get('/addCart', [HoaDonController::class, 'addCart'])->name('cart.add')->
 Route::get('/addFast', [HoaDonController::class, 'addCartFast'])->name('cart.addFast')->middleware('CheckLogin');
 
 Route::get('/deleteProductInCart/{id}',[HoaDonController::class, 'deleteProductInCart'])->name('deleteProductInCart');
+
 Route::get('/ThanhToan', [TaiKhoanController::class, 'checkout'])->middleware('CheckLogin')->name('checkout');
 
 Route::post('/capNhatSoLuong', [HoaDonController::class, 'capNhatSoLuong'])->name('capNhatSoLuong');
@@ -91,11 +102,18 @@ Route::get('/about', function () {
 });
 Route::post('/checkout', [HoaDonController::class, 'thanhtoan'])->name('thanhtoan')->middleware('CheckLogin');
 
+Route::get('/getVoucher',[HoaDonController::class, 'getVoucher']);
+
 Route::get('/vnpay_payment', [HoaDonController::class, 'vnpay_payment'])->middleware('CheckLogin')->name('vnpayment');
+
 Route::get('/checkout/vnpay_payment', [HoaDonController::class, 'vnpay_payment_updateDB'])->middleware('CheckLogin');
+
 // Route::get('/blog', function () {
 //     return view('blog');
 // });
+Route::get('/momo_payment', [HoaDonController::class, 'momo_payment'])->middleware('CheckLogin')->name('momopayment');
+
+Route::get('/checkout/momo_payment', [HoaDonController::class, 'momoPay'])->middleware('CheckLogin');
 
 Route::get('/blog', [SanPhamController::class, 'blog']);
 
@@ -110,7 +128,9 @@ Route::get('/blogdetail', [SanPhamController::class, 'blogdetail']);
 Route::get('/contact', function () {
     return view('contact');
 });
-
+Route::get('/Reverify_Email', function(){
+    return view('verifyEmail');
+});
 Route::resource('sanPham', SanPhamController::class);
 
 Route::post('send-mail', [ForgotPasswordController::class,'sendMailRecover'])->name('send-mail');
@@ -118,15 +138,15 @@ Route::post('send-mail', [ForgotPasswordController::class,'sendMailRecover'])->n
 Route::post('recover-password', [RecoverPasswordController::class,'recoverPassword'])->name('recover-password');
 
 Route::get('/recover', function () {
-    return view("pages.recoverpassword");
+    return view("admin.pages.recoverpassword");
 });
 
 Route::get('/recover-success', function () {
-    return view("pages.success_recover");
+    return view("admin.pages.success_recover");
 });
 
 Route::get('forgotpassword', function () {
-    return view('pages.forgotpassword');
+    return view('admin.pages.forgotpassword');
 });
 
 Route::get('/login',function () {
@@ -136,8 +156,10 @@ Route::get('/login',function () {
 Route::get('/logout',[TaiKhoanController::class,'logout'])->name('user.logout');
 
 Route::post('/accountLogin',[TaiKhoanController::class,'login'])->name('login');
+
 Route::get('admin/login',[AuthController::class,'showLogin'])->name('loginadmin');
 
+Route::post('adminLogin',[AuthController::class,'authenticate'])->name('AdminLogin');
 Route::get('accountLogout',[TaiKhoanController::class,'logout'])->name('logout');
 //Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
@@ -165,7 +187,19 @@ Route::get('/searchLoaiSanPham', [LoaiSanPhamController::class, 'search'])->name
 
 // Route::get('chiTietSanPham/restore/all/{id}', [ChiTietSanPhamController::class, 'restoreAll'])->name('chiTietSanPham.restore.all');
 
-Route::resource('admin/sanPham', SanPhamController::class);
+Route::get('admin/sanPham', [SanPhamController::class,'adminShow'])->name('sanpham.adminShow');
+
+Route::get('admin/sanpham/destroy', [SanPhamController::class,'destroy'])->name('sanpham.destroy');
+
+Route::get('admin/sanpham/edit/{id}', [SanPhamController::class,'edit'])->name('sanpham.edit');
+
+Route::get('admin/sanpham/detail/{id}', [SanPhamController::class,'detail'])->name('sanpham.detail');
+
+Route::post('admin/sanpham/update', [SanPhamController::class,'update'])->name('sanpham.update');
+
+Route::get('admin/invoice',[HoaDonController::class,'invoiceAdminShow']);
+
+Route::get('admin/invoice/edit/{id}',[HoaDonController::class,'edit'])->name('invoice.edit');
 
 Route::resource('admin/nguyenLieu', NguyenLieuController::class);
 

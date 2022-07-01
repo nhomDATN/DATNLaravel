@@ -98,18 +98,29 @@ class HoaDonController extends Controller
     }
     public function thanhtoan(Request $request)
     {
+        $ma_hoa_don = 'DH'.time().$request->id;
+        DB::update('update hoa_dons set voucher =?,ma_hoa_don = ?, nguoi_nhan_hang =?,
+             dia_chi_nguoi_nhan_hang =?, sdt_nguoi_nhan_hang =?, tong_tien =?, 
+             tai_khoan_id = ?, nhan_vien_id = ?
+             where id = ?', [$request->voucher,$ma_hoa_don, $request->people, $request->address, $request->phone,0,$request->userId,0,$request->id]);
         if($request->optradio == "cast")
         {
-            DB::update('update hoa_dons set voucher =?, nguoi_nhan_hang =?,
-             dia_chi_nguoi_nhan_hang =?, sdt_nguoi_nhan_hang =?, tong_tien =?, 
-             tai_khoan_id =?, nhan_vien_id = ?, trang_thai = ?, phuong_thuc_thanh_toan = ?
-             where id = ?', [$request->voucher, $request->people, $request->address, $request->phone,$request->total,$request->userId,0,0,"Tiền mặt",$request->id]);
+            DB::update('update hoa_dons set  tong_tien =?, 
+             trang_thai = ?, phuong_thuc_thanh_toan = ?
+             where id = ?', [$request->total,0,"Tiền mặt",$request->id]);
+             $select = DB::table('hoa_dons')
+             ->where('id','=',$request->id)
+             ->get();
            Session::forget('cartId');
-           return redirect()->route('homeuser',['success'=>true,'amount' => $request->total]);
+           return redirect()->route('homeuser',['success'=>true,'amount' => $request->total,'getter' => $select[0]->nguoi_nhan_hang,'phone'=> $select[0]->sdt_nguoi_nhan_hang,'address'=> $select[0]->dia_chi_nguoi_nhan_hang]);
         }
         else if($request->optradio == "VNPay")
         {
-            return redirect()->route('vnpayment',['vnpay_payment' => 1,'id' => $request->id,'total' => $request->total,'people'=>$request->people,'address'=>$request->address,'phone'=>$request->phone,'voucher'=> $request->voucher]);
+            return redirect()->route('vnpayment',['vnpay_payment' => 1,'id' => $ma_hoa_don,'total' => $request->total,'people'=>$request->people,'address'=>$request->address,'phone'=>$request->phone,'voucher'=> $request->voucher]);
+        }
+        else if($request->optradio == "momo")
+        {
+            return redirect()->route('momopayment',['momo_payment' => 1,'id' => $ma_hoa_don,'Amount' => $request->total]);
         }
         else
             return redirect()->back();
@@ -120,14 +131,6 @@ class HoaDonController extends Controller
         $vnp_Returnurl = "http://127.0.0.1:8000/checkout/vnpay_payment";
         $vnp_TmnCode = "5IQ5M8FV";//Mã website tại VNPAY 
         $vnp_HashSecret = "FNXFYPJNWADDQPLVHPMWAHDFBZZGAXZM";//Chuỗi bí mật
-        $people = $_GET['people'];
-        $phone = $_GET['phone'];
-        $address = $_GET['address'];
-        
-        $voucher = "";
-        if(!empty($_GET['voucher']))
-        $voucher = $_GET['voucher'];
-       // dd($voucher);
         $vnp_TxnRef = $_GET['id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán đơn hàng '.$_GET['id'];
         $vnp_OrderType = 'VNPAY payment';
@@ -149,46 +152,46 @@ class HoaDonController extends Controller
             "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" => $vnp_Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef,
-);
+        );
 
-if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-    $inputData['vnp_BankCode'] = $vnp_BankCode;
-}
-if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-    $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-}
+        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+        }
 
-//var_dump($inputData);
-ksort($inputData);
-$query = "";
-$i = 0;
-$hashdata = "";
-foreach ($inputData as $key => $value) {
-    if ($i == 1) {
-        $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-    } else {
-        $hashdata .= urlencode($key) . "=" . urlencode($value);
-        $i = 1;
-    }
-    $query .= urlencode($key) . "=" . urlencode($value) . '&';
-}
+        //var_dump($inputData);
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
 
-$vnp_Url = $vnp_Url . "?" . $query;
-if (isset($vnp_HashSecret)) {
-    $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
-    $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-}
-$returnData = array('code' => '00'
-    , 'message' => 'success'
-    , 'data' => $vnp_Url);
-    if (isset($_GET['vnpay_payment'])) {
-        header('Location: ' . $vnp_Url);
-        die();
-    } else {
-        echo json_encode($returnData);
-    }
-	// vui lòng tham khảo thêm tại code demo
-    }
+        $vnp_Url = $vnp_Url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
+            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+        }
+        $returnData = array('code' => '00'
+            , 'message' => 'success'
+            , 'data' => $vnp_Url);
+            if (isset($_GET['vnpay_payment'])) {
+                header('Location: ' . $vnp_Url);
+                die();
+            } else {
+                echo json_encode($returnData);
+            }
+            // vui lòng tham khảo thêm tại code demo
+            }
     /**
      * Show the form for creating a new resource.
      *
@@ -196,12 +199,138 @@ $returnData = array('code' => '00'
      */
     public function vnpay_payment_updateDB(Request $request)
     {
-        DB::update('update hoa_dons set voucher =?, nguoi_nhan_hang =?,
-        dia_chi_nguoi_nhan_hang =?, sdt_nguoi_nhan_hang =?, tong_tien =?, 
-        tai_khoan_id =?, nhan_vien_id = ?, trang_thai = ?, phuong_thuc_thanh_toan = ?
-        where id = ?', [$request->voucher, $request->people, $request->address, $request->phone,$request->vnp_Amount,Session::get('UserId'),0,0,"VNPay",$request->vnp_TxnRef]);
+        DB::update('update hoa_dons set tong_tien =?, 
+        trang_thai = ?, phuong_thuc_thanh_toan = ?
+        where id = ?', [$request->vnp_Amount/100,0,"VNPay",Session::get('cartId')]);
+        $select = DB::table('hoa_dons')
+        ->where('id',Session::get('cartId'))
+        ->get();
         Session::forget('cartId');
-        return redirect()->route('homeuser',['success'=>true,'amount' => $request->vnp_Amount]);
+        return redirect()->route('homeuser',['success'=>true,'amount' => $request->vnp_Amount/100,'getter' => $select[0]->nguoi_nhan_hang,'phone'=> $select[0]->sdt_nguoi_nhan_hang,'address'=> $select[0]->dia_chi_nguoi_nhan_hang]);
+    }
+    public function momo_payment()
+    {
+        header('Content-type: text/html; charset=utf-8');
+        function execPostRequest($url, $data)
+        {
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($data))
+            );
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+            //execute post
+            $result = curl_exec($ch);
+            //close connection
+            curl_close($ch);
+            return $result;
+        }
+        
+        
+        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+
+        $partnerCode = 'MOMOBKUN20180529';
+        $accessKey = 'klm05TvNBzhg7h7j';
+        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+
+        $orderInfo = "Thanh toán qua mã QR MoMo";
+        $amount = $_GET['Amount'];
+        $orderId = $_GET['id'];
+        $redirectUrl = "http://127.0.0.1:8000/checkout/momo_payment";
+        $ipnUrl = "http://127.0.0.1:8000/checkout/momo_payment";
+        $extraData = "";
+        $requestId = time() . "";
+        $requestType = "captureWallet";
+            //$extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
+            //before sign HMAC SHA256 signature
+        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+        $signature = hash_hmac("sha256", $rawHash, $secretKey);
+
+        $data = array('partnerCode' => $partnerCode,
+                'partnerName' => "Test",
+                "storeId" => "MomoTestStore",
+                'requestId' => $requestId,
+                'amount' => $amount,
+                'orderId' => $orderId,
+                'orderInfo' => $orderInfo,
+                'redirectUrl' => $redirectUrl,
+                'ipnUrl' => $ipnUrl,
+                'lang' => 'vi',
+                'extraData' => $extraData,
+                'requestType' => $requestType,
+                'signature' => $signature);
+
+        $result = execPostRequest($endpoint, json_encode($data));
+        $jsonResult = json_decode($result, true);  // decode json
+        //dd($jsonResult['payUrl']);
+            //Just a example, please check more in there
+        
+        //header('Location: '.$jsonResult['payUrl']);
+        return redirect($jsonResult['payUrl']);
+    }
+    public function momoPay(Request $request)
+    {
+        //dd($request);
+        DB::update('update hoa_dons set tong_tien =?, 
+        trang_thai = ?, phuong_thuc_thanh_toan = ?
+        where id = ?', [$request->amount,0,"Momo",Session::get('cartId')]);
+        $select = DB::table('hoa_dons')
+        ->where('id',Session::get('cartId'))
+        ->get();
+        Session::forget('cartId');
+        return redirect()->route('homeuser',['success'=>true,'amount' => $request->amount,'getter' => $select[0]->nguoi_nhan_hang,'phone'=> $select[0]->sdt_nguoi_nhan_hang,'address'=> $select[0]->dia_chi_nguoi_nhan_hang]);
+    }
+    public function getVoucher(Request $request)
+    {
+        $message ='';
+        if($request->voucher == '')
+        {
+                $data =[
+                    'message' => $message,
+                ];
+                return response()->json($data);
+        }
+        $voucher = DB::table('khuyen_mais')
+        ->where('ma_khuyen_mai',$request->voucher)
+        ->where('loai_khuyen_mai_id',1)
+        ->get();
+        if(count($voucher)==0)
+        {
+            $message = 'Không tồn tại mã voucher này!';
+            $data =[
+                'message' => $message,
+            ];
+            return response()->json($data);
+        }
+        if(count($voucher) > 0)
+        {
+            if(now() > $voucher[0]->ngay_ket_thuc)
+            {
+                $message = 'Voucher này đã hết hạn!';
+                $data =[
+                    'message' => $message,
+                ];
+                return response()->json($data);
+            }
+            else
+            {
+                $message = 'Giảm '.$voucher[0]->gia_tri.'% tối đa '.number_format($voucher[0]->maximum,0,',','.').' VNĐ';
+                $data =[
+                    'message' => $message,
+                    'value' => $voucher[0]->gia_tri,
+                    'maximum' => $voucher[0]->maximum
+                ];
+                return response()->json($data);
+            }
+        } 
+    }
+    public function invoiceAdminShow(){
+        $invoice = DB::table('hoa_dons')->where('trang_thai','<>',-1)->get();
+        return view('admin.pages.order',['invoice'=>$invoice]);
     }
     public function create()
     {

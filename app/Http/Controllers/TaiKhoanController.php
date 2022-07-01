@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TaiKhoanController extends Controller
 {
@@ -25,7 +26,7 @@ class TaiKhoanController extends Controller
     {
         $lsttk = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
         ->where('tai_khoans.loai_tai_khoan_id', '!=', 1)
-        ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.dia_chi', 'tai_khoans.ngay_sinh', 'tai_khoans.sdt', 'tai_khoans.ho_ten', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.created_at', 'tai_khoans.updated_at', 'tai_khoans.trang_thai')
+        ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.dia_chi', 'tai_khoans.ngay_sinh', 'tai_khoans.sdt', 'tai_khoans.ho_ten', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.created_at', 'tai_khoans.updated_at', 'tai_khoans.trang_thai','tai_khoans.hinh_anh')
         ->get();
         if ($request->has('view_deleted')) {
             $lsttk = TaiKhoan::onlyTrashed()->get();
@@ -33,16 +34,47 @@ class TaiKhoanController extends Controller
         return view('admin/pages.account', ['lsttk' => $lsttk]); 
     }
     public function login(Request $request){
-        $account = TaiKhoan::where('email', $request->Email)->where('mat_khau', $request->Password)->get();
+        $account = TaiKhoan::where('email', $request->Email)->where('loai_tai_khoan_id',2)->get();
         if(count($account) > 0){
+          if($account[0]->trang_thai == 0)
+          {
+            return redirect()->back()->with('messageConfirm', 'Tài khoản chưa được kích hoạt, vui lòng vào email để kích hoạt tài khoản!');
+          }
+          else if(!password_verify($request->Password,$account[0]->mat_khau))
+          {
+            return redirect()->back()->with('errorPassword', 'Sai tài khoản hoặc mật khẩu!');
+          }
+          else
+          {
             Session::put('UserId', $account[0]->id);
             Session::put('UserPicture', $account[0]->hinh_anh);
             Session::put('UserName', $account[0]->ho_ten);
             return redirect()->route('homeuser',['welcome' => Session::get('UserName')]);
+          }
         }
-        else {
-            return redirect()->back()->with('message', 'Sai tài khoản hoặc mật khẩu!');
+        return redirect()->back()->with('message', 'Sai tài khoản hoặc mật khẩu!');
+    }
+    public function adminLogin(Request $request)
+    {
+        $account = TaiKhoan::where('email', $request->Email)->where('loai_tai_khoan_id',1)->get();
+        if(count($account) > 0){
+          if($account[0]->trang_thai == 0)
+          {
+            return redirect()->back()->with('messageConfirm', 'Tài khoản chưa được kích hoạt, vui lòng vào email để kích hoạt tài khoản!');
+          }
+          else if(!password_verify($request->Password,$account[0]->mat_khau))
+          {
+            return redirect()->back()->with('errorPassword', 'Sai tài khoản hoặc mật khẩu!');
+          }
+          else
+          {
+            Session::put('UserId', $account[0]->id);
+            Session::put('UserPicture', $account[0]->hinh_anh);
+            Session::put('UserName', $account[0]->ho_ten);
+            return redirect()->route('homeuser',['welcome' => Session::get('UserName')]);
+          }
         }
+        return redirect()->back()->with('message', 'Sai tài khoản hoặc mật khẩu!');
     }
     public function logout()
     {
@@ -142,7 +174,39 @@ class TaiKhoanController extends Controller
         $alert = 'Email đã tồn tại';
         return redirect()->back()->with('alert', $alert);
     }
-
+    public function register(Request $request)
+    {
+        if($request->input('password') != $request->input('password_confirm'))
+           {
+            $alert = 'Mật khẩu nhập lại không đúng!';
+            return redirect()->back()->with('alertPassword', $alert);
+           }
+        $tonTai = DB::table('tai_khoans')->where('email', $request['email'])->get();
+        
+        if (count($tonTai) == 0) {
+            $taiKhoan = TaiKhoan::insert([
+                'email' => $request->input('email'),
+                'mat_khau' => bcrypt($request->input('password')),
+                'ho_ten' => $request->input('fullname'),
+                'ngay_sinh' => $request->input('datetime'),
+                'dia_chi' => $request->input('address'),
+                'sdt' => $request->input('phone'),
+                'loai_tai_khoan_id' => 2,
+                'verify_token'=> $request->_token,
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+                'updated_at' => null,
+            ]);
+            $select = DB::table('tai_khoans')
+            ->where('email', '=', $request->input('email'))
+            ->get();
+            return Redirect::route('sendMailVerifyAccount',['id' => $select[0]->id,'EmailAddress'=>$request->input('email'),'_token' => $request->_token]);
+        }
+        else
+        {
+            $alert = 'Email đã tồn tại';
+            return redirect()->back()->with('alert', $alert);
+        }
+    }
     /**
      * Display the specified resource.
      *
@@ -224,7 +288,7 @@ class TaiKhoanController extends Controller
         if ($request->ajax()) {
             $output = '';
             $accounts = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
-            ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.dia_chi', 'tai_khoans.ngay_sinh', 'tai_khoans.sdt', 'tai_khoans.ho_ten', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.created_at', 'tai_khoans.updated_at', 'tai_khoans.trang_thai')
+            ->select('tai_khoans.id', 'tai_khoans.email', 'tai_khoans.dia_chi', 'tai_khoans.ngay_sinh', 'tai_khoans.sdt', 'tai_khoans.ho_ten', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.created_at', 'tai_khoans.updated_at', 'tai_khoans.trang_thai','tai_khoans.hinh_anh')
             ->where('tai_khoans.loai_tai_khoan_id', '!=', 1)
             ->where('email', 'LIKE', '%' . $request->search . '%')
             ->get();
@@ -236,6 +300,8 @@ class TaiKhoanController extends Controller
                     $output .= '<tr>
                         <td>' . ++$stt . '</td>
                         <td>' . $tk->email . '</td>
+                        <td><img src=" '.asset("/imageUsers/$tk->hinh_anh").'"
+                        style="width: 100px;"></td>
                         <td>' . $tk->ho_ten . '</td>
                         <td>' . $tk->ngay_sinh . '</td>
                         <td>' . $tk->dia_chi . '</td>

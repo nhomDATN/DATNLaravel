@@ -97,29 +97,4 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
-
-    <script type="text/javascript">
-        $('#search').on('keyup', function() {
-            $id = <?php echo $donHang->id; ?>;
-            $value = $(this).val();
-            $.ajax({
-            type: 'get',
-            url: '{{ URL::to('searchChiTietDonHang') }}',
-            data: {
-                'search': $value,
-                'donHang': $id
-            },
-
-            success: function(data) {
-                $('tbody').html(data);
-            }
-            });
-         
-        })
-        $.ajaxSetup({
-            headers: {
-                'csrftoken': '{{ csrf_token() }}'
-            }
-        });
-    </script>
     @endsection

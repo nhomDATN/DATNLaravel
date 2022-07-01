@@ -50,7 +50,7 @@
                                 <table class="table table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>STT</th>
                                             <th>Tên Loại TK</th>
                                             <th>Trạng Thái</th>
                                             <th>Ngày Tạo</th>

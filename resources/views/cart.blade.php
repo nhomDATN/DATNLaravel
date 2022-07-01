@@ -1,13 +1,5 @@
 ﻿@extends('layouts.layout')
 @section('content')
-@php 
-    
-    if (Session::get('dem') == 0)
-    {
-        header("Refresh:0; url=cart");
-        Session::put('dem', 1);
-    }
-@endphp
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-1.jpg');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -58,36 +50,34 @@
 
                                 <td class="product-name">
                                     <h3>@php echo $gh->ten_san_pham @endphp</h3>
-                                    <p>@php
-                                        $mo_ta = explode('.',$gh->mo_ta);
-                                        echo $mo_ta[0] . '.';
-                                    @endphp</p>
+                                    <div  style="display: flex;text-align: start;">
+                                        <p>@php 
+                                            $mo_ta =  explode(".",$gh->mo_ta);
+                                            echo $mo_ta[0] . '...';
+                                        @endphp</p>
+                                    </div>
+                                   
                                  </td>
 
                                 @php
                                     $gia_tam =($gh->gia - (($gh->gia * $gh->chiet_khau) / 100));
                                 @endphp
+                                <input type="hidden" id="oldPrice @php echo $gh->id @endphp" value="{{ ($gh->gia - (($gh->gia * $gh->chiet_khau) / 100)) }}">
                                 <td class="price" name="price" id="price @php echo $gh->id @endphp">{{  number_format(($gh->gia - (($gh->gia * $gh->chiet_khau) / 100)),0,',','.') }} VNĐ</td>
                                 
                                 <td class="quantity">
                                     <div class="input-group mb-3">
                                         <input type="number" name="quantity" class="quantity" value="@php echo $gh->so_luong @endphp" min="1" max="100" id="@php echo $gh->id @endphp" onchange="sum({{ $gh->id}})">
                                     </div>
+                                    <div class="hide" id="select-{{ $gh->id }}">
+                                        <a href="{{ route('deleteProductInCart',['id' => $gh->id]) }}" class="cart-delete-btn">Xóa</a>
+                                        <a onclick="reset({{ $gh->id }})" class="cart-denie-btn">Hủy</a>
+                                    </div>
                                 </td>
-                                
-                                <input type="hidden" value="{{ Session::get('UserId') }}" name="taikhoanid">
                                 <td class="total" id="total @php echo $gh->id @endphp" >@php echo number_format(($gh->so_luong * $gia_tam),0,',','.') @endphp VNĐ</td>
                             </tr>
+                            <input type="hidden" value="{{ Session::get('UserId') }}" name="taikhoanid">
                             @endforeach
-                            
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td> <p style="text-align: center"><a href="{{ route('cart') }}" class="btn btn-primary py-3 px-4 text text-white">Cập Nhật Số Lượng</a></p></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -98,26 +88,42 @@
     </div>
     @endif
 </section>
-<script type="text/javascript">
+<script>
     let total, checkout;
-        function sum(id){
-                var quantity = document.getElementById(id).value;
-                $.ajaxSetup({
-                headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: 'post',
-                    url: "{{ URL::to('capNhatSoLuong') }}",
-                    data: {
-                        id : id,
-                        quantity: quantity
-                    },
-        
-                });
-        }   
+function sum(id){
+    
+        var quantity = $("#"+id);
+       if(quantity.val() != 0)
+       {
+        var oldPrice = document.getElementById('oldPrice '+ id).value;
+        var total = quantity.val() * oldPrice;
+        document.getElementById('total ' + id).innerHTML = total.toLocaleString('de-DE')+" VNĐ";
+        $.ajaxSetup({
+        headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: "{{ URL::to('capNhatSoLuong') }}",
+            data: {
+                id : id,
+                quantity: quantity
+            },
 
+        });
+       }
+       else
+       {
+        quantity.addClass('hide');
+        $('#select-'+id).removeClass('hide');
+       }
+}   
+   function reset(id){
+        $('#'+id).val(1);
+        $('#'+id).removeClass('hide');
+        $('#select-'+id).addClass('hide');
+    }
 </script>
 
 @endsection

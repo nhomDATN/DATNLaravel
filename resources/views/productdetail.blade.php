@@ -1,5 +1,14 @@
 ﻿@extends('layouts.layout')
 @section('content')
+@php
+      function hasLike($userId = 0, $id = 0)
+    {
+        $liked = DB::table('danh_gias')->where('yeu_thich',1)->where('tai_khoan_id', $userId)->where('san_pham_id', $id)->get();
+        if(count($liked) > 0)
+            return true;
+        return false;
+    }
+@endphp
 <div class="hero-wrap hero-bread" style="background-image: url('/images/banner-1.jpg');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -23,7 +32,7 @@
                     <p class="text-left mr-4">
                         <a class="mr-2" id="countStar">{{ number_format($so_sao,1,',','.') }}</a>
                         @for ($i = 0; $i<5;$i++)
-                        <a href="#countStar" onclick="(assess({{ $i + 1 }}))"><span class="@if ($i < $so_sao)
+                        <a href="#countStar" onclick="(assess({{ $product[0]->id }},{{ $i + 1 }}))"><span class="@if ($i < $so_sao)
                             ion-ios-star
                             @elseif ($i < $so_sao && $i + 1 > $so_sao)
                             ion-ios-star-half
@@ -128,31 +137,56 @@
     </div>
     <div class="container">
         <div class="row">
-            @foreach ($listProduct as $item )  
+            @foreach ($listProduct as $items)  
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="{{ route('productdetail',['id' => $item->id]) }}" class="img-prod">
-                        <img class="img-fluid w-100" style="height: 160px;" src="/images/{{ $item->hinh }}" alt="Colorlib Template">
+                    <a href="{{ route('productdetail',['id'=>$items->id])}}" class="img-prod">
+                        <img class="img-fluid w-100" style="height: 160px;" src="/images/{{ $items->hinh }}" alt="Colorlib Template">
+                        @if ($items->gia_tri > 0)
+                        <span class="status">{{ $items->gia_tri }} %</span>
+                        @endif
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">{{ $item->ten_san_pham }}</a></h3>
+                        <h3><a href="{{ route('productdetail',['id'=>$items->id])}}">{{ $items->ten_san_pham }}</a></h3>
+                        @if($items->gia_tri > 0)
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span>{{ $item->gia }} đ</span></p>
+                                <p class="price priceOld"><span>{{ number_format($items->gia, 0, ",", ".") }} VNĐ</span></p>
                             </div>
                         </div>
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class=" priceSales"><span>{{ number_format($items->gia - ($items->gia * $items->gia_tri) / 100, 0, ",", ".") }} VNĐ</span></p>
+                            </div>
+                        </div>
+                        @else
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class="price"><span>{{ number_format($items->gia, 0, ",", ".") }} VNĐ</span></p>
+                            </div>
+                        </div>
+                        @endif
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <a href="{{ route('cart.addFast',['productId' => $items->id,'quantity' => 1,'price' => $items->gia,'sales' => $items->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
-                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                    <span><i class="ion-ios-heart"></i></span>
-                                </a>
+                                @if(!empty(Session::get('UserId')))
+                                    @if (hasLike(Session::get('UserId'),$items->id))
+                                        <a href="{{ route('like',['id' => $items->id]) }}"class="heart d-flex justify-content-center align-items-center" style="background-image: linear-gradient(red, white);" id="heart">
+                                            <span><i class="ion-ios-heart"></i></span>
+                                        </a>
+                                    @else
+                                    <a href="{{ route('like',['id' => $items->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                    @endif
+                                    @else
+                                    <a href="{{ route('like',['id' => $items->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -162,7 +196,7 @@
         </div>
     </div>
     <script>
-       function assess(star){
+       function assess(id,star){
         $('.modal-assess').css('display', 'flex');
         var modal = ` <div class="form">
         <div class="modal-header">
@@ -174,16 +208,18 @@
         {
             if(i < star)
             {
-                modal +=`<a><span class="ion-ios-star"></span></a>`;
+                modal +=`<a><span class="ion-ios-star"  onclick="(assess(${id},${i + 1}))"></span></a>`;
             }
         else
         {
-            modal +=`<a><span class="ion-ios-star-outline"></span></a>`;
+            modal +=`<a><span class="ion-ios-star-outline"  onclick="(assess(${id}, ${i + 1}))"></span></a>`;
         } 
         }
         modal +=`  </div>
-        <form action="">
-                <input type="text" placeholder="Đánh giá sản phẩm">
+        <form action="" method="post">
+            @csrf
+                <input type="hidden" name="id" value="${id}">
+                <input type="text" name="content" placeholder="Đánh giá sản phẩm">
                 <button type="submit">Đánh giá</button>
             </form>
             </div>

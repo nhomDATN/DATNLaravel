@@ -15,5 +15,6 @@ class TaiKhoan extends Model
         'ngay_sinh',
         'loai_tai_khoan_id',
         'trang_thai',
+        'verify_token'
     ];
 }

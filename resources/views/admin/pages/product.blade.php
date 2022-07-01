@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Product</h1>
+                        <h1 class="m-0">Sản phẩm</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item active">Product</li>
+                            <li class="breadcrumb-item active">Sản phẩm</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,18 +25,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                @if (request()->has('view_deleted'))
-                                    <a href="{{ route('sanPham.index') }}" class="btn btn-info"
-                                        style="margin-left:20px;margin-top: -0.3rem;">View All Products</a>
-                                    <a href="{{ route('sanPham.restore.all', 0) }}" class="btn btn-success"
-                                        style="margin-left:20px;margin-top: -0.3rem;">Restore All</a>
-                                @else
-                                    <a href="{{ route('sanPham.index', ['view_deleted' => 'DeletedRecords']) }}"
-                                        class="btn btn-primary">View Delete Records</a>
-                                @endif
                                 <div style="float: right;margin-left:20px;margin-top: -0.3rem;width: 100px;">
                                     <a href='{{ route('sanPham.create') }}'>
-                                        <button type="button" class="btn btn-block btn-default btn-sm">Add</button>
+                                        <button type="button" class="btn btn-block btn-default btn-sm">Thêm</button>
                                     </a>
                                 </div>
                                 <div class="card-tools">
@@ -53,90 +44,21 @@
 
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body table-responsive p-0" style="height: 480px;">
-                                <table class="table table-head-fixed">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Price</th>
-                                            <th style="width: 120px">Product Type</th>
-                                            <th>Brand</th>
-                                            <th style="width: 120px">Created At</th>
-                                            <th style="width: 120px">Updated At</th>
-                                            @if (request()->has('view_deleted'))
-                                                <th style="width: 120px">Delete At</th>
-                                                <th>Restore</th>
-                                            @else
-                                                <th>Detail</th>
-                                                <th>Edit</th>
-                                                <th>Delete</th>
-                                            @endif
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (count($lstsp) > 0)
-                                            @foreach ($lstsp as $sp)
-                                                <tr>
-                                                    <td>{{ $sp->id }}</td>
-                                                    <td>{{ $sp->ten_san_pham }}</td>
-                                                    <td >{{ $sp->mo_ta }}</td>
-                                                    <td>{{ $sp->gia }}</td>
-                                                    <td>{{ $sp->ten_loai_san_pham }}</td>
-                                                    <td>{{ $sp->ten_thuong_hieu }}</td>
-                                                    <td>{{ $sp->created_at }}</td>
-                                                    <td>{{ $sp->updated_at }}</td>
-                                                    @if (request()->has('view_deleted'))
-                                                        <td>{{ $sp->deleted_at }}</td>
-                                                        <td>
-                                                            <a href="{{ route('sanPham.restore', $sp->id) }}">
-                                                                <button type="button"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-redo"></i>
-                                                                </button>
-                                                            </a>
-                                                        </td>
-                                                    @else
-                                                        <td style="width: 20px;">
-                                                            <a href='{{ route('sanPham.show', ['sanPham' => $sp]) }}'>
-                                                                <button type="button"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-info-circle"></i>
-                                                                </button>
-                                                            </a>
-                                                        </td>
-                                                        <td style=";width: 20px;">
-                                                            <a href='{{ route('sanPham.edit', ['sanPham' => $sp]) }}'>
-                                                                <button type="button"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-edit"></i>
-                                                                </button>
-                                                            </a>
-                                                        </td>
-                                                        <td style="width: 20px;">
-                                                            <form method="post"
-                                                                action="{{ route('sanPham.destroy', ['sanPham' => $sp]) }}">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                        class="fas fa-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    @endif
-                                                </tr>
-                                            @endforeach
-                                        @else
-                                            <tr>
-                                                <td colspan="100" class="text-center"
-                                                    style="font-style: italic;font-weight: bold;color: #4f5962;">No Product
-                                                    Found</td>
-                                            </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
+                            <div class="card-body table-responsive p-2"style="height: 480px;">
+                                @foreach($lstPD as $item)
+                                <div class="card float-left m-1 h-75" style="width:200px" style="float: left;">
+                                    <img class="card-img-top" height="200" src="{{ asset("images/$item->hinh") }}" alt="Card image">
+                                    <div class="card-body">
+                                      <h4 class="card-title">{{ $item->ten_san_pham }}</h4><br><br><br>
+                                      <div>
+                                        <a href="{{ route('sanpham.detail', ['id' => $item->id]) }}" class="btn btn-primary">Chi tiết</a>
+                                        <a href="{{ route('sanpham.destroy',['id'=>$item->id]) }}" class="btn btn-danger">Xóa</a>
+                                        <a href="{{ route('sanpham.edit',['id'=>$item->id]) }}"><i class="fas fa-wrench"></i></a>
+                                      </div>
+                                      </div>
+                                    
+                                  </div>
+                                  @endforeach
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -147,42 +69,5 @@
         </section>
     </div>
     <script type="text/javascript">
-        $flag = <?php echo "'I" . request()->has('view_deleted') ."I'" ?>;
-        if ($flag == "II") {
-            $flag = 1;
-        } else {
-            $flag = 0;
-        }
-        $('#search').on('keyup', function() {
-            $value = $(this).val();
-            if ($flag == 0) {
-                $.ajax({
-                    type: 'get',
-                    url: '{{ URL::to('searchSanPhamXoa') }}',
-                    data: {
-                        'search': $value
-                    },
-                    success: function(data) {
-                        $('tbody').html(data);
-                    }
-                });
-            } else {
-                $.ajax({
-                    type: 'get',
-                    url: '{{ URL::to('searchSanPham') }}',
-                    data: {
-                        'search': $value
-                    },
-                    success: function(data) {
-                        $('tbody').html(data);
-                    }
-                });
-            }
-        })
-        $.ajaxSetup({
-            headers: {
-                'csrftoken': '{{ csrf_token() }}'
-            }
-        });
     </script>
 @endsection

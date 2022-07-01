@@ -28,29 +28,26 @@
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Email:</span> <a href="mailto:ckc_fastfood@caothang.edu.vn">fastfood@caothang.edu.vn</a></p>
+                    <p style="overflow: hidden; text-overflow: ellipsis;"><span>Email:</span> <a href="mailto:ckcfood.dev@gmail.com">ckcfood.dev@gmail.com</a></p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Website</span> <a href="#">ckcfastfoods.com</a></p>
+                    <p style="overflow: hidden; text-overflow: ellipsis;"><span>Website</span> <a href="#">ckcfastfoods.com</a></p>
                 </div>
             </div>
         </div>
         <div class="row block-9">
             <div class="col-md-6 order-md-last d-flex">
-                <form action="#" class="bg-white p-5 contact-form">
+                <form action="{{ route('feedback') }}" class="bg-white p-5 contact-form" method="get">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Tên đầy đủ">
+                        <input name="fullname" type="text" class="form-control" placeholder="Tên đầy đủ">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email">
+                        <input name="topic" type="text" class="form-control" placeholder="Chủ đề" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Chủ đề">
-                    </div>
-                    <div class="form-group">
-                        <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Nội dung"></textarea>
+                        <textarea name="content" id="" cols="30" rows="7" class="form-control" placeholder="Nội dung" required></textarea>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Gửi" class="btn btn-primary py-3 px-5">
@@ -65,4 +62,11 @@
         </div>
     </div>
 </section>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="/js/google-map.js"></script>
+@if(session('message'))
+    <script>
+        alert('Cảm ơn bạn vì đã phản hồi với chúng tôi, chúng tôi sẽ xem xét và phản hồi lại với bạn!')
+    </script>
+@endif
 @endsection

@@ -63,6 +63,7 @@
                                         <tr>
                                             <th>STT</th>
                                             <th>Email</th>
+                                            <th>Ảnh đại diện</th>
                                             <th>Họ tên</th>
                                             <th>Địa chỉ</th>
                                             <th>Ngày sinh</th>
@@ -88,15 +89,19 @@
                                                 <tr>
                                                     <td>{{ ++$stt }}</td>
                                                     <td>{{ $tk->email }}</td>
+                                                    <td><img src="{{ asset("/imageUsers/$tk->hinh_anh") }}"
+                                                        style="width: 100px;"></td>
                                                     <td>{{ $tk->ho_ten }}</td>
                                                     <td>{{ $tk->dia_chi }}</td>
                                                     <td>{{ $tk->ngay_sinh }}</td>
                                                     <td>{{ $tk->sdt }}</td>
                                                     <td>{{ $tk->ten_loai_tai_khoan }}</td>
                                                     @if ($tk->trang_thai  == 1)
-                                                        <td>Hoạt Động</td>
-                                                    @else
-                                                        <td>Ngưng Hoạt Động</td>
+                                                        <td style="color:green;">Đang hoạt động</td>
+                                                    @elseif ($tk->trang_thai  == 0)
+                                                        <td  style="color:red;">Chưa kích hoạt</td>
+                                                    @elseif ($tk->trang_thai  == -1)
+                                                        <td  style="color:red;">Đã bị khóa</td>
                                                     @endif
                                                     <td>{{ $tk->created_at }}</td>
                                                     <td>{{ $tk->updated_at }}</td>

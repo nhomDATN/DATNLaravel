@@ -52,7 +52,7 @@
                                             <th>ID</th>
                                             <th>Tên Loại SP</th>
                                             <th>Hình Ảnh</th>
-                                            <th>Trạng Thái</th>
+                                            {{-- <th>Trạng Thái</th> --}}
                                             <th>Ngày Tạo</th>
                                             <th>Ngày Cập Nhật</th>
                                             <th>Chỉnh sửa</th>
@@ -65,14 +65,14 @@
                                                 <tr>
                                                     <td>{{ $lsp->id }}</td>
                                                     <td>{{ $lsp->ten_loai_san_pham }}</td>
-                                                    <td><img src="{{ asset("storage/$lsp->hinh_anh") }}"
+                                                    <td><img src="{{ asset("/images/$lsp->hinh_anh") }}"
                                                             style="width: 100px;"></td>
                                                     {{-- <td><img src="{{ asset("/image/' . $lsp->hinh_anh . '") }}" style="width: 100px;"></td> --}}
-                                                    @if ($lsp->trang_thai  == 1)
+                                                    {{-- @if ($lsp->trang_thai  == 1)
                                                         <td>Hoạt Động</td>
                                                     @else
                                                         <td>Ngưng Hoạt Động</td>
-                                                    @endif
+                                                    @endif --}}
                                                     <td>{{ $lsp->created_at }}</td>
                                                     <td>{{ $lsp->updated_at }}</td>
                                                     <td style=";width: 20px;">

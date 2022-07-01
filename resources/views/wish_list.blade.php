@@ -4,8 +4,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Wishlist</span></p>
-                <h1 class="mb-0 bread">Danh Sách Yêu Thích Của Tôi</h1>
+                <div style="background-color: rgba(212, 243, 212, 0.5);">
+                <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Danh Sách Yêu Thích Của Tôi</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -24,6 +25,20 @@
             </div>
         </div>
         @else
+        <div class="container">
+            <div class="justify-content-lg-start align-content-center">
+                <input type="checkbox" id="deleteCheckBox">
+                <label for="delete">Xóa nhiều</label>
+            </div>
+        </div>
+        <form action="{{ route('notLikeAlot') }}" method="get" id="form">
+        <div class="container hide" id="container-deleteAll">
+            <div class="justify-content-lg-start align-content-center">
+                <input type="checkbox" id="deleteAll">
+                <label for="deleteAll">Xóa hết</label>
+               <button type="button" name="delete" id="trash" style="max-height: 25px;"><i class="icon-delete" style="color: black;"></i></button>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12 ftco-animate">
                 <div class="cart-list">
@@ -34,22 +49,28 @@
                                 <th>Danh Sách Sản Phẩm Yêu Thích</th>
                                 <th>&nbsp;</th>
                                 <th>Giá</th>
-                                <th>Mua Ngay</th>
+                                <th>&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($wishList as $item)
                             <tr class="text-center">
-                                <td class="product-remove"><a href="{{ route('notLike',['id'=>$item->id]) }}"><span class="ion-ios-close"></span></a></td>
-
+                                <td class="product-remove" id="deleteOnly">
+                                    <a href="{{ route('notLike',['id'=>$item->id]) }}" id="deleteX"><span class="ion-ios-close"></span></a>
+                                </td>
+                                <td class="product-removeAll hide" id="deleteAlot">
+                                    <input type="checkbox" value="{{ $item->id }}" name="deleteCheck[]">
+                                </td>
                                 <td class="image-prod"><div class="img" style="background-image:url(images/{{ $item->hinh }});"></div></td>
 
                                 <td class="product-name">
                                     <h3>{{ $item->ten_san_pham }}</h3>
-                                    <ul>
-                                        <li>3 Đùi Gà</li>
-                                        <li>1 Li Coca</li>
-                                    </ul>
+                                    <div  style="display: flex;text-align: start;">
+                                        <p>@php 
+                                            $mo_ta =  explode(".",$item->mo_ta);
+                                            echo $mo_ta[0] . '...';
+                                        @endphp</p>
+                                    </div>
                                 </td>
 
                                 <td class="price">{{ number_format($item->gia, 0, ",", ".") }} VNĐ</td>
@@ -63,6 +84,52 @@
             </div> 
         </div>
         @endif
+    </form>
     </div>
 </section>
+<script>
+    var deleteCheckBox = $('#deleteCheckBox');
+    var container_deleteAll = $('#container-deleteAll');
+    var deleteOnly = $('.product-remove');
+    var deleteAlot = $('.product-removeAll');
+    var checkAll = $('#deleteAll');
+    var checkBox = $('input[name="deleteCheck[]"]');
+    
+    deleteCheckBox.change(function() {
+        if(deleteCheckBox.prop('checked'))
+        {
+            container_deleteAll.removeClass('hide');
+            deleteOnly.addClass('hide');
+            deleteAlot.removeClass('hide');
+        }
+        else
+        {
+            container_deleteAll.addClass('hide');
+            deleteOnly.removeClass('hide');
+            deleteAlot.addClass('hide');
+        }
+    });
+    checkAll.change(function(){
+        var isCheckAll = $(this).prop('checked');
+        checkBox.prop('checked',isCheckAll);
+    });
+    checkBox.change(function(){
+        var isCheckedAll = checkBox.length === $('input[name="deleteCheck[]"]:checked').length;
+        checkAll.prop('checked',isCheckedAll);
+    });
+    
+    trash.addEventListener('click',function(e){
+        console.log('1');
+        var length = $('input[name="deleteCheck[]"]:checked').length;
+        console.log(length);
+        if(length == 0)
+        {
+            alert('Vui lòng chọn sản phẩm yêu thích bạn cần xóa!');
+            e.preventDefault();
+            console.log('1');
+        }
+        else
+            form.submit();
+    });
+</script>
 @endsection

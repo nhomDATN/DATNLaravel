@@ -23,6 +23,18 @@
 
 <section class="ftco-section">
     <div class="container" id="listProduct">
+        {{-- <div class="container">
+            <div class="tab">
+                <p></p>
+                <p class="search"><i class="icon-search"></i></p>
+            </div>
+            <div class="tab" id="search">
+                <div>
+                    <i class="icon-search"></i>
+                    <input type="text"  placeholder="Nhập tên sản phẩm cần tìm">
+                </div>
+            </div>
+        </div> --}}
         <div class="row justify-content-center">
             <div class="col-md-10 mb-5 text-center">
                 <ul class="product-category">
@@ -47,11 +59,24 @@
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
                         <h3><a href="{{ route('productdetail',['id'=>$items->id])}}">{{ $items->ten_san_pham }}</a></h3>
+                        @if($items->gia_tri > 0)
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class="price priceOld"><span>{{ number_format($items->gia, 0, ",", ".") }} VNĐ</span></p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class=" priceSales"><span>{{ number_format($items->gia - ($items->gia * $items->gia_tri) / 100, 0, ",", ".") }} VNĐ</span></p>
+                            </div>
+                        </div>
+                        @else
                         <div class="d-flex">
                             <div class="pricing">
                                 <p class="price"><span>{{ number_format($items->gia, 0, ",", ".") }} VNĐ</span></p>
                             </div>
                         </div>
+                        @endif
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
                                 <a href="{{ route('cart.addFast',['productId' => $items->id,'quantity' => 1,'price' => $items->gia,'sales' => $items->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
@@ -59,7 +84,7 @@
                                 </a>
                                 @if(!empty(Session::get('UserId')))
                                     @if (hasLike(Session::get('UserId'),$items->id))
-                                        <a href="{{ route('like',['id' => $items->id]) }}"class="heart d-flex justify-content-center align-items-center bg-danger" id="heart">
+                                        <a href="{{ route('like',['id' => $items->id]) }}"class="heart d-flex justify-content-center align-items-center" style="background-image: linear-gradient(red, white);" id="heart">
                                             <span><i class="ion-ios-heart"></i></span>
                                         </a>
                                     @else

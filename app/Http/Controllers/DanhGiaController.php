@@ -72,7 +72,18 @@ class DanhGiaController extends Controller
         return redirect()->back();
        
     }
-
+    public function notLikeAlot(Request $request)
+    {
+       
+        $listId ='';
+        for($i = 0; $i < count($request->deleteCheck);$i++) {
+            $listId .= $request->deleteCheck[$i];
+            if($i != count($request->deleteCheck) - 1)
+            $listId .= ',';
+        }
+       $rq =  DB::update('update danh_gias set yeu_thich = 0 where tai_khoan_id = '.Session::get('UserId').' and san_pham_id in ('.$listId.')');
+        return redirect()->back();
+    }
     /**
      * Store a newly created resource in storage.
      *

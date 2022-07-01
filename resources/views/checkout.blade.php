@@ -29,7 +29,7 @@
             </div>
         </div>
         </br>
-        <form action="{{ route('thanhtoan') }}" method="POST">
+        <form method="POST" enctype="application/x-www-form-urlencoded" action="{{ route('thanhtoan') }}">
             @csrf
             <h3 class="mb-4 billing-heading" style="color: red;">CHI TIẾT HÓA ĐƠN</h3>
              <div class="col-xl-20">
@@ -66,18 +66,19 @@
                             </p>
                             <p class="d-flex">
                                 <span style="color: green; font-size: 18px">Hạ giá</span>
-                                <span style="color: black; font-size: 18px">0 VNĐ</span>
+                                <span style="color: black; font-size: 18px" id="voucherSale">0 VNĐ</span>
                             </p>
                             <hr>
                             <p class="d-flex total-price">
                                 <span style="color: green; font-size: 18px">Tổng tiền cần thanh toán</span>
-                                <span style="color: black; font-size: 18px">{{ number_format($tongtien + $feeShipping,0,',','.') }} VNĐ</span>
+                                <span style="color: black; font-size: 18px" id="totalCheckout">{{ number_format($tongtien + $feeShipping,0,',','.') }} VNĐ</span>
                             </p>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="postcodezip" style="color: green; font-size: 18px">Mã giảm giá / ZIP *</label>
                                     <input type="text" name="voucher" class="form-control" placeholder="Nhập mã giảm giá nếu có" value="" style="color: black !important; font-size: 16px">
                                 </div>
+                                <p style="color:red;" id="valueVoucher"></p>
                             </div>
                         </div>
                     </div>
@@ -117,7 +118,7 @@
                                 <div class="col-md-8">
                                     <div class="radio">
                                         <label><input type="radio" name="optradio" class="mr-2" value="cast" checked>  Thanh toán bằng tiền mặt </label>
-                                        {{-- <label><input type="radio" name="optradio" class="mr-2" value="momo">  Thanh toán qua ví Momo <img src="/images/momo.jpg" alt="" style="width: 30px; height: 30px"></label> --}}
+                                        <label><input type="radio" name="optradio" class="mr-2" value="momo">  Thanh toán qua ví Momo <img src="/images/momo.jpg" alt="" style="width: 30px; height: 30px"></label>
                                         <label><input type="radio" name="optradio" class="mr-2" value="VNPay">  Thanh toán qua VNPay <img src="/images/VNPay.png" alt="" style="width: 30px; height: 30px"></label>
                                     </div>
                                 </div>
@@ -135,7 +136,49 @@
     </div>
 </section> 
 <script>
-    $(document).ready(function(){ 
+    $(document).ready(function(){
+        $flagVoucher = true;
+       
+        console.log({{ $feeShipping }});
+        $('input[name="voucher"').on('keyup',function(){
+            var value = $(this).val();
+            $.ajax({
+                type: 'get',
+                url: "/getVoucher",
+                data: {
+                    voucher: value
+                },
+                success: function(data) {
+                    console.log(data);
+                    flagVoucher = false;
+                    console.log(flagVoucher);
+                    document.getElementById('valueVoucher').innerHTML = data['message'];
+                    if(data['value'] != null)
+                    {
+                        flagVoucher = true;
+                        var voucherSale = {{ $tongtien }} - ( {{ $tongtien }} * data['value'])/100 ;
+                        var tienthanhtoan =  voucherSale + {{ $feeShipping }};
+                        $('input[name="total"]').val(tienthanhtoan);
+                        document.getElementById('voucherSale').innerHTML = voucherSale.toLocaleString('de-DE')+" VNĐ";
+                        document.getElementById('totalCheckout').innerHTML = tienthanhtoan.toLocaleString('de-DE')+" VNĐ";
+                    }
+                    else if(data['message'] == '')
+                    {
+                        flagVoucher = true;
+                    }
+                    if(data['value'] == null)
+                    {
+                        flagVoucher = true;
+                        var voucherSale = 0 ;
+                        var tienthanhtoan = {{  $tongtien + $feeShipping }};
+                        $('input[name="total"]').val(tienthanhtoan);
+                        document.getElementById('voucherSale').innerHTML = voucherSale.toLocaleString('de-DE')+" VNĐ";
+                        document.getElementById('totalCheckout').innerHTML = tienthanhtoan.toLocaleString('de-DE')+" VNĐ";
+                    }
+                       
+                }
+            });
+        });
         formSubmit.addEventListener('click', function(e) {
             if($('input[name="people"]').val() == '') {
                 $('input[name="people"]').css('border','solid 1px red')
@@ -149,12 +192,17 @@
                 $('input[name="phone"]').css('border','solid 1px red')
                 e.preventDefault();
             }
+            if(!flagVoucher)
+            {
+                alert('Mã Voucher không tồn tại, vui lòng thử mã khác!')
+                e.preventDefault();
+            }
             else
             {
                 e.submit();
             }
        
-    });
+        });
     });
    
 </script>

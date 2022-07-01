@@ -1,31 +1,68 @@
 ﻿@extends('layouts.layout')
 @section('content')
 <hr />
-<div class="container mt-4">
+<div class="container mt-4 center">
     <h2>Đăng Ký</h2>
-    <form  action="{{ route('homeuser') }}">
+    <form  action="{{ route('dangky') }}" method="post">
+        @csrf
         <div class="form-group">
-            Email<span class="text-danger">*</span> <input name="Email" type="email" class="form-control w-50" placeholder="Nhập Email" required>
+            Email<span class="text-danger">*</span> <input name="email" type="email" class="form-control" placeholder="Nhập Email" required>
         </div>
         <div class="form-group">
-            Mật Khẩu<span class="text-danger">*</span> <input name="Password" type="password" class="form-control w-50" placeholder="Nhập Mật Khẩu" required>
+            Mật Khẩu<span class="text-danger">*</span> <input name="password" type="password" class="form-control " placeholder="Nhập Mật Khẩu" required>
         </div>
         <div class="form-group">
-            Họ Tên<span class="text-danger">*</span> <input name="Fullname" type="text" class="form-control w-50" placeholder="Nhập Họ Tên" required>
+            Nhập lại mật Khẩu<span class="text-danger">*</span> <input name="password_confirm" type="password" class="form-control " placeholder="Nhập Lại Mật Khẩu" required>
         </div>
         <div class="form-group">
-            Địa Chỉ<span class="text-danger">*</span> <input name="Address" type="text" class="form-control w-50" placeholder="Nhập địa chỉ">
+            Họ Tên<span class="text-danger">*</span> <input name="fullname" type="text" class="form-control" placeholder="Nhập Họ Tên" required>
         </div>
         <div class="form-group">
-            SĐT<span class="text-danger">*</span> <input name="Phone" type="text" class="form-control w-50" value="old(Phone)" placeholder="Nhập Số Điện Thoại">
+            Ngày Sinh<span class="text-danger">*</span> <input name="datetime" type="date" class="form-control " required>
         </div>
-        <button type="submit" class="btn btn-success">Đăng Ký</button>
+        <div class="form-group">
+            Địa Chỉ<span class="text-danger">*</span> <input name="address" type="text" class="form-control" placeholder="Nhập địa chỉ">
+        </div>
+        <div class="form-group">
+            SĐT<span class="text-danger">*</span> <input name="phone" type="text" class="form-control" value="{{ old("phone") }}" placeholder="Nhập Số Điện Thoại" required>
+        </div>
+        <button type="submit" id="submit" class="btn btn-success">Đăng Ký</button>
     </form>
     <p class="mt-4">Quay lại <a href="/login">Đăng Nhập!</a></p>
 </div>
-@if(session('message'))
+@if(session('alert'))
 <script>
-        alert('Sai tài khoản hoặc mật khẩu!');
+        alert('Email đã tồn tại!');
 </script>
 @endif
+@if(session('alertPassword'))
+<script>
+        alert('Mật khẩu nhập lại không đúng!');
+</script>
+@endif
+<script>
+    var password = $('inpit[name="password"]').val();
+        var password_confirmation = $('#password_confirm').val();
+        console.log(password);
+        console.log(password_confirmation);
+        form.addEventListener('submit', function(e){
+        $('#submit').click(function() {
+        
+        var password = $('inpit[name="password"]').val();
+        var password_confirmation = $('#password_confirm').val();
+        e.preventDefault();
+        if(password === password_confirmation)
+        {
+            e.submit();
+        }
+        else
+        {
+            e.preventDefault();
+            alert('Vui lòng nhập lại mật khẩu đúng với mật khẩu đăng ký!');
+        }
+       
+        });
+        });
+   
+</script>
 @endsection

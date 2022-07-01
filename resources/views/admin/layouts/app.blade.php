@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    @php
+    $admin = DB::table('tai_khoans')->where('id',Session::get('AdminId'))->get();
+    $img = $admin[0]->hinh_anh;
+@endphp
     <meta name="_token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,9 +79,10 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('/../../../storage/assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
-                            alt="User Image">
-                            Quản Trị Viên
+                        <a href=""> <img src="{{ asset("/../../../imageUsers/$img") }}" class="img-circle elevation-2"
+                            alt="User Image"></a>
+                            {{ $admin[0]->ho_ten }}
+                          <a href="" style="margin-left:  10px;">Đăng xuất</a> 
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">
@@ -118,18 +122,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('sanpham.adminShow') }}" class="nav-link">
                                 <i class="nav-icon fas fa-palette"></i>
                                 <p>
                                     Sản Phẩm
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                <p>
-                                    Chi Tiết Sản Phẩm
                                 </p>
                             </a>
                         </li>
@@ -158,18 +154,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/admin/invoice" class="nav-link">
                                 <i class="nav-icon fas fa-file-invoice-dollar"></i>
                                 <p>
                                     Hóa Đơn
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-list-alt"></i>
-                                <p>
-                                    Chi Tiết Hóa Đơn
                                 </p>
                             </a>
                         </li>
@@ -210,14 +198,6 @@
                                 <i class="nav-icon fas fa-gift"></i>
                                 <p>
                                     Khuyến Mãi
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>
-                                    Logout
                                 </p>
                             </a>
                         </li>

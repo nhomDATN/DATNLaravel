@@ -92,7 +92,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             <a class="dropdown-item" href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" >Mua Thực Phẩm</a>
                             <a class="dropdown-item" href="/wishlist" >Danh Sách Yêu Thích</a>
-                            <a class="dropdown-item" href="#sales" >Ưu Đãi</a>
+                            <a class="dropdown-item" href="/#sales" >Ưu Đãi</a>
                             <a class="dropdown-item" href="{{ route('cart') }}" >Giỏ Hàng</a>
                             <a class="dropdown-item" href="{{ route('checkout') }}" >Thanh Toán</a>
                         </div>
@@ -177,7 +177,7 @@
 
 
     <div class="goTop">
-            <a href="#head" class="mouse-icon bg-danger">
+            <a href="#head" class="mouse-icon" style="background-image:  linear-gradient(red,white);">
                 <div class="mouse-wheel"><span class="ion-ios-arrow-up" ></span></div>
             </a> 
     </div>
@@ -200,8 +200,6 @@
     <script src="/js/jquery.animateNumber.min.js"></script>
     <script src="/js/bootstrap-datepicker.js"></script>
     <script src="/js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="/js/google-map.js"></script>
     <script src="/js/main.js"></script>
     <script>
         $(document).ready(function(){

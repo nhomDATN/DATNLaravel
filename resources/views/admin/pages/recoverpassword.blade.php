@@ -20,12 +20,12 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="/home"><b>Recover Password </b></a>
+            <a href="/home"><b>Khôi phục Password </b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Recover Password</p>
+                <p class="login-box-msg">Khôi phục Password</p>
 
                 <form action="{{ route('recover-password') }}" method="post">
                     @csrf
@@ -36,7 +36,7 @@
                     @endif
                     <input type="hidden"  name="token" value="{{ request('token') }}">
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name='password' required>
+                        <input type="password" class="form-control" placeholder="Mật khẩu" name='password' required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Confirm Password" name='confirmpassword' required>
+                        <input type="password" class="form-control" placeholder="Xác nhận mật khẩu" name='confirmpassword' required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="social-auth-links text-center mb-3">
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-block">Khôi phục</button>
                     </div>
                 </form>
                 @if (count($errors) > 0)

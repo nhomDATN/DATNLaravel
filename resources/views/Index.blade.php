@@ -139,14 +139,14 @@
                         <img src="images/hot.png" alt="hot" width="50px" style="float: left; background: transparent;">
                         <p style="color: red;float: left;font-size: 25px; padding-left: 10px; margin-top:15px">Hot</p>
                     </div>
-                    <a href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" style="color:rgb(74, 74, 250); text-decoration: underline;">Mua thêm</a>
+                    <a href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" class="see-more">Mua thêm</a>
                 </div>
                
             </div>
         </div>
     </div>
     <div class="container">
-        <div class="row" id="listSP">
+        <div class="row" id="listSP" >
             @foreach ($lstsp as $sp)
                 <div id="idsp" class="carousel-item active" style="margin-right: 0; width: 25%;">
                     
@@ -161,11 +161,24 @@
                             </a>
                             <div class="text py-3 pb-4 px-3 text-center">
                                 <h3><a href="{{ route('productdetail',['id'=>$sp->id]) }}">{{ $sp->ten_san_pham }}</a></h3>
+                                @if($sp->gia_tri > 0)
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price priceOld"><span>{{ number_format($sp->gia, 0, ",", ".") }} VNĐ</span></p>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class=" priceSales"><span>{{ number_format($sp->gia - ($sp->gia * $sp->gia_tri) / 100, 0, ",", ".") }} VNĐ</span></p>
+                                    </div>
+                                </div>
+                                @else
                                 <div class="d-flex">
                                     <div class="pricing">
                                         <p class="price"><span>{{ number_format($sp->gia, 0, ",", ".") }} VNĐ</span></p>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="bottom-area d-flex px-3">
                                     <div class="m-auto d-flex">
                                         <a href="{{ route('cart.addFast',['productId' => $sp->id,'quantity' => 1,'price' => $sp->gia,'sales' => $sp->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
@@ -173,7 +186,7 @@
                                         </a>
                                         @if(!empty(Session::get('UserId')))
                                             @if (hasLike(Session::get('UserId'),$sp->id))
-                                                <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center bg-danger" id="heart">
+                                                <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center" style="background-image: linear-gradient(red, white);" id="heart">
                                                     <span><i class="ion-ios-heart"></i></span>
                                                 </a>
                                             @else
@@ -198,7 +211,7 @@
                 <div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27">
-                                <a href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" style="padding: 12px 24px;color:rgb(74, 74, 250); text-decoration: underline">Mua thêm</a> 
+                                <a href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" class="see-more">Mua thêm</a> 
                         </div>
                     </div>
                 </div>
@@ -305,6 +318,18 @@
     </div>
     <div class="star">
         <p style="font-weight: bold">{{ number_format($_GET['amount'],0,',','.') }} VNĐ</p>
+    </div>
+    <div class="content">
+        <p>Người nhận hàng:</p>
+        <p style=" width:150px; font-weight: bold">{{$_GET['getter'] }}</p>
+    </div>
+    <div class="content">
+        <p>Địa chỉ:</p>
+        <p style=" width:150px; font-weight: bold;">{{ $_GET['address'] }}</p>
+    </div>
+    <div class="content">
+        <p>SĐT:</p>
+        <p style=" width:150px; font-weight: bold">{{ $_GET['phone']}}</p>
     </div>
 </div>
 </div>

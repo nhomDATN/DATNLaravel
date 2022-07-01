@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin 3TFashion | Log in</title>
+    <title>CKC FastFood | Recover Password Success</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -20,12 +20,12 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            3TFashion
+            CKC FastFood
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div>
-                <p style="text-align: center; font-size:30px;color:green">Recover Password Success!<p>
+                <p style="text-align: center; font-size:30px;color:green">Khôi phục mật khẩu thành công!<p>
             </div>
         </div>
     </div>

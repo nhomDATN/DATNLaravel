@@ -24,6 +24,7 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
+            @if(count($lstsp) > 0)
             @foreach($lstsp as $sp)
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
@@ -36,11 +37,24 @@
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
                         <h3><a href="#">{{ $sp->ten_san_pham }}</a></h3>
+                        @if($sp->gia_tri > 0)
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class="price priceOld"><span>{{ number_format($sp->gia, 0, ",", ".") }} VNĐ</span></p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class=" priceSales"><span>{{ number_format($sp->gia - ($sp->gia * $sp->gia_tri) / 100, 0, ",", ".") }} VNĐ</span></p>
+                            </div>
+                        </div>
+                        @else
                         <div class="d-flex">
                             <div class="pricing">
                                 <p class="price"><span>{{ number_format($sp->gia, 0, ",", ".") }} VNĐ</span></p>
                             </div>
                         </div>
+                        @endif
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
                                 <a href="{{ route('cart.addFast',['productId' => $sp->id,'quantity' => 1,'price' => $sp->gia,'sales' => $sp->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
@@ -48,7 +62,7 @@
                                 </a>
                                 @if(!empty(Session::get('UserId')))
                                     @if (hasLike(Session::get('UserId'),$sp->id))
-                                        <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center bg-danger" id="heart">
+                                        <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center" style="background-image: linear-gradient(red, white);" id="heart">
                                             <span><i class="ion-ios-heart"></i></span>
                                         </a>
                                     @else
@@ -67,6 +81,35 @@
                 </div>
             </div>
             @endforeach
+            @else
+            <p>Không tồn tại thực đơn này</p>
+            @endif
+        </div>
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                    
+                    @if ($maxpage >= 2.0)
+                    <ul>
+                        @if ($page != 1)
+                        <li><a href="{{ route('food',['page' => $page - 1]) }}">&lt;</a></li>
+                        @endif
+                        @for ($i = 1; $i <= $maxpage; ++$i)
+                           @if ($i == $page)
+                           <li class="active"><span>{{ $i }}</span></li>
+                           @else
+                           <li><a href="{{ route('food',['page' => $i]) }}">{{ $i }}</a></li>
+                           @endif 
+                          
+                        @endfor
+                        @if ($page != $maxpage)
+                         <li><a href="{{ route('food',['page' => $page + 1]) }}">&gt;</a></li>
+                        @endif
+                        
+                    </ul>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
     <hr>
