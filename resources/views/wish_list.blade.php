@@ -1,20 +1,20 @@
 ﻿@extends('layouts.layout')
 @section('content')
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-1.jpg');">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <div style="background-color: rgba(212, 243, 212, 0.5);">
-                <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Danh Sách Yêu Thích Của Tôi</h1>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <section class="ftco-section ftco-cart">
     <div class="container">
         @if(count($wishList) == 0)
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <div style="background-color: rgba(212, 243, 212, 0.5);">
+                    <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Danh Sách Yêu Thích Của Tôi</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-8 ftco-animate text-center">
@@ -25,6 +25,15 @@
             </div>
         </div>
         @else
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <div style="background-color: rgba(212, 243, 212, 0.5);">
+                    <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Danh Sách Yêu Thích Của Tôi</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <div class="justify-content-lg-start align-content-center">
                 <input type="checkbox" id="deleteCheckBox">

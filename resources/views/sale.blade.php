@@ -1,15 +1,6 @@
 ﻿@extends('layouts.layout')
 @section('content')
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-2.png');">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <div style="background-color: rgba(212, 243, 212, 0.5);">
-                    <h1 class="mb-0 bread" style="color: rgb(87, 247, 93)">Thực Phẩm Giảm Giá</h1>
-                </div>
-            </div>  
-        </div>
-    </div>
 </div>
 @php
       function hasLike($userId = 0, $id = 0)
@@ -21,6 +12,15 @@
     }
 @endphp
 <section class="ftco-section">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <div style="background-color: rgba(212, 243, 212, 0.5);">
+                    <h1 class="mb-0 bread" style="color: rgb(87, 247, 93)">Thực Phẩm Giảm Giá</h1>
+                </div>
+            </div>  
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             @foreach($lstsp as $sp)
