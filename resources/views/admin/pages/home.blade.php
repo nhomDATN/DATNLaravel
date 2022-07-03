@@ -30,7 +30,7 @@
                             <div class="inner">
                                 <h3>{{ $donhangmoi }}</h3>
 
-                                <p>New Orders</p>
+                                <p>Các Hóa Đơn Mới</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -45,7 +45,7 @@
                             <div class="inner">
                                 <h3>{{ $tongdoanhthu }}<sup style="font-size: 20px">$</sup></h3>
 
-                                <p>Total Revenue</p>
+                                <p>Tổng Doanh Thu</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
@@ -60,7 +60,7 @@
                             <div class="inner">
                                 <h3>{{ $taikhoankhachhang }}</h3>
 
-                                <p>User Registrations</p>
+                                <p>Tài Khoản Khách Hàng</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
@@ -72,7 +72,7 @@
                 </div>
                     <div class="card card-success">
                         <div class="card-header">
-                          <h3 class="card-title">Monthly revenue statistics</h3>
+                          <h3 class="card-title">Thống kê doanh thu hàng tháng</h3>
           
                           <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -86,7 +86,8 @@
                         <div class="card-body">
                           <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                             <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 572px;" width="715" height="312" class="chartjs-render-monitor"></canvas>
-                          </div>
+                            {{-- <button id="exportChart">Export Chart</button> --}}
+                        </div>
                         </div>
                         <!-- /.card-body -->
                       </div>
@@ -94,34 +95,34 @@
                 
             </div><!-- /.container-fluid -->
         </section>
+
+        <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
         <script>
+            var temp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             var thang = 0;
             var doanhthutemp = <?php echo json_encode($doanhthutungthang); ?>;
             
             doanhthutemp.forEach(element => {
-                thang++
+                temp[element.month - 1] = element.doanhthu;
+               
             });
-            console.log(thang);
-            var temp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            for(var i = 0; i < thang; i++)
-            {
-                temp[i] = doanhthutemp[i].doanhthu ;
-            }
+
             var areaChartData = {
-            labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July','Argust','September','October','November','December'],
-            datasets: [
-                {
-                label               : 'Revenue',
-                backgroundColor     : 'rgba(60,141,188,0.9)',
-                borderColor         : 'rgba(60,141,188,0.8)',
-                pointRadius          : false,
-                pointColor          : '#3b8bba',
-                pointStrokeColor    : 'rgba(60,141,188,1)',
-                pointHighlightFill  : '#fff',
-                pointHighlightStroke: 'rgba(60,141,188,1)',
-                data                : [temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9], temp[10], temp[11] ]
-                },
-            ]
+                labels  : ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+                datasets: [
+                    {
+                    label               : 'Doanh Thu',
+                    backgroundColor     : 'rgba(60,141,188,0.9)',
+                    borderColor         : 'rgba(60,141,188,0.8)',
+                    pointRadius          : false,
+                    pointColor          : '#3b8bba',
+                    pointStrokeColor    : 'rgba(60,141,188,1)',
+                    pointHighlightFill  : '#fff',
+                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                    data                : [temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9], temp[10], temp[11] ]
+                    },
+                ]
             }
     
             var barChartCanvas = $('#barChart').get(0).getContext('2d')
@@ -130,15 +131,21 @@
             barChartData.datasets[0] = temp0
     
             var barChartOptions = {
-            responsive              : true,
-            maintainAspectRatio     : false,
-            datasetFill             : false
+                responsive              : true,
+                maintainAspectRatio     : false,
+                datasetFill             : false
             }
     
             new Chart(barChartCanvas, {
-            type: 'bar',
-            data: barChartData,
-            options: barChartOptions
-        })
+                type: 'bar',
+                data: barChartData,
+                options: barChartOptions
+            })
         </script>
+
+        // <script>
+        //     document.getElementById("exportChart").addEventListener("click",function(){
+        //         chart.exportChart({format: "jpg"});
+        //     });  
+        // </script>
     @endsection

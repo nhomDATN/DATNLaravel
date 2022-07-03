@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Thêm Nguyên Liệu</h1>
+                        <h1 class="m-0">Thêm Phân Phối</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('nguyenLieu.index') }}">Nguyên Liệu</a></li>
-                            <li class="breadcrumb-item active">Thêm Nguyên Liệu</li>
+                            <li class="breadcrumb-item"><a href="{{ route('phanPhoi.index') }}">Phân Phối</a></li>
+                            <li class="breadcrumb-item active">Thêm Phân Phối</li>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -24,30 +24,37 @@
             <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Mẫu Thêm Nguyên Liệu</h3>
+                            <h3 class="card-title">Mẫu Thêm Phân Phối</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" action="{{ route('nguyenLieu.store') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('phanPhoi.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
+                                    <label for="">Nơi Phân Phối</label>
+                                    <select class="form-control" name="noiphanphoi">
+                                        @foreach ($lstnlv as $nlv)
+                                            <option value="{{ $nlv->id }}">
+                                                {{ $nlv->ma_noi_lam_viec }}
+                                            </option>
+                                        @endforeach
+                                      </select>
+                                </div>
+                                
+                                <div class="form-group">
                                     <label for="">Tên Nguyên Liệu</label>
-                                    <input type="text" class="form-control" name="tennguyenlieu"
-                                        placeholder="Tên Nguyên Liệu">
-                                </div>                           
-                                <div class="form-group">
-                                    <label for="">Đơn Giá</label>
-                                    <input type="text" class="form-control" name="dongia"
-                                        placeholder="Đơn Giá">
+                                    <select class="form-control" name="tennguyenlieu">
+                                        @foreach ($lstnguyenlieu as $nguyenlieu)
+                                            <option value="{{ $nguyenlieu->id }}">
+                                                {{ $nguyenlieu->ten_nguyen_lieu }}
+                                            </option>
+                                        @endforeach
+                                      </select>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="">Số Lượng</label>
-                                    <input type="text" class="form-control" name="soluong"
-                                        placeholder="Số Lượng">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Đơn Vị Tính</label>
+                                    <label for="">Đơn vị tính</label>
                                     <select class="form-control" name="donvitinh">
                                         @foreach ($lstdvt as $dvt)
                                             <option value="{{ $dvt->id }}">
@@ -56,6 +63,7 @@
                                         @endforeach
                                       </select>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="">Kho</label>
                                     <select class="form-control" name="kho">
@@ -65,6 +73,12 @@
                                             </option>
                                         @endforeach
                                       </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Số Lượng</label>
+                                    <input type="text" class="form-control" name="soluong"
+                                        placeholder="Số Lượng">
                                 </div>
                             </div>
                             <!-- /.card-body -->

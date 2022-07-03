@@ -98,7 +98,6 @@
                         </div>
                     </li>
                     <li class="nav-item"><a  href="/about" class="nav-link" style="font-size: 15px">Chúng Tôi</a></li>
-                    <li class="nav-item"><a href="/blog"  class="nav-link" style="font-size: 15px">Blog</a></li>
                     <li class="nav-item"><a href="/contact"  class="nav-link" style="font-size: 15px">Liên Hệ</a></li>
                     <li class="nav-item "><a href="{{ route('cart') }}"  class="nav-link" style="font-size: 15px"><span class="icon-shopping_cart"></span>[{{ $quantityFoodInCart }}]</a></li>
 

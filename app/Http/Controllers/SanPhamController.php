@@ -125,18 +125,6 @@ class SanPhamController extends Controller
         return view('index', ['lstsp'=>$lstsp]);
     }
     
-    public function blog(Request $request)
-    {
-        $lstsp = SanPham::all();
-        return view('blog', ['lstsp'=>$lstsp]);
-    }
-
-    public function blogdetail(Request $request)
-    {
-        $lstsp = SanPham::all();
-        $sanPham =SanPham::where('id','=',$request->get('sanPham'))->first();
-        return view('blogdetail', ['lstsp'=>$lstsp]);
-    }
     public function adminShow()
     {
         $product = SanPham::all()->where('trang_thai',1);

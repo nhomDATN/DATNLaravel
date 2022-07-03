@@ -28,6 +28,8 @@ use App\Http\Controllers\LoaiKhuyenMaiController;
 use App\Http\Controllers\KhuyenMaiController;
 use App\Http\Controllers\NhanVienController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PhanPhoiController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,22 +111,11 @@ Route::get('/vnpay_payment', [HoaDonController::class, 'vnpay_payment'])->middle
 
 Route::get('/checkout/vnpay_payment', [HoaDonController::class, 'vnpay_payment_updateDB'])->middleware('CheckLogin');
 
-// Route::get('/blog', function () {
-//     return view('blog');
-// });
 Route::get('/momo_payment', [HoaDonController::class, 'momo_payment'])->middleware('CheckLogin')->name('momopayment');
 
 Route::get('/checkout/momo_payment', [HoaDonController::class, 'momoPay'])->middleware('CheckLogin');
 
-Route::get('/blog', [SanPhamController::class, 'blog']);
-
 Route::get('/searchSanPham', [SanPhamController::class, 'search'])->name('sanPham.search');
-
-// Route::get('/blogdetail', function () {
-//     return view('blogdetail');
-// });
-
-Route::get('/blogdetail', [SanPhamController::class, 'blogdetail']);
 
 Route::get('/contact', function () {
     return view('contact');
@@ -237,3 +228,7 @@ Route::get('/searchNhanVien', [NhanVienController::class, 'search'])->name('nhan
 Route::resource('admin/donViTinh', DonViTinhController::class);
 
 Route::get('/searchDonViTinh', [DonViTinhController::class, 'search'])->name('donViTinh.search');
+
+Route::resource('admin/phanPhoi', PhanPhoiController::class);
+
+Route::get('/searchPhanPhoi', [PhanPhoiController::class, 'search'])->name('phanPhoi.search');

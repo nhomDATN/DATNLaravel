@@ -37,5 +37,7 @@ class HomeController extends Controller
         ->get();
         
         return view('admin/pages.home', ['donhangmoi' => $donhangmoi, 'taikhoankhachhang' => $taikhoankhachhang, 'tongdoanhthu' => $tongdoanhthu, 'doanhthutungthang' => $doanhthutungthang]);
+    
+        
     }
 }
