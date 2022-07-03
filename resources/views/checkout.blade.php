@@ -10,6 +10,15 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-8 ftco-animate text-center">
+                    <div style="background-color: rgba(212, 243, 212, 0.5);">
+                        <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Thanh Toán</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-8 ftco-animate text-center">
                     <div style="background-color: rgba(243, 219, 212, 0.5);">
                         <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(247, 116, 87)">Không Có Giỏ Hàng Để Thanh Toán</h1>
                     </div>

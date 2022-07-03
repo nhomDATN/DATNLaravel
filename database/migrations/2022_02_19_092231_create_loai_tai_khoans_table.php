@@ -18,7 +18,6 @@ class CreateLoaiTaiKhoansTable extends Migration
             $table->string('ten_loai_tai_khoan');
             $table->integer('trang_thai');
             $table->timestamps();
-           
         });
     }
 

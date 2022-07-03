@@ -10,6 +10,8 @@
     }
 @endphp
 <div class="hero-wrap hero-bread" style="background-image: url('/images/banner-1.jpg');">
+</div>
+<section class="ftco-section">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
@@ -19,8 +21,6 @@
             </div>
         </div>
     </div>
-</div>
-<section class="ftco-section">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mb-5 ftco-animate">

@@ -17,6 +17,8 @@ class CreatePhanPhoisTable extends Migration
             $table->id();
             $table->unsignedBigInteger('noi_phan_phoi_id');
             $table->unsignedBigInteger('nguyen_lieu_id');
+            $table->unsignedBigInteger('don_vi_tinh_id');
+            $table->unsignedBigInteger('kho_id');
             $table->integer('so_luong');
             $table->timestamps();
         });

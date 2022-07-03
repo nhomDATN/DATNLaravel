@@ -127,8 +127,6 @@ class NguyenLieuController extends Controller
         return redirect()->back()->with('alert', $alert);
     }
 
-    
-
     /**
      * Remove the specified resource from storage.
      *
