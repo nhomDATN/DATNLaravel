@@ -1,9 +1,5 @@
 ﻿@extends('layouts.layout')
 @section('content')
-<<<<<<< HEAD
-=======
-
->>>>>>> 24020bf3d0c2e70f7c751af4dc11b81b25112580
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-1.jpg');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">

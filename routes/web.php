@@ -154,14 +154,31 @@ Route::get('/login',function () {
     return view('login');
 })->name('user.login')->middleware('IsLogin');
 
+Route::get('/info/{id}',[TaiKhoanController::class,'show'])->name('user.info');
+
+Route::get('/info/replace_password/{id}',[TaiKhoanController::class,'replace_password'])->name('user.info.replace_password');
+
+Route::post('/replacePassword',[TaiKhoanController::class,'replace'])->name('replacePassword');
+
+Route::get('/info/update_info/{id}',[TaiKhoanController::class,'updateInfo'])->name('user.info.update_info');
+
+Route::post('updateInfo',[TaiKhoanController::class,'updateInfoUser'])->name('updateInfo');
+
+Route::get('/info/history_order/{id}',[HoaDonController::class,'historyOrder'])->name('user.info.history_order');
+
+Route::get('/info/history_order/{id}/{dh}',[HoaDonController::class,'historyOrderDetail'])->name('user.info.history_order_detail');
+
+Route::post('comment',[DanhGiaController::class,'store'])->name('comment');
+
 Route::get('/logout',[TaiKhoanController::class,'logout'])->name('user.logout');
 
 Route::post('/accountLogin',[TaiKhoanController::class,'login'])->name('login');
 
-Route::get('admin/login',[AuthController::class,'showLogin'])->name('loginadmin');
+Route::get('admin/login',[AuthController::class,'showLogin'])->name('loginadmin')->middleware('IsAdminLogin');
 
 Route::post('adminLogin',[AuthController::class,'authenticate'])->name('AdminLogin');
-Route::get('accountLogout',[TaiKhoanController::class,'logout'])->name('logout');
+
+Route::get('adminLogout',[AuthController::class,'logout'])->name('AdminLogout');
 //Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
 //Route::post('login',[AuthController::class,'authenticate'])->name('login');
@@ -169,7 +186,8 @@ Route::get('accountLogout',[TaiKhoanController::class,'logout'])->name('logout')
 // Route::get('home', function () {
 //     return view('pages.home');
 // });
-Route::get('admin/home',[HomeController::class,'index'])->name('homeadmin');
+Route::prefix('')->middleware('CheckAdminLogin')->group(function () {
+    Route::get('admin/home',[HomeController::class,'index'])->name('homeadmin');
 
 Route::resource('admin/loaiTaiKhoan', LoaiTaiKhoanController::class);
 
@@ -198,9 +216,18 @@ Route::get('admin/sanpham/detail/{id}', [SanPhamController::class,'detail'])->na
 
 Route::post('admin/sanpham/update', [SanPhamController::class,'update'])->name('sanpham.update');
 
+Route::get('admin/sanpham/search', [SanPhamController::class,'search']);
+
 Route::get('admin/invoice',[HoaDonController::class,'invoiceAdminShow']);
 
 Route::get('admin/invoice/edit/{id}',[HoaDonController::class,'edit'])->name('invoice.edit');
+
+
+Route::get('/PDF/{id}',[HoaDonController::class,'bill'])->name('bill.pdf');
+
+Route::post('admin/invoice/update',[HoaDonController::class,'update'])->name('invoice.update');
+
+Route::get('searchInvoice',[HoaDonController::class,'search']);
 
 Route::resource('admin/nguyenLieu', NguyenLieuController::class);
 
@@ -237,3 +264,4 @@ Route::get('/searchNhanVien', [NhanVienController::class, 'search'])->name('nhan
 Route::resource('admin/donViTinh', DonViTinhController::class);
 
 Route::get('/searchDonViTinh', [DonViTinhController::class, 'search'])->name('donViTinh.search');
+});

@@ -214,11 +214,52 @@ class TaiKhoanController extends Controller
      * @param  \App\Models\TaiKhoan  $taiKhoan
      * @return \Illuminate\Http\Response
      */
-    public function show(TaiKhoan $taiKhoan)
+    public function show($id)
     {
-        //
+        if($id == Session::get('UserId'))
+        {
+            $user = DB::table('tai_khoans')->where('id',$id)->get();
+            return view('info',['user' => $user]);
+        }
+        return redirect()->back();
     }
 
+    public function updateInfo($id)
+    {
+        $user = DB::table('tai_khoans')->where('id',$id)->get();
+        return view('update_info',['user' => $user]);
+    }
+    public function updateInfoUser(Request $request)
+    {
+       // dd($request->file('file'));
+        $checkPhone = DB::table('tai_khoans')
+        ->where('sdt',$request->sdt_new)
+        ->where('id','<>',$request->id)
+        ->get();
+        //dd($checkPhone);
+        if(count($checkPhone)>0){
+            return redirect()->back()->with('alert','Số điện thoại đã được sử dụng!');
+        }
+        else
+        {
+                    if(!empty($request->file('file')))
+                    {
+                        $file = $request->file('file');
+                        $file_name = $request->id.'.'.explode('.',$file->getClientOriginalName())[1];
+                        $file->move('imageUsers',$file_name);
+                        DB::update('update tai_khoans set hinh_anh = ? where id = ?', [$file_name,$request->id]);
+                        //dd( $file);
+                    }
+                    if(!empty($request->ngay_sinh))
+                    {
+                        DB::update('update tai_khoans set ngay_sinh = ? where id = ?', [$request->ngay_sinh,$request->id]);
+                    }
+                    DB::update('update tai_khoans set ho_ten = ?, sdt = ?, dia_chi =? where id = ?', 
+                    [$request->input('ho_ten'), $request->input('sdt_new'), $request->input('dia_chi'),$request->id]);
+                   
+        }
+        return redirect()->route('user.info',['id'=>$request->id]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -230,7 +271,32 @@ class TaiKhoanController extends Controller
         $lstltk = LoaiTaiKhoan::all();
         return view('admin/edit.edit_account', ['taiKhoan' => $taiKhoan, 'lstltk' => $lstltk]);
     }
-
+    public function replace_password($id)
+    {
+        $id = DB::table('tai_khoans')->select('id')->where('id', '=', $id)->get();
+        return view('replace_password',['id' => $id[0]->id]);        
+    }
+    public function replace(Request $request)
+    {
+        $checkPhone = DB::table('tai_khoans')->where('id', $request->id)->get();
+        //dd($checkPhone);
+        if(count($checkPhone)==0)
+        {
+            return redirect()->back()->with('alert','Số điện thoại không đúng, vui lòng nhập lại!');
+        }
+        else
+        {
+            if($request->password != $request->confirm_password)
+            {
+                return redirect()->back()->with('alert','Mật khẩu nhập lại không đúng!');
+            }
+            else
+            {
+                DB::update('update tai_khoans set mat_khau = ? where id = ?',[bcrypt($request->password),$request->id]);
+                return redirect()->route('user.info',['id'=>$request->id]);
+            }
+        }
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -292,6 +358,11 @@ class TaiKhoanController extends Controller
 
     //     return back();
     // }
+    public function adminLogout()
+    {
+        Session::forget('AdminId');
+        return redirect()->route('loginadmin');
+    }
 
     public function search(Request $request)
     {

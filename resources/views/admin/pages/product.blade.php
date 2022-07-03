@@ -33,7 +33,7 @@
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right"
-                                            placeholder="Search by Name" id="search" name="search">
+                                            placeholder="Tìm kiểm với tên" id="search" name="search">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-default">
                                                 <i class="fas fa-search"></i>
@@ -44,7 +44,7 @@
 
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body table-responsive p-2"style="height: 480px;">
+                            <div class="card-body table-responsive p-2"style="height: 480px;" id="listProduct">
                                 @foreach($lstPD as $item)
                                 <div class="card float-left m-1 h-75" style="width:200px" style="float: left;">
                                     <img class="card-img-top" height="200" src="{{ asset("images/$item->hinh") }}" alt="Card image">
@@ -68,6 +68,22 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
-    <script type="text/javascript">
+    <script>
+ $(document).on('keyup','#search',function(){
+            var key = $(this).val();
+            $.ajax({
+                url: '{{ URL::to('admin/sanpham/search') }}',
+                type: 'get',
+                data:{
+                    keyword: key
+                },
+                success: function(response)
+                {
+                    document.getElementById('listProduct').innerHTML = response;
+                    
+                }
+            });
+
+        });
     </script>
 @endsection

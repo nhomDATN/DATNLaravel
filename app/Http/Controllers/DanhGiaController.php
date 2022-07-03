@@ -92,7 +92,9 @@ class DanhGiaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::insert('insert into binh_luans (noi_dung,tai_khoan_id,san_pham_id,trang_thai,created_at) values (?,?,?,?,?)',[$request->danh_gia,Session::get('UserId'),$request->id,1,now()]);
+        DB::insert('insert into danh_gias (yeu_thich,so_sao,tai_khoan_id,san_pham_id,trang_thai,created_at) values (?,?,?,?,?,?)',[0,$request->star,Session::get('UserId'),$request->id,1,now()]);
+        return redirect()->back();
     }
 
     /**

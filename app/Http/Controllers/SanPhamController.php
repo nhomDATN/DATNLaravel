@@ -25,7 +25,7 @@ class SanPhamController extends Controller
      */
     public function index(Request $request)
     {
-        Session::put('productType',['Tất cả','Gà Rán','Khoai Tây Chiên','Bánh Mì','Hamburger','Trà Sữa']);
+        Session::put('productType',['Tất cả','Gà Rán','Khoai Tây Chiên','Bánh Mì','Trà Sữa']);
         $active= $request->key;
         $limit = 16;
         $offset = (($request->page - 1) * $limit);
@@ -351,33 +351,34 @@ class SanPhamController extends Controller
        return back();
     }
 
-    // public function search(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $output = '';
-    //         $sanphams = SanPham::all()
-    //         ->select('san_phams.id','san_phams.ten_san_pham','san_phams.mo_ta','san_phams.gia','loai_san_pham_id','san_phams.created_at')
-    //         ->where('ten_san_pham', 'LIKE', '%' . $request->search . '%')
-    //         ->get();
-    //         if ($sanphams) {
-    //             foreach ($sanphams as $key => $sp) {
-    //                 $output .= '<tr>
-    //                 <td>' . $sp->id . '</td>
-    //                 <td>' . $sp->ten_san_pham . '</td>
-    //                 <td>' . $sp->mo_ta . '</td>
-    //                 <td>' . $sp->gia . '</td>
-    //                 <td>' . $sp->hinh . '</td>
-    //                 <td><img src=" ' . asset("/storage/$sp->hinh_anh") . ' " style="width: 100px;"></td>
-    //                 <td>' . $sp->loai_san_pham_id . '</td>
-    //                 <td>' . $sp->created_at . '</td>
-    //                 <td>' . $sp->updated_at . '</td>
+    public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = '';
+            $sanphams = DB::table('san_phams')->where('trang_thai', '=',1) ->where('ten_san_pham', 'LIKE', '%' . $request->keyword . '%')->get();
+           
+            if (!empty($sanphams)) {
+                foreach ($sanphams as $item) {
+                    $output .= ' <div class="card float-left m-1 h-75" style="width:200px" style="float: left;">
+                    <img class="card-img-top" height="200" src=" '.asset("images/$item->hinh").'" alt="Card image">
+                    <div class="card-body">
+                      <h4 class="card-title">'.$item->ten_san_pham.'</h4><br><br><br>
+                      <div>
+                        <a href="'.route('sanpham.detail', ['id' => $item->id]).'" class="btn btn-primary">Chi tiết</a>
+                        <a href="'. route('sanpham.destroy',['id'=>$item->id]) .'" class="btn btn-danger">Xóa</a>
+                        <a href="'.route('sanpham.edit',['id'=>$item->id]).'"><i class="fas fa-wrench"></i></a>
+                      </div>
+                      </div>
                     
-                    
-    //                 </tr>';
-    //             }
-    //         }
+                  </div>';
+                }
+            }
+            else
+            {
+                $output ='<p>Không có sản phẩm này</p>';
+            }
 
-    //         return Response($output);
-    //     }
-    // }
+            return response()->json($output);
+        }
+    }
 }

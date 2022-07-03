@@ -52,7 +52,7 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="listInvoice">
                                         @php
                                             $stt =0;
                                         @endphp
@@ -97,4 +97,22 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
+    <script>
+        $(document).on('keyup','#search',function(){
+            var key = $(this).val();
+            $.ajax({
+                url: '{{ URL::to('searchInvoice') }}',
+                type: 'get',
+                data:{
+                    keyword: key
+                },
+                success: function(response)
+                {
+                    document.getElementById('listInvoice').innerHTML = response;
+                    console.log(response);
+                }
+            });
+
+        });
+    </script>
     @endsection

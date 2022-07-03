@@ -155,6 +155,8 @@
                     {
                         flagVoucher = true;
                         var voucherSale = {{ $tongtien }} - ( {{ $tongtien }} * data['value'])/100 ;
+                        if(data['maximum'] <= (( {{ $tongtien }} * data['value'])/100))
+                            voucherSale = {{ $tongtien }} - data['maximum'];
                         var tienthanhtoan =  voucherSale + {{ $feeShipping }};
                         $('input[name="total"]').val(tienthanhtoan);
                         document.getElementById('voucherSale').innerHTML = voucherSale.toLocaleString('de-DE')+" VNĐ";

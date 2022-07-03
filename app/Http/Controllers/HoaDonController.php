@@ -10,7 +10,7 @@ use App\Models\SanPham;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-
+use PDF;
 class HoaDonController extends Controller
 {
     /**
@@ -229,8 +229,6 @@ class HoaDonController extends Controller
             curl_close($ch);
             return $result;
         }
-        
-        
         $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 
         $partnerCode = 'MOMOBKUN20180529';
@@ -306,11 +304,20 @@ class HoaDonController extends Controller
             ];
             return response()->json($data);
         }
-        if(count($voucher) > 0)
+        else if(count($voucher) > 0)
         {
-            if(now() > $voucher[0]->ngay_ket_thuc)
+            $select = DB::table('hoa_dons')->where('voucher',$request->voucher)->where('tai_khoan_id',Session::get('UserId'))->get();
+            if($voucher[0]->trang_thai == 0)
             {
                 $message = 'Voucher này đã hết hạn!';
+                $data =[
+                    'message' => $message,
+                ];
+                return response()->json($data);
+            }
+            else if(count($select)>0)
+            {
+                $message = 'Voucher này đã được sử dụng!';
                 $data =[
                     'message' => $message,
                 ];
@@ -365,11 +372,51 @@ class HoaDonController extends Controller
      * @param  \App\Models\HoaDon  $hoaDon
      * @return \Illuminate\Http\Response
      */
-    public function edit(HoaDon $hoaDon)
+    public function edit($id)
     {
-        //
+        $invoice = DB::table('hoa_dons')
+        ->where('hoa_dons.id', $id)
+        ->get();
+        $invoice_detail = DB::table('chi_tiet_hoa_dons')
+        ->join('san_phams', 'san_phams.id', '=','san_pham_id')
+        ->select('chi_tiet_hoa_dons.*','san_phams.ten_san_pham','san_phams.hinh')
+        ->where('hoa_don_id',$id)
+        ->get();
+        
+        return view('admin.edit.edit_order',['invoice'=>$invoice,'invoice_detail'=>$invoice_detail]);
     }
-
+    public function bill($id)
+    {
+        $invoice = DB::table('hoa_dons')
+        ->where('hoa_dons.id', $id)
+        ->get();
+        $invoice_detail = DB::table('chi_tiet_hoa_dons')
+        ->join('san_phams', 'san_phams.id', '=','san_pham_id')
+        ->select('chi_tiet_hoa_dons.*','san_phams.ten_san_pham','san_phams.hinh')
+        ->where('hoa_don_id',$id)
+        ->get();
+        $sale = 0;
+        $amount = 0;
+        $voucher = 'Không';
+        if(!empty($invoice[0]->voucher))
+        {
+            $voucher = $invoice[0]->voucher;
+            $select = DB::table('khuyen_mais')->select('gia_tri','maximum')->where('ma_khuyen_mai','=',$invoice[0]->voucher)->get();
+            $sale = $select[0]->gia_tri;
+            $amount = $invoice[0]->tong_tien - ($invoice[0]->tong_tien * $sale)/100;
+            if((($invoice[0]->tong_tien * $sale)/100) >= $select[0]->maximum)
+            $amount = $invoice[0]->tong_tien - $select[0]->maximum;
+        }
+        
+        $detail =[
+            'voucher' => $voucher,
+            'sale' => $sale,
+            'amount' => $amount
+        ];
+         $pdf = PDF::loadView('admin.pages.bill',['detail'=>$detail,'invoice'=>$invoice,'invoice_detail'=>$invoice_detail]);
+         $string = $invoice[0]->ma_hoa_don .'.pdf';
+         return $pdf->download($string);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -377,17 +424,79 @@ class HoaDonController extends Controller
      * @param  \App\Models\HoaDon  $hoaDon
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HoaDon $hoaDon)
+    public function update(Request $request)
     {
-        //
+        if($request->has('_token')){
+            DB::update('update hoa_dons set trang_thai = ? where id = ?',[$request->status,$request->id]);
+        }
+        return redirect()->back();
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\HoaDon  $hoaDon
-     * @return \Illuminate\Http\Response
-     */
+    public function search(Request $request)
+    {
+        $output = '';
+        $select = DB::table('hoa_dons')
+        ->where('trang_thai','<>',-1)
+        ->where('ma_hoa_don','like','%'.$request->keyword.'%')->get();
+        if(count($select) > 0)
+        {
+            $stt = 0;
+            foreach($select as $item)
+            {
+                $output .= '<tr>
+                <td>'. ++$stt.' </td>
+                <td> '.$item->ma_hoa_don .'</td>
+                <td>'.$item->nguoi_nhan_hang .'</td>
+                <td>'.$item->created_at .'</td>
+                <td>';
+                switch($item->trang_thai)
+                {
+                    case 0:
+                    $output .= '<p style="color:gray"> Đang xét</p>';
+                        break;
+                    case 1:
+                    $output .= '<p style="color:blue"> Đã xét</p>';           
+                        break;
+                    case 2:
+                    $output .= '<p style="color:lime">  Đang vận chuyển</p>';        
+                        break;
+                    case 3:
+                    $output .= '<p style="color:green">Đã giao</p>';
+                        break;
+                    default:
+                    $output .= '<p style="color:red">Đã hủy</p>';
+                }
+                $output .='</td><td> '.number_format($item->tong_tien,0,',','.').'</td>
+                <td><a href="'.route('invoice.edit',['id'=>$item->id]).'"  class="btn btn-block btn-default btn-sm">Duyệt</a></td>
+            </tr>';
+            }
+            return response()->json($output);
+        }
+        else
+        {   
+            $output = '<p>Không có hóa đơn này</p>';
+            return response()->json($output);
+        }
+        
+    }
+   public function historyOrder($id)
+   {
+        $invoice = DB::table('hoa_dons')
+        ->join('tai_khoans', 'tai_khoans.id','=','hoa_dons.tai_khoan_id')
+        ->where('tai_khoans.id',$id)
+        ->get();
+       // dd($invoice);
+        return view('history_order',['id' => $id,'invoice' => $invoice]);
+   }
+   public function historyOrderDetail($id,$dh)
+   {
+        $invoice_detail = DB::table('chi_tiet_hoa_dons')
+        ->join('san_phams', 'san_phams.id','=','san_pham_id')
+        ->where('hoa_don_id',$id)
+        ->get();
+        //dd($invoice_detail);
+        return view('history_orderdetail',['id' => $id,'invoice' => $invoice_detail]);
+   }
+    
     public function destroy(HoaDon $hoaDon)
     {
         //
