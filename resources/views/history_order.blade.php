@@ -74,7 +74,11 @@
                                         @endswitch</td>
                                         <td>{{ number_format($item->tong_tien,0,',','.').' VNĐ' }}</td>
                                         <td>{{ $item->phuong_thuc_thanh_toan}}</td>
-                                        <td><a href="{{ route('user.info.history_order_detail',['id'=>$item->id,'dh'=>$item->ma_hoa_don]) }}">Xem</a></td>
+                                        <td><a class="btn btn-primary" href="{{ route('user.info.history_order_detail',['id'=>$item->id,'dh'=>$item->ma_hoa_don]) }}">Xem</a>
+                                        @if ($item->trang_thai == 0)
+                                            <a class="btn btn-danger" onclick="formModal({{ $item->id }},'{{ $item->ma_hoa_don }}')"><i class="fa fa-trash"></i></a>
+                                        @endif
+                                        </td>
                                    </tr>
                                     @endforeach
                                 </tbody>
@@ -85,7 +89,43 @@
                         <!-- form start -->
                     </div>
                    
-            </div><!-- /.container-fluid -->
-        </section>
+            </div><!-- /.container-fluid  href="{{ route('cancelInvoice',['id'=>$item->ma_hoa_don]) }}" -->
+         </section> 
     </div>
+    <div class="modal" id="modal-cancelInvoice">
+        <div class="form-comment" style="height: 155px">
+            <div class="form-header" style="height: 15px">
+                <p>Hủy đơn</p>
+                <span id="close">X</span>
+            </div>
+            <hr>
+            <div class="form-body"  style="height: 50px">
+                <div class="get-star" id="form-content">
+                   <p> Bạn có chắc là muốn hủy đơn hàng <span id="DH" class="font-weight-bold">DH036137137</span></p> 
+                </div>
+            </div>
+            <div class="form-footer">
+                <form action="{{ route('cancelInvoice') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="">
+                    <a class=" btn btn-default" id="close-btn"> Không </a>
+                <button type="submit">Có</button>
+            </form>
+            </div>
+        </div>
+        </div>
+    <script>
+        function formModal(idDH,DHcode)
+        {
+            $('input[name="id"]').val(idDH);
+            $('#modal-cancelInvoice').css('display', 'flex');
+            $('#DH').html(DHcode);
+            $('#close').click(function(){
+                $('#modal-cancelInvoice').css('display', 'none');
+            });
+            $('#close-btn').click(function(){
+                $('#modal-cancelInvoice').css('display', 'none');
+            });
+        }
+    </script>
 @endsection

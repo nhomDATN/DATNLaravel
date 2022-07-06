@@ -8,15 +8,6 @@
         @if (count($lstgiohang) == 0)
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
-                <div class="col-md-9 ftco-animate text-center">
-                    <div style="background-color: rgba(212, 243, 212, 0.5);">
-                        <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(87, 247, 93)">Giỏ Hàng Của Tôi</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-8 ftco-animate text-center">
                     <div style="background-color: rgba(243, 219, 212, 0.5);">
                         <h1 class="mb-0 bread" style="font-size: 35px; color: rgb(247, 116, 87)">Không Có Sản Phẩm Nào Trong Giỏ Hàng</h1>
@@ -71,7 +62,7 @@
                                 @php
                                     $gia_tam =($gh->gia - (($gh->gia * $gh->chiet_khau) / 100));
                                 @endphp
-                                <input type="hidden" id="oldPrice @php echo $gh->id @endphp" value="{{ ($gh->gia - (($gh->gia * $gh->chiet_khau) / 100)) }}">
+                                <input type="hidden" id="oldPrice-@php echo $gh->id @endphp" value="{{ ($gh->gia - (($gh->gia * $gh->chiet_khau) / 100)) }}">
                                 <td class="price" name="price" id="price @php echo $gh->id @endphp">{{  number_format(($gh->gia - (($gh->gia * $gh->chiet_khau) / 100)),0,',','.') }} VNĐ</td>
                                 
                                 <td class="quantity">
@@ -101,38 +92,42 @@
     let total, checkout;
 function sum(id){
     
-        var quantity = $("#"+id);
-       if(quantity.val() != 0)
+        var quantity = $("#"+id).val();
+       if(quantity > 0)
        {
-        var oldPrice = document.getElementById('oldPrice '+ id).value;
-        var total = quantity.val() * oldPrice;
+        var oldPrice = document.getElementById('oldPrice-'+ id).value;
+        var total = quantity * oldPrice;
         document.getElementById('total ' + id).innerHTML = total.toLocaleString('de-DE')+" VNĐ";
-        $.ajaxSetup({
-        headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+       
         $.ajax({
-            type: 'post',
-            url: "{{ URL::to('capNhatSoLuong') }}",
+            type: 'get',
+            url: "{{ route('capNhatSoLuong') }}",
             data: {
                 id : id,
-                quantity: quantity
+                quantity: quantity,
             },
-
         });
        }
        else
        {
-        quantity.addClass('hide');
+        $("#"+id).addClass('hide');
         $('#select-'+id).removeClass('hide');
        }
-}   
-   function reset(id){
+}
+function reset(id){
         $('#'+id).val(1);
         $('#'+id).removeClass('hide');
         $('#select-'+id).addClass('hide');
-    }
+        $.ajax({
+            type: 'get',
+            url: "{{ route('capNhatSoLuong') }}",
+            data: {
+                id : id,
+                quantity: 1,
+            },
+        });
+            }
+  
 </script>
 
 @endsection

@@ -32,10 +32,11 @@ class HomeController extends Controller
         $doanhthutungthang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
         ->whereYear('hoa_dons.created_at', '=', now()->year)
         ->where('trang_thai', '=', 3)
-        ->select(DB::raw("MONTH(hoa_dons.created_at) month"), DB::raw('sum(chi_tiet_hoa_dons.so_luong * chi_tiet_hoa_dons.gia) doanhthu'))
+        ->select(DB::raw("MONTH(hoa_dons.created_at) month"),
+         DB::raw('sum(chi_tiet_hoa_dons.so_luong * chi_tiet_hoa_dons.gia) doanhthu'))
         ->groupBy('month')
         ->get();
-        
+        //dd($doanhthutungthang);
         return view('admin/pages.home', ['donhangmoi' => $donhangmoi, 'taikhoankhachhang' => $taikhoankhachhang, 'tongdoanhthu' => $tongdoanhthu, 'doanhthutungthang' => $doanhthutungthang]);
     
         

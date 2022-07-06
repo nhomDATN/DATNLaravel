@@ -51,17 +51,6 @@ class KhuyenMaiController extends Controller
             $alert = 'Ngày bắt đầu không được bỏ trống';
             return redirect()->back()->with('alert', $alert);
         }
-
-        else if ($request->ngaybatdau == null) {
-            $alert = 'Ngày bắt đầu không được bỏ trống';
-            return redirect()->back()->with('alert', $alert);
-        }
-
-        else if ($request->ngayketthuc == null) {
-            $alert = 'Ngày bắt đầu không được bỏ trống';
-            return redirect()->back()->with('alert', $alert);
-        }
-
         else if ($request->input('giatri') == null) {
             $alert = 'Giá trị phần trăm giảm giá không được bỏ trống';
             return redirect()->back()->with('alert', $alert);

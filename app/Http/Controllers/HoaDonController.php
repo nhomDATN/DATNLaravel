@@ -482,21 +482,29 @@ class HoaDonController extends Controller
    {
         $invoice = DB::table('hoa_dons')
         ->join('tai_khoans', 'tai_khoans.id','=','hoa_dons.tai_khoan_id')
-        ->where('tai_khoans.id',$id)
+        ->select('tai_khoans.id','hoa_dons.*')
+        ->where('hoa_dons.trang_thai','<>',-1)
+        ->where('tai_khoan_id',$id)
         ->get();
        // dd($invoice);
         return view('history_order',['id' => $id,'invoice' => $invoice]);
    }
    public function historyOrderDetail($id,$dh)
    {
-        $invoice_detail = DB::table('chi_tiet_hoa_dons')
+        $invoice_detail = DB::table('hoa_dons')
+        ->join('chi_tiet_hoa_dons','chi_tiet_hoa_dons.hoa_don_id','=','hoa_dons.id')
         ->join('san_phams', 'san_phams.id','=','san_pham_id')
-        ->where('hoa_don_id',$id)
+        ->where('ma_hoa_don',$dh)
         ->get();
         //dd($invoice_detail);
         return view('history_orderdetail',['id' => $id,'invoice' => $invoice_detail]);
    }
-    
+   public function cancel(Request $request)
+   {
+        DB::delete('delete from hoa_dons where id = ? and trang_thai = 0', [$request->id]);
+        return redirect()->back();
+        
+   }
     public function destroy(HoaDon $hoaDon)
     {
         //

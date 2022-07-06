@@ -43,7 +43,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{ $tongdoanhthu }}<sup style="font-size: 20px">$</sup></h3>
+                                <h3>{{ number_format($tongdoanhthu,0,',','.')  }}<sup style="font-size: 20px">VNĐ</sup></h3>
 
                                 <p>Tổng Doanh Thu</p>
                             </div>
@@ -89,23 +89,32 @@
                             {{-- <button id="exportChart">Export Chart</button> --}}
                         </div>
                         </div>
+                        
                         <!-- /.card-body -->
                       </div>
-   
+                      <div style="align-content: center; display: flex; align-items: center;text-align: center;justify-content: center">
+                        <select name="year" style="width:100px; height: 30px">
+                            <option value="{{ now()->year }}">{{ now()->year }}</option>
+                            @for($i = now()->year - 1 ; $i > now()->year - 20; $i-- )
+                            <option value="{{ $i }}">{{ $i }}</option>
+
+                            @endfor
+                        </select>
+                        <input type="button" value="Xuất PDF" style="margin-left: 10px;">
+                    </div>
                 
             </div><!-- /.container-fluid -->
         </section>
-
         <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
         <script>
-            var temp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            var temp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             var thang = 0;
-            var doanhthutemp = <?php echo json_encode($doanhthutungthang); ?>;
+            var doanhthutemp = <?php echo json_encode($doanhthutungthang); ?>
             
             doanhthutemp.forEach(element => {
+                
                 temp[element.month - 1] = element.doanhthu;
-               
             });
 
             var areaChartData = {
@@ -113,39 +122,50 @@
                 datasets: [
                     {
                     label               : 'Doanh Thu',
-                    backgroundColor     : 'rgba(60,141,188,0.9)',
+                    backgroundColor     : 'rgba(60,141,188,0.25)',
                     borderColor         : 'rgba(60,141,188,0.8)',
-                    pointRadius          : false,
+                    pointRadius         : false,
                     pointColor          : '#3b8bba',
-                    pointStrokeColor    : 'rgba(60,141,188,1)',
+                    pointStrokeColor    : 'rgba(60,141,188,0.5)',
                     pointHighlightFill  : '#fff',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data                : [temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9], temp[10], temp[11] ]
+                    data                : [temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9], temp[10], temp[11] ],
+                    datalabels: true
                     },
                 ]
-            }
-    
-            var barChartCanvas = $('#barChart').get(0).getContext('2d')
-            var barChartData = $.extend(true, {}, areaChartData)
-            var temp0 = areaChartData.datasets[0]
-            barChartData.datasets[0] = temp0
+            };
+            var barChartCanvas = $('#barChart').get(0).getContext('2d');
+            var barChartData = $.extend(true, {}, areaChartData);
+            var temp0 = areaChartData.datasets[0];
+            barChartData.datasets[0] = temp0;
     
             var barChartOptions = {
                 responsive              : true,
                 maintainAspectRatio     : false,
-                datasetFill             : false
-            }
-    
+                datasetFill             : false,
+                plugins: 
+                    {
+                        legend: 
+                            {
+                                display: false,
+                            }
+                    },
+                scales:
+                    {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+            };
             new Chart(barChartCanvas, {
-                type: 'bar',
+                type: 'line',
                 data: barChartData,
                 options: barChartOptions
-            })
+            });
         </script>
-
-        // <script>
-        //     document.getElementById("exportChart").addEventListener("click",function(){
-        //         chart.exportChart({format: "jpg"});
-        //     });  
-        // </script>
+        <script>
+            $('select[name="year"]').change(function(){
+                $(this).val();
+            });  
+        </script>
     @endsection

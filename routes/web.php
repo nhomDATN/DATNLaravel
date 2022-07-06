@@ -98,7 +98,7 @@ Route::get('/deleteProductInCart/{id}',[HoaDonController::class, 'deleteProductI
 
 Route::get('/ThanhToan', [TaiKhoanController::class, 'checkout'])->middleware('CheckLogin')->name('checkout');
 
-Route::post('/capNhatSoLuong', [HoaDonController::class, 'capNhatSoLuong'])->name('capNhatSoLuong');
+Route::get('capNhatSoLuong', [HoaDonController::class, 'capNhatSoLuong'])->name('capNhatSoLuong');
 
 Route::get('/about', function () {
     return view('about');
@@ -157,7 +157,11 @@ Route::post('updateInfo',[TaiKhoanController::class,'updateInfoUser'])->name('up
 
 Route::get('/info/history_order/{id}',[HoaDonController::class,'historyOrder'])->name('user.info.history_order');
 
-Route::get('/info/history_order/{id}/{dh}',[HoaDonController::class,'historyOrderDetail'])->name('user.info.history_order_detail');
+Route::get('/info/history_order/{id}/orderdetail/{dh}',[HoaDonController::class,'historyOrderDetail'])->name('user.info.history_order_detail');
+
+Route::post('cancelInvoice',[HoaDonController::class,'cancel'])->name('cancelInvoice');
+
+Route::get('cancelComment/{id}/{productID}',[DanhGiaController::class,'cancel'])->name('cancelComment');
 
 Route::post('comment',[DanhGiaController::class,'store'])->name('comment');
 
@@ -255,11 +259,8 @@ Route::get('/searchNhanVien', [NhanVienController::class, 'search'])->name('nhan
 Route::resource('admin/donViTinh', DonViTinhController::class);
 
 Route::get('/searchDonViTinh', [DonViTinhController::class, 'search'])->name('donViTinh.search');
-<<<<<<< HEAD
-});
-=======
 
 Route::resource('admin/phanPhoi', PhanPhoiController::class);
 
 Route::get('/searchPhanPhoi', [PhanPhoiController::class, 'search'])->name('phanPhoi.search');
->>>>>>> 6648fe60a6f7a0c82ef2bd3457ab66631d06d24b
+});

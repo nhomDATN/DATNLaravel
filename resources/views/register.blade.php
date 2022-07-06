@@ -3,7 +3,7 @@
 <hr />
 <div class="container mt-4 center">
     <h2>Đăng Ký</h2>
-    <form  action="{{ route('dangky') }}" method="post">
+    <form id="form"  action="{{ route('dangky') }}" method="post">
         @csrf
         <div class="form-group">
             Email<span class="text-danger">*</span> <input name="email" type="email" class="form-control" placeholder="Nhập Email" required>
@@ -24,7 +24,7 @@
             Địa Chỉ<span class="text-danger">*</span> <input name="address" type="text" class="form-control" placeholder="Nhập địa chỉ">
         </div>
         <div class="form-group">
-            SĐT<span class="text-danger">*</span> <input name="phone" type="text" class="form-control" value="{{ old("phone") }}" placeholder="Nhập Số Điện Thoại" required>
+            SĐT<span class="text-danger">*</span> <input name="phone" type="text" class="form-control" value="" placeholder="Nhập Số Điện Thoại" required>
         </div>
         <button type="submit" id="submit" class="btn btn-success">Đăng Ký</button>
     </form>
@@ -41,28 +41,31 @@
 </script>
 @endif
 <script>
-    var password = $('inpit[name="password"]').val();
-        var password_confirmation = $('#password_confirm').val();
-        console.log(password);
-        console.log(password_confirmation);
-        form.addEventListener('submit', function(e){
-        $('#submit').click(function() {
-        
-        var password = $('inpit[name="password"]').val();
-        var password_confirmation = $('#password_confirm').val();
-        e.preventDefault();
-        if(password === password_confirmation)
-        {
-            e.submit();
-        }
-        else
-        {
-            e.preventDefault();
-            alert('Vui lòng nhập lại mật khẩu đúng với mật khẩu đăng ký!');
-        }
-       
+    $('input[name="phone"]').on('keyup', function(){
+        console.log($('input[name="phone"]').val()[0] == 0);
+    });
+    var password = $('input[name="password"]').val();
+    var password_confirmation = $('input[name="password_confirm"]').val();
+
+        submit.addEventListener('click',function(e) {
+            if(checkPhonenumber() == false)
+            {
+                alert('Số điện thoại phải tối thiểu là 10 chữ số và bắt đầu bằng số 0!');
+                e.preventDefault();
+            }
+            else if(password != password_confirmation)
+            {
+                alert('Vui lòng nhập lại mật khẩu đúng với mật khẩu đăng ký!');
+                e.preventDefault();
+            }
         });
-        });
-   
+       function checkPhonenumber()
+        {
+            if($('input[name="phone"]').val()[0] == 0 && $('input[name="phone"]').val().length >= 10)
+            {
+                return true;
+            }
+            return false;
+        }
 </script>
 @endsection

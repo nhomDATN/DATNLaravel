@@ -29,8 +29,7 @@
     <link rel="stylesheet" href="{{ asset('/../../../storage/assets/plugins/summernote/summernote-bs4.min.css') }}">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="{{ asset('/../../../storage/assets/plugins/chart.js/Chart.min.js') }}"></script>
-    <title>CKC Fast Food</title>
+    <title>CKC FAST FOOD</title>
 </head>
 <style>
     .modal{
@@ -84,12 +83,6 @@
         border: solid 1px rgb(0, 0, 0,0.5);
         margin: 5px;
         padding: 5px 8px;
-    }
-    .form-footer p
-    {
-        cursor: pointer;
-        background: red;
-        color: white;
     }
     .form-footer p:hover
     {
@@ -224,6 +217,8 @@
             <b>Trang Quản Lý</b>
         </div>
     </footer>
+    @php
+    @endphp
     <script>
         const currentLocation = location.href;
             const menuItem = document.querySelectorAll('a.nav-link');
@@ -236,13 +231,7 @@
             }
     </script>
     <!-- jQuery -->
-    <script src="{{ asset('/../../../storage/assets/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('/../../../storage/assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('/../../../storage/assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
@@ -276,17 +265,15 @@
             bsCustomFileInput.init();
         });
     </script>
-    <div class="modal">
+    <div class="modal" id="comment">
         <div class="form-comment">
             <div class="form-header">
                 <p>Đánh giá sản phẩm</p>
                 <span id="close">X</span>
             </div>
-            <form action="{{ route('comment') }}" method="post">
                 @csrf
+                <p id="name"></p>
             <div class="form-body">
-                <input type="hidden" name="id" value="">
-                <input type="hidden" name="star" value="">
                 <div class="get-star" id="list-star">
                     <a ><i class=" ion-ios-star" onclick="getStar(1)" style="color: orange; font-size:24px"> </i></a>
                     <a ><i class=" ion-ios-star" onclick="getStar(2)" style="color: orange; font-size:24px"> </i></a>
@@ -297,21 +284,49 @@
                 <textarea name="danh_gia" cols="57" rows="10" placeholder="Đánh giá của bạn..."></textarea>
             </div>
             <div class="form-footer">
-                <p id="closeH">Hủy</p>
+                <p class=" btn btn-danger" id="closeH">Hủy</p>
+                <p class=" btn btn-primary" id="ReSee">Đánh giá</button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal" id="reSee">
+        <div class="form-comment">
+            <div class="form-header">
+                <p>Đánh giá sản phẩm</p>
+                <span id="closeReSee">X</span>
+            </div>
+            <p id="nameReSee"></p>
+            <form action="{{ route('comment') }}" method="post">
+                @csrf
+            <div class="form-body">
+                <input type="hidden" name="id" value="">
+                <input type="hidden" name="star" value="">
+                <input type="hidden" name = "danh_gia" value="">
+                <div class="get-star" id="list-starReSee">
+                    <a ><i class=" ion-ios-star" onclick="getStar(1)" style="color: orange; font-size:24px"> </i></a>
+                </div>
+                <div id="reSee-content" style=" padding: 12px 12px;display: flex; text-align:start; width: 100%; height: 280px; border:solid 1px rgb(0, 0, 0,0.25)">
+                    <p>
+                        aaaaaaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbb ccccccccccccccccccccccccc ddddddddddddddddddddd
+                    </p>
+                </div>
+            </div>
+            <div class="form-footer">
+                <p class=" btn btn-danger" id="closeReSeeH">Sửa lại</p>
                 <button type="submit" id="submit">Xác nhận</button>
             </div>
             </form>
         </div>
     </div>
     <script>
-       submit.addEventListener('click', function(e) {
-        if($('textarea[name="danh_gia"]').val() == "")
-        {
-            alert('Vui lòng để lại đánh giá của bạn để cho chúng tôi biết để cải thiện, cảm ơn!');
-            e.preventDefault();
-        }
-       })
-
+         submit.addEventListener('click', function(e) {
+         if($('textarea[name="danh_gia"]').val() == "")
+         {
+             alert('Vui lòng để lại đánh giá của bạn để cho chúng tôi biết để cải thiện, cảm ơn!');
+             e.preventDefault();
+         }
+        })
     </script>
 </body>
 </html>

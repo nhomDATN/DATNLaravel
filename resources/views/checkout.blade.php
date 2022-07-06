@@ -46,14 +46,16 @@
                         <h3 class="billing-heading mb-4" style="color: red; font-size: 18px">CHI TIẾT GIỎ HÀNG</h3>
                         <p class="d-flex" style="color: black">
                             <span style="color: green; font-size: 18px">Tên sản phẩm</span>
-                            <span style="color: green; text-align: center; font-size: 18px">Số lượng mua</span>
-                            <span style="color: green; text-align: center; font-size: 18px">Giá</span>
+                            <span style="color: green; text-align: center; font-size: 18px">Đơn giá</span>
+                            <span style="color: green; text-align: center; font-size: 18px">Số lượng</span>
+                            <span style="color: green; text-align: center; font-size: 18px">Thành tiền</span>
                         </p>
                         @foreach($giohang as $item)
                             <p class="d-flex">
                                 <span style="color: black; font-size: 16px">{{ $item->ten_san_pham }}</span>
+                                <span style="color: black; text-align: center; font-size: 16px">{{ number_format(($item->gia - ($item->gia * $item->chiet_khau)/100), 0, ",", ".") }} VNĐ</span> 
                                 <span style="color: black; text-align: center; font-size: 16px">{{ $item->so_luong }}</span>
-                                <span style="color: black; text-align: center; font-size: 16px">{{ number_format(($item->gia - ($item->gia * $item->chiet_khau)/100), 0, ",", ".") }} VNĐ</span>       
+                                <span style="color: black; text-align: center; font-size: 16px">{{ number_format(($item->gia - ($item->gia * $item->chiet_khau)/100) * $item->so_luong, 0, ",", ".") }} VNĐ</span>       
                             </p>
                         @endforeach
                      
@@ -64,20 +66,20 @@
                         <div class="cart-detail cart-total p-3 p-md-4">
                             <h3 class="billing-heading mb-4" style="color: red; font-size: 18px">TỔNG SỐ TIỀN GIỎ HÀNG</h3>
                             <p class="d-flex">
-                                <span style="color: green; font-size: 18px">Tổng tiền</span>
+                                <span style="color: green; font-size: 18px">Tạm tính</span>
                                 <span style="color: black; font-size: 18px">{{ number_format($tongtien,0,',','.') }} VNĐ</span>
                             </p>
                             <p class="d-flex">
-                                <span>Vận chuyển</span>
+                                <span>Phí vận chuyển</span>
                                 <span>{{ number_format($feeShipping,0,',','.') }} VNĐ</span>
                             </p>
                             <p class="d-flex">
-                                <span style="color: green; font-size: 18px">Hạ giá</span>
+                                <span style="color: green; font-size: 18px">Giá khuyến mãi</span>
                                 <span style="color: black; font-size: 18px" id="voucherSale">0 VNĐ</span>
                             </p>
                             <hr>
                             <p class="d-flex total-price">
-                                <span style="color: green; font-size: 18px">Tổng tiền cần thanh toán</span>
+                                <span style="color: green; font-size: 18px">Thành tiền</span>
                                 <span style="color: black; font-size: 18px" id="totalCheckout">{{ number_format($tongtien + $feeShipping,0,',','.') }} VNĐ</span>
                             </p>
                             <div class="col-md-12">
@@ -125,7 +127,7 @@
                                 <div class="col-md-8">
                                     <div class="radio">
                                         <label><input type="radio" name="optradio" class="mr-2" value="cast" checked>  Thanh toán bằng tiền mặt </label>
-                                        <label><input type="radio" name="optradio" class="mr-2" value="momo">  Thanh toán qua ví Momo <img src="/images/momo.jpg" alt="" style="width: 30px; height: 30px"></label>
+                                        <label><input type="radio" name="optradio" class="mr-2" value="momo">  Thanh toán qua Momo QR <img src="/images/momo.jpg" alt="" style="width: 30px; height: 30px"></label>
                                         <label><input type="radio" name="optradio" class="mr-2" value="VNPay">  Thanh toán qua VNPay <img src="/images/VNPay.png" alt="" style="width: 30px; height: 30px"></label>
                                     </div>
                                 </div>
@@ -177,7 +179,6 @@
                     }
                     if(data['value'] == null)
                     {
-                        flagVoucher = true;
                         var voucherSale = 0 ;
                         var tienthanhtoan = {{  $tongtien + $feeShipping }};
                         $('input[name="total"]').val(tienthanhtoan);

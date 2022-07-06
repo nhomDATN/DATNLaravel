@@ -37,11 +37,6 @@
                                         placeholder="Nhập Họ Tên" value="{{ $user[0]->ho_ten }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Ngày Sinh (nếu muốn đổi)</label>
-                                        <input type="date" class="form-control" name="ngay_sinh" 
-                                            placeholder="Ngày Bắt Đầu" date="{{ $user[0]->ngay_sinh }}">
-                                    </div>
-                                    <div class="form-group">
                                         <label for="">Số điện thoại:</label>
                                         <input type="text" class="form-control" name="sdt_new"
                                         placeholder="Nhập số điện thoại mới" value="{{ $user[0]->sdt}}" required>
@@ -58,7 +53,7 @@
     
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <button type="submit" id="submit" class="btn btn-primary disabled" style="width: 100%">Đổi</button>
+                                    <button type="submit" id="submit" class="btn btn-primary" style="width: 100%">Đổi</button>
                                 </div>
     
                                 @if(session('alert'))
@@ -75,10 +70,11 @@
         </section>
         <script>
             $('input[name="sdt_new"]').on('keyup',function(){
-                if($(this).val().length < 10)
+                if($(this).val().length < 10 || $(this).val()[0] != 0)
                 {
-                    $('#errorSDTOld').html('Số điện thoại không thể < 10 chữ số');
+                    $('#errorSDTOld').html('Số điện thoại phải bắt đầu bằng số 0 và không thể < 10 chữ số ');
                     $('#errorSDTNew').removeClass('d-none');
+                    $('#submit').addClass('disabled')
                 }
                 else
                 {

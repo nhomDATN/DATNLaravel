@@ -92,11 +92,29 @@ class DanhGiaController extends Controller
      */
     public function store(Request $request)
     {
+        $check = DB::table('danh_gias')
+        ->where('so_sao','>',0)
+        ->where('tai_khoan_id',Session::get('UserId'))
+        ->where('san_pham_id',$request->id)
+        ->get();
+        if(count($check) == 0)
+       { 
         DB::insert('insert into binh_luans (noi_dung,tai_khoan_id,san_pham_id,trang_thai,created_at) values (?,?,?,?,?)',[$request->danh_gia,Session::get('UserId'),$request->id,1,now()]);
         DB::insert('insert into danh_gias (yeu_thich,so_sao,tai_khoan_id,san_pham_id,trang_thai,created_at) values (?,?,?,?,?,?)',[0,$request->star,Session::get('UserId'),$request->id,1,now()]);
+        }
+        else
+        {
+            DB::update('update danh_gias set yeu_thich = 0,so_sao = ?, updated_at = ? where tai_khoan_id = ? and san_pham_id = ?',[$request->star,now(),Session::get('UserId'),$request->id]);
+            DB::update('update binh_luans set noi_dung = ?, updated_at = ? where tai_khoan_id = ? and san_pham_id = ?',[$request->danh_gia,now(),Session::get('UserId'),$request->id]);
+        }
         return redirect()->back();
     }
-
+    public function cancel($id,$productID)
+    {
+        DB::delete('update danh_gias set so_sao = 0 where tai_khoan_id = ? and san_pham_id = ?',[$id,$productID]);
+        DB::delete('delete from binh_luans where tai_khoan_id = ? and san_pham_id = ?',[$id,$productID]);
+        return back();
+    }
     /**
      * Display the specified resource.
      *

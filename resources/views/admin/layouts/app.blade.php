@@ -70,7 +70,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4 bg-red">
             <!-- Brand Logo -->
-            <a href="home" class="brand-link">
+            <a href="{{ route('homeadmin') }}" class="brand-link">
                 <span class="brand-text font-weight-light">Admin CKC FastFood</span>
             </a>
 
@@ -201,8 +201,6 @@
                                 </p>
                             </a>
                         </li>
-<<<<<<< HEAD
-=======
                         <li class="nav-item">
                             <a href="{{ route('donViTinh.index') }}" class="nav-link">
                                 <i class="fas fa-balance-scale"></i>
@@ -219,15 +217,6 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>
-                                    Logout
-                                </p>
-                            </a>
-                        </li>
->>>>>>> 6648fe60a6f7a0c82ef2bd3457ab66631d06d24b
                         </li>
                     </ul>
                 </nav>

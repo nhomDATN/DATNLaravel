@@ -68,14 +68,15 @@
         var flag1 = 0;
         var flag2 = 0;
       $('input[name="sdt"]').on('keyup', function(){
-        if($(this).val().length > 9)
+        if($(this).val().length > 9 && $(this).val()[0] == 0)
         {
             flag = 1;
             $('#errorSDT').html('');
         }
         else{
+            $('#submit').addClass('disabled');
             flag = 0;
-            $('#errorSDT').html('Số điện thoại phải > 9 chữ số');
+            $('#errorSDT').html('Số điện thoại phải bắt đầu bằng số 0 và phải < 10 chữ số');
         }
         if( flag ==  1 && flag1 ==  1 && flag2 == 1)
         {
@@ -89,6 +90,7 @@
             $('#errorPW').html('');
         }
         else{
+            $('#submit').addClass('disabled');
             flag1 = 0;
             $('#errorPW').html('Mật khẩu phải có tối thiểu 6 ký tự');
         }
@@ -105,6 +107,7 @@
         }
         else{
             flag2 = 0;
+            $('#submit').addClass('disabled');
             $('#errorCPW').html('Mật khẩu phải có tối thiểu 6 ký tự');
         }
         if( flag == 1 && flag1 == 1 && flag2 == 1)
