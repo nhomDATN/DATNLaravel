@@ -93,7 +93,7 @@
                         <!-- /.card-body -->
                       </div>
                       <div style="align-content: center; display: flex; align-items: center;text-align: center;justify-content: center">
-                        <select name="year" style="width:100px; height: 30px">
+                        <select name="year" style="width:100px; height: 30px" onchange="SetYear(this.value)">
                             <option value="{{ now()->year }}">{{ now()->year }}</option>
                             @for($i = now()->year - 1 ; $i > now()->year - 20; $i-- )
                             <option value="{{ $i }}">{{ $i }}</option>
@@ -105,12 +105,32 @@
                 
             </div><!-- /.container-fluid -->
         </section>
+        
         <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
         <script>
+           function SetYear(year)
+            {
+                $.ajax({
+                    type: "get",
+                    url: "/getDataWithYear",
+                    data:{
+                        year: year
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        innerChart(response);
+                        console.log(response);
+                    }
+                });
+            }  
+        </script>
+        <script>
+            innerChart(<?php echo json_encode($doanhthutungthang)?>);
+            function innerChart(data)
+            {
             var temp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             var thang = 0;
-            var doanhthutemp = <?php echo json_encode($doanhthutungthang); ?>
+                var doanhthutemp = data;
             
             doanhthutemp.forEach(element => {
                 
@@ -129,8 +149,7 @@
                     pointStrokeColor    : 'rgba(60,141,188,0.5)',
                     pointHighlightFill  : '#fff',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data                : [temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9], temp[10], temp[11] ],
-                    datalabels: true
+                    data                : [temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9], temp[10], temp[11] ]
                     },
                 ]
             };
@@ -142,14 +161,7 @@
             var barChartOptions = {
                 responsive              : true,
                 maintainAspectRatio     : false,
-                datasetFill             : false,
-                plugins: 
-                    {
-                        legend: 
-                            {
-                                display: false,
-                            }
-                    },
+                datasetFill             : true,
                 scales:
                     {
                         y: {
@@ -160,12 +172,15 @@
             new Chart(barChartCanvas, {
                 type: 'line',
                 data: barChartData,
-                options: barChartOptions
+                options: barChartOptions,
+                plugins: 
+                    {
+                        legend: 
+                            {
+                                display: false,
+                            }
+                    },
             });
-        </script>
-        <script>
-            $('select[name="year"]').change(function(){
-                $(this).val();
-            });  
+            }
         </script>
     @endsection

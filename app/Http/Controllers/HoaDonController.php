@@ -396,7 +396,7 @@ class HoaDonController extends Controller
         ->where('hoa_don_id',$id)
         ->get();
         $sale = 0;
-        $amount = 0;
+        $amount = $invoice[0]->tong_tien;
         $voucher = 'Không';
         if(!empty($invoice[0]->voucher))
         {

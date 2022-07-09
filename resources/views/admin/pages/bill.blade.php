@@ -10,20 +10,22 @@
 <style>
     body
     {
+        width:100%;
         font-family: DejaVu Sans, sans-serif;
     }
     .container{
+        width:100%;
         display: flex;
         text-align: center;
         align-items: center;
         flex-direction: column;
         justify-content: center;
     }
-    .container .header{
-        justify-content: start;
-        flex-direction: column;
-        text-align: start;
-        width: 250px;
+     .header{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        width: 100%;
     }
     
     .container .time{
@@ -43,9 +45,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>CKC Fast Food</h1>
-            <p>Đ/c: 69 Huỳnh Thúc Kháng, Quận 1, TP.HCM</p>
-            <p>Hotline: 0908 123 456</p>
+            <div>
+                <h1>CKC FAST FOOD</h1>
+                <p>Đ/c: 69 Huỳnh Thúc Kháng, Quận 1, TP.HCM</p>
+                <p>Hotline: 0908 123 456</p>
+            </div>
         </div>
         <div class="time">
             <p>Ngày bán: {{ explode(' ', $invoice[0]->created_at)[0] }}</p>
@@ -78,7 +82,7 @@
                             <td>{{ $item->ten_san_pham }}</td>
                             <td>{{ number_format($item->gia ,0,',','.') }}</td>
                             <td>{{ $item->so_luong }}</td>
-                            <td>{{ number_format($item->gia * $item->so_luong,0,',','.') }}</td>
+                            <td>{{ number_format($item->gia * $item->so_luong,0,',','.') }} VNĐ</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -94,11 +98,11 @@
                     @else
                     25.000
                 @endif</p>
-                <p>Tạm tính : {{number_format( $invoice[0]->tong_tien,0,',','.') }}</p>
+                <p>Tạm tính : {{number_format( $invoice[0]->tong_tien,0,',','.') }}VNĐ</p>
                 <p>Chiết khấu : {{ $detail['sale'] }}%</p>
                 <p>Voucher sử dụng : {{ $detail['voucher'] }}</p>
-                <p>Tiền thanh toán : {{ number_format( $detail['amount'],0,',','.') }}</p>
-                <p>Phương thức thanh toán : <span>{{ $invoice[0]->phuong_thuc_thanh_toan }}</span></p>
+                <p>Tiền thanh toán : {{ number_format( $detail['amount'],0,',','.') }}VNĐ</p>
+                <p>Phương thức thanh toán : <span>{{ $invoice[0]->phuong_thuc_thanh_toan }}</span>VNĐ</p>
             </div>
            
             

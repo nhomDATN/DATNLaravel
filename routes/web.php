@@ -29,7 +29,6 @@ use App\Http\Controllers\KhuyenMaiController;
 use App\Http\Controllers\NhanVienController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PhanPhoiController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -181,6 +180,11 @@ Route::get('adminLogout',[AuthController::class,'logout'])->name('AdminLogout');
 // Route::get('home', function () {
 //     return view('pages.home');
 // });
+
+Route::get('report', [HomeController::class,'report'])->name('report');
+
+Route::get('getDataWithYear',[HomeController::class,'getDataWithYear']);
+
 Route::prefix('')->middleware('CheckAdminLogin')->group(function () {
     Route::get('admin/home',[HomeController::class,'index'])->name('homeadmin');
 

@@ -8,7 +8,7 @@ use App\Models\SanPham;
 use App\Models\TaiKhoan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use PDF;
 class HomeController extends Controller
 {
     public function index()
@@ -40,5 +40,21 @@ class HomeController extends Controller
         return view('admin/pages.home', ['donhangmoi' => $donhangmoi, 'taikhoankhachhang' => $taikhoankhachhang, 'tongdoanhthu' => $tongdoanhthu, 'doanhthutungthang' => $doanhthutungthang]);
     
         
+    }
+    public function getDataWithYear(Request $request)
+    {
+        $doanhthutungthang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
+        ->whereYear('hoa_dons.created_at', '=', $request->year)
+        ->where('trang_thai', '=', 3)
+        ->select(DB::raw("MONTH(hoa_dons.created_at) month"),
+         DB::raw('sum(chi_tiet_hoa_dons.so_luong * chi_tiet_hoa_dons.gia) doanhthu'))
+        ->groupBy('month')
+        ->get();
+        return response()->json($doanhthutungthang);
+    }
+    public function report(Request $request)
+    {
+        $pdf = PDF::loadView('admin.pages.report');
+        return $pdf->stream();
     }
 }

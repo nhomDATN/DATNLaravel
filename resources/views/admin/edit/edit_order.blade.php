@@ -90,8 +90,9 @@
                                     <th>#</th>
                                     <th>&nbsp;</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>Số lượng</th>
                                     <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,8 +105,9 @@
                                     <td>{{ ++$stt }}</td>
                                     <td><img src="{{ asset("images/$item->hinh") }}"alt=""></td>
                                     <td>{{ $item->ten_san_pham }}</td>
+                                    <td>{{ number_format($item->gia,0,',','.') }}VNĐ</td>
                                     <td>{{ $item->so_luong }}</td>
-                                    <td>{{ number_format($item->gia,0,',','.') }}</td>
+                                    <td>{{ number_format($item->gia * $item->so_luong,0,',','.') }} VNĐ</td>
                                     
                                 </tr>
                                 @endforeach

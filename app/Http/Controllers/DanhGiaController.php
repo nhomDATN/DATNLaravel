@@ -93,7 +93,6 @@ class DanhGiaController extends Controller
     public function store(Request $request)
     {
         $check = DB::table('danh_gias')
-        ->where('so_sao','>',0)
         ->where('tai_khoan_id',Session::get('UserId'))
         ->where('san_pham_id',$request->id)
         ->get();
@@ -104,9 +103,16 @@ class DanhGiaController extends Controller
         }
         else
         {
+            $check2 = DB::table('binh_luans')
+            ->where('tai_khoan_id',Session::get('UserId'))
+            ->where('san_pham_id',$request->id)
+            ->get();
+            if(count($check2) > 0)
+              DB::update('update binh_luans set noi_dung = ?, updated_at = ? where tai_khoan_id = ? and san_pham_id = ?',[$request->danh_gia,now(),Session::get('UserId'),$request->id]);
+            else
+                DB::insert('insert into binh_luans (noi_dung,tai_khoan_id,san_pham_id,trang_thai,created_at) values (?,?,?,?,?)',[$request->danh_gia,Session::get('UserId'),$request->id,1,now()]);
             DB::update('update danh_gias set yeu_thich = 0,so_sao = ?, updated_at = ? where tai_khoan_id = ? and san_pham_id = ?',[$request->star,now(),Session::get('UserId'),$request->id]);
-            DB::update('update binh_luans set noi_dung = ?, updated_at = ? where tai_khoan_id = ? and san_pham_id = ?',[$request->danh_gia,now(),Session::get('UserId'),$request->id]);
-        }
+            }
         return redirect()->back();
     }
     public function cancel($id,$productID)
