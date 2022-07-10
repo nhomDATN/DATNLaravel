@@ -108,7 +108,6 @@
                                     <td>{{ number_format($item->gia,0,',','.') }}VNĐ</td>
                                     <td>{{ $item->so_luong }}</td>
                                     <td>{{ number_format($item->gia * $item->so_luong,0,',','.') }} VNĐ</td>
-                                    
                                 </tr>
                                 @endforeach
                                

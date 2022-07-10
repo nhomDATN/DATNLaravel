@@ -46,8 +46,9 @@
                                         <th>#</th>
                                         <th>&nbsp;</th>
                                         <th>Tên sản phẩm</th>
-                                        <th>Số lượng</th>
                                         <th>Đơn giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Thành tiền</th>
                                         <th>Chiết khấu</th>
                                         <th>&nbsp;</th>
                                     </tr>
@@ -61,8 +62,9 @@
                                         <td>{{ ++$stt }}</td>
                                         <td><img src="{{ asset("images/$item->hinh") }}"alt="hinh"></td>
                                         <td>{{ $item->ten_san_pham }}</td>{{-- <p class="btn btn-outline-secondary" onclick="xemlai({{ $item->id }})">Xem lại</p> --}}
-                                        <td>{{ $item->so_luong }}</td>
                                         <td>{{ number_format($item->gia ,0,',','.') }}</td>
+                                        <td>{{ $item->so_luong }}</td>
+                                        <td>{{ number_format($item->gia * $item->so_luong,0,',','.') }}</td>
                                         <td>{{ $item->chiet_khau }}%</td>
                                         <td>
                                             @php

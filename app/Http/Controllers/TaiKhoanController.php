@@ -102,7 +102,7 @@ class TaiKhoanController extends Controller
         $tongtien = 0;
         foreach ($lstgiohang as $i)
         {
-            $tongtien += ($i->gia - ($i->gia * $i->chiet_khau) / 100);
+            $tongtien += ($i->gia - ($i->gia * $i->chiet_khau) / 100) * $i->so_luong;
         }
         if($tongtien >= 500000)
             $feeShipping = 0;
