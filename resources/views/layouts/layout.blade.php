@@ -10,7 +10,7 @@
             Session::put('cartId', $isCart[0]->id);
        
     @endphp
-    <title>Index</title>
+    <title>CKC FASTFOOD</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-md pr-4 d-flex topper align-items-center">
                             <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-                            <span class="text">ckc_fastfood@email.com</span>
+                            <span class="text">ckc_food.dev@email.com</span>
                         </div>
                         @if(empty(Session::get('UserId')))
                         <div class="col-md pr-4 d-flex  align-items-center">
@@ -92,7 +92,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             <a class="dropdown-item" href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" >Mua Thực Phẩm</a>
                             <a class="dropdown-item" href="/wishlist" >Danh Sách Yêu Thích</a>
-                            <a class="dropdown-item" href="/#sales" >Ưu Đãi</a>
+                            <a class="dropdown-item" href="{{ route('sale') }}" >Ưu Đãi</a>
                             <a class="dropdown-item" href="{{ route('cart') }}" >Giỏ Hàng</a>
                             <a class="dropdown-item" href="{{ route('checkout') }}" >Thanh Toán</a>
                         </div>

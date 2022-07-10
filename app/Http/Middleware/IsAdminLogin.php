@@ -17,7 +17,7 @@ class IsAdminLogin
     public function handle(Request $request, Closure $next)
     {
         if(!empty(Session::get('AdminId')))
-        return redirect()->back();
+        return redirect()->route('homeadmin');
         return $next($request);
     }
 }

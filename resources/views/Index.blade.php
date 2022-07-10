@@ -216,35 +216,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="container">
-                </br>
-                </br>
-                <section class="ftco-section img font-weight-bold" style="background-image: url(images/1.jpg);"  id="sales">
-                    <div class="row justify-content-end" style="margin: inherit;">
-                        <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate" style="background: rgba(141, 243, 148, 0.4)">
-                            <span class="subheading">Giá Tốt Cho Bạn</span>
-                            <h2 class="mb-4">Giảm giá trong ngày</h2>
-
-                            <ul>
-                                <li style="color: black">3 Đùi Gà</li>
-                                <li style="color: black">Lon pepsi</li>
-                                <li style="color: black">1 Phần Gà nướng</li>
-                            </ul>
-                            <h3><a href="#" style="color: black">Compo 3</a></h3>
-                        </br>
-                            <span class="price" style="color: red; font-weight:bold" >Giá 500.000 VNĐ <span style="color: black; font-weight:bold"> giờ chỉ có 300.000 VNĐ. <a href="#" style="color: rgb(74, 74, 250); font-weight:bold; background: orange"> Mua ngay</a></span></span>
-                            {{-- <div id="timer" class="d-flex mt-5">
-                                <div class="time" id="days"></div>
-                                <div class="time pl-3" id="hours"></div>
-                                <div class="time pl-3" id="minutes"></div>
-                                <div class="time pl-3" id="seconds"></div>
-                            </div> --}}
-                        </div>
-                    </div>
-
-                </section>
-            </div>
                     <section class="ftco-section testimony-section">
                         <div class="container">
                             <div class="row justify-content-center mb-5 pb-3">
