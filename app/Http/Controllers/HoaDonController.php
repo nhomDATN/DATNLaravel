@@ -427,7 +427,7 @@ class HoaDonController extends Controller
     public function update(Request $request)
     {
         if($request->has('_token')){
-            DB::update('update hoa_dons set trang_thai = ? where id = ?',[$request->status,$request->id]);
+            DB::update('update hoa_dons set nhan_vien_id = ?, trang_thai = ? where id = ?',[Session::get('AdminId'),$request->status,$request->id]);
         }
         return redirect()->back();
     }

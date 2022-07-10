@@ -60,7 +60,6 @@
             <h3>{{ $invoice[0]->ma_hoa_don }}</h2>
                 <div class="time">
                     <p>Khách hàng: <span> {{ $invoice[0]->nguoi_nhan_hang }}</span></p>
-                    
                 </div>
                 <table>
                     <thead>
@@ -103,6 +102,7 @@
                 <p>Voucher sử dụng : {{ $detail['voucher'] }}</p>
                 <p>Tiền thanh toán : {{ number_format( $detail['amount'],0,',','.') }}VNĐ</p>
                 <p>Phương thức thanh toán : <span>{{ $invoice[0]->phuong_thuc_thanh_toan }}</span>VNĐ</p>
+                <p>Mã nhân viên : <span>{{ $invoice[0]->nhan_vien_id }}</span></p>
             </div>
            
             
