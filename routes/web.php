@@ -181,7 +181,7 @@ Route::get('adminLogout',[AuthController::class,'logout'])->name('AdminLogout');
 //     return view('pages.home');
 // });
 
-Route::get('report', [HomeController::class,'report'])->name('report');
+Route::post('report', [HomeController::class,'report'])->name('report');
 
 Route::get('getDataWithYear',[HomeController::class,'getDataWithYear']);
 

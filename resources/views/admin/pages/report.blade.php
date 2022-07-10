@@ -8,18 +8,17 @@
     <title>PDF</title>
 </head>
 <style>
+   
     body
     {
         width:100%;
         font-family: DejaVu Sans, sans-serif;
     }
+    p{
+        font-weight: default;
+    }
     .container{
         width:100%;
-        display: flex;
-        text-align: center;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
     }
      .header{
         display: flex;
@@ -27,32 +26,37 @@
         flex-direction: row;
         width: 100%;
     }
-    .body .content{
+    .content{
         text-align: start;
         width: 850px;
-       
     }
-    .body .content ul
+    .content h4{
+        width: 400px;
+        position: relative;
+    }
+    ul
     {
-        float: left;
+        display: flex;
         padding: 9px 8px;
-        width: 200px;
+        width: 400px;
         position: relative;
         border: solid 1px rgb(0,0,0,0.25);
+        text-align: start;
+        justify-content: start;
+        left: 0;
     }
-    .body .content ul li{
+    ul li{
         list-style: none;
-        
+        font-weight: default;
     }
     .container .time{
         text-align: start;
-        margin-left: 500px;
+        margin-left: 400px;
     }
     .footer{
+        position: relative;
         width: 800px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        text-align: end;
     }
     .footer p{
         font-style: italic;
@@ -71,46 +75,67 @@
 <body>
     <div class="container">
         <div class="header">
-            <div>
+            <div style="position: relative; float: left;">
                 <h2>CKC FASTFOOD</h2>
             </div>
-            <div>
+            <div style="position: relative; margin-left: 100px;display: flex;
+            text-align: center;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;">
                 <p>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
                 <p>Độc lập - Tự do - Hạnh phúc</p>
             </div>
         </div>
         <div class="time">
-            <p>HCM, Ngày 20 tháng 2 Năm 2022</p>
+            @php
+             $time = explode(' ',$data['time'])[0];
+             $time = explode('-',$time);
+            @endphp
+            <p>HCM, Ngày {{ $time[2] }} tháng {{ $time[1] }} Năm {{ $time[0] }}</p>
         </div>
         
         <div class="body">
-            <h2>DOANH THU NĂM 2022</h3>
-            <div>
-                    <p>Người báo cáo: Lê Công Tiến</p>
+            <div style="display: flex;
+            text-align: center;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;">
+            <h2>DOANH THU NĂM {{ $time[0] }}</h3>
+                <div>
+                        <p>Người báo cáo: <span>{{ $data['admin']; }}</span></p>
+                </div>
             </div>
             <div class="content">
                 <h4>Doanh thu từng tháng:</h4>
                 <ul>
-                    @for($i = 1; $i < 13; $i++)
-                    <li> Tháng {{ $i }}: 0</li>
-                    @endfor
+                    @php
+                        $stt = 1;
+                    @endphp
+                   @foreach ($data['data'] as $item)
+                   <li> Tháng {{ $stt++ }}: {{ $item }}</li>
+                   @endforeach
                     <hr>
-                    <li>Tổng: <span>0 VNĐ</span></li>
-                    <li>Tháng có thu nhập lớn nhất: <span> Tháng 1</span></li>
+                    <li>Tổng: <span>{{ array_sum($data['data']); }} VNĐ</span></li>
+                    <li>Tháng có thu nhập lớn nhất: <span> Tháng {{ array_search(max($data['data']),$data['data']) + 1; }}</span></li>
                 </ul>
-                <canvas id="barChart" 
-                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 70%;
-                 display: block; width: 572px;"
-                 width="715" height="400" class="chartjs-render-monitor"></canvas>
             </div>
         </div>
         <hr>
       <div class="footer">
-        <div>
+        <div style="position: relative;float: left;display: flex;
+        text-align: center;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;">
             <h4>Giám đốc</h4>
             <p>Ký và ghi rõ họ và tên</p>
         </div>
-        <div>
+        <div style="margin-left: 250px;display: flex;
+        text-align: center;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;">
             <h4>Người lập báo cáo</h4>
             <p>Ký và ghi rõ họ và tên</p>
         </div>

@@ -8,7 +8,9 @@ use App\Models\SanPham;
 use App\Models\TaiKhoan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use PDF;
+use Carbon\Carbon;
 class HomeController extends Controller
 {
     public function index()
@@ -54,7 +56,26 @@ class HomeController extends Controller
     }
     public function report(Request $request)
     {
-        $pdf = PDF::loadView('admin.pages.report');
-        return $pdf->stream();
+        $doanhthutungthang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
+        ->whereYear('hoa_dons.created_at', '=', $request->year)
+        ->where('trang_thai', '=', 3)
+        ->select(DB::raw("MONTH(hoa_dons.created_at) month"),
+         DB::raw('sum(chi_tiet_hoa_dons.so_luong * chi_tiet_hoa_dons.gia) doanhthu'))
+        ->groupBy('month')
+        ->get();
+        $dataMonth = [0,0,0,0,0,0,0,0,0,0,0,0];
+        // dd(array_search(1,$dataMonth));
+        foreach($doanhthutungthang as $data)
+        {
+            $dataMonth[$data->month -1] = $data->doanhthu;
+        }
+        $adminReport = DB::table('tai_khoans')->where('id', '=',Session::get('AdminId'))->get();
+        $data = [
+            'data' => $dataMonth,
+            'admin' => $adminReport[0]->ho_ten,
+            'time' => Carbon::now('Asia/Ho_Chi_Minh')
+        ];
+        $pdf = PDF::loadView('admin.pages.report',['data' => $data]);
+        return $pdf->download('statistic.pdf');
     }
 }

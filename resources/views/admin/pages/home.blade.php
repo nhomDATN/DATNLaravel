@@ -93,16 +93,17 @@
                         <!-- /.card-body -->
                       </div>
                       <div style="align-content: center; display: flex; align-items: center;text-align: center;justify-content: center">
+                        <form action="{{ route('report') }}" method="post">
+                            @csrf
                         <select name="year" style="width:100px; height: 30px" onchange="SetYear(this.value)">
                             <option value="{{ now()->year }}">{{ now()->year }}</option>
                             @for($i = now()->year - 1 ; $i > now()->year - 20; $i-- )
                             <option value="{{ $i }}">{{ $i }}</option>
-
                             @endfor
                         </select>
-                        <input type="button" value="Xuất PDF" style="margin-left: 10px;">
+                        <input type="submit" value="Xuất PDF" style="margin-left: 10px;">
+                    </form>
                     </div>
-                
             </div><!-- /.container-fluid -->
         </section>
         
