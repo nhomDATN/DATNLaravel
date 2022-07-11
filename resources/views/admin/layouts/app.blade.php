@@ -34,7 +34,7 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{{ asset('/../../../storage/assets/plugins/chart.js/Chart.min.js') }}"></script>
-    <title>CKC Fast Food</title>
+    <title>CKC FASTFOOD</title>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

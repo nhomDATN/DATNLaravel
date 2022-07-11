@@ -28,9 +28,9 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>{{ $donhangmoi }}</h3>
+                                <h3 id="countInvoice">{{ number_format($donhangmoi,0,',','.') }}</h3>
 
-                                <p>Các Hóa Đơn Mới</p>
+                                <p>Đơn Hàng</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -43,9 +43,9 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{ number_format($tongdoanhthu,0,',','.')  }}<sup style="font-size: 20px">VNĐ</sup></h3>
+                                <h3 id="revenue">{{ number_format($tongdoanhthu,0,',','.')  }}<sup style="font-size: 20px">VNĐ</sup></h3>
 
-                                <p>Tổng Doanh Thu</p>
+                                <p>Doanh Thu</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
@@ -58,9 +58,8 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>{{ $taikhoankhachhang }}</h3>
-
-                                <p>Tài Khoản Khách Hàng</p>
+                                <h3 id="countAccount">{{ number_format($taikhoankhachhang,0,',','.') }}</h3>
+                                <p>Số Tài Khoản Đăng Ký</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
@@ -119,8 +118,11 @@
                     },
                     dataType: "json",
                     success: function (response) {
-                        innerChart(response);
                         console.log(response);
+                        innerChart(response['doanhthutungthang']);
+                        $('#countInvoice').html(`${response['tongdonhang'].toLocaleString('de-DE')}`);
+                        $('#countAccount').html(`${response['taikhoankhachhang'].toLocaleString('de-DE')}`);
+                        $('#revenue').html(`${response['doanhthu'].toLocaleString('de-DE')}`+'<sup style="font-size: 20px">VNĐ</sup>');
                     }
                 });
             }  

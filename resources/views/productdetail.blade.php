@@ -31,10 +31,11 @@
                 <div class="rating d-flex">
                     <p class="text-left mr-4">
                         <a class="mr-2" id="countStar">{{ number_format($so_sao,1,',','.') }}</a>
-                        @for ($i = 0; $i<5;$i++)
-                        <a href="#countStar" onclick="(assess({{ $product[0]->id }},{{ $i + 1 }}))"><span class="@if ($i < $so_sao)
-                            ion-ios-star
-                            @elseif ($i < $so_sao && $i + 1 > $so_sao)
+                        @for ($i = 1; $i <= 5;$i++)
+                        <a style="color: rgb(216, 216, 39);"><span class="
+                            @if ($i < $so_sao)
+                            ion-ios-star 
+                            @elseif ( $i > $so_sao && $i < $so_sao + 1)
                             ion-ios-star-half
                             @else
                             ion-ios-star-outline
@@ -126,6 +127,7 @@
 </section>
 
 <section class="ftco-section">
+    @if(!empty($listProduct))
     <div class="container">
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate">
@@ -169,7 +171,7 @@
                         @endif
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="{{ route('cart.addFast',['productId' => $items->id,'quantity' => 1,'price' => $items->gia,'sales' => $items->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
+                                <a href="{{ route('cart.add',['productId' => $items->id,'quantity' => 1,'price' => $items->gia,'sales' => $items->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
                                 @if(!empty(Session::get('UserId')))
@@ -193,42 +195,61 @@
                 </div>
             </div>
             @endforeach
+            @endif
+        </div>
+        <div class="container">
+            <h3>Đánh giá</h3>
+            <hr>
+            @if (!empty($comment))
+                @foreach ($comment as $item)
+                <div style="border: solid 1px rgb(0,0,0,0.25); height:auto; width:50%; padding: 12px 5px; margin-bottom: 10px;">
+                    <img src="{{ asset("imageUsers/$item->hinh_anh")}}" height="50px" style="border-radius:50%; float: left">
+                    <div style="padding:  0 5px; margin-bottom:0; margin-left: 58px;">
+                        @for ($i= 1; $i <= 5; $i++)
+                        <i class="@if($i <= $item->so_sao) ion-ios-star @else ion-ios-star-outline  @endif" style="color: rgb(216, 216, 39); user-select: none"></i>
+                        @endfor
+                    </div>
+                    <p style="padding:  0 5px; margin-bottom:0; margin-left: 58px;">{{ $item->noi_dung }}</p>
+                </div>
+                @endforeach
+            @endif
+            
         </div>
     </div>
     <script>
-       function assess(id,star){
-        $('.modal-assess').css('display', 'flex');
-        var modal = ` <div class="form">
-        <div class="modal-header">
-            <img src="/images/kfc.jpg" width="30px" alt="logo">
-            <div class="modal-exit">X</div>
-        </div>
-       <div class="star">`;
-        for (var i = 0; i < 5 ;i++)
-        {
-            if(i < star)
-            {
-                modal +=`<a><span class="ion-ios-star"  onclick="(assess(${id},${i + 1}))"></span></a>`;
-            }
-        else
-        {
-            modal +=`<a><span class="ion-ios-star-outline"  onclick="(assess(${id}, ${i + 1}))"></span></a>`;
-        } 
-        }
-        modal +=`  </div>
-        <form action="" method="post">
-            @csrf
-                <input type="hidden" name="id" value="${id}">
-                <input type="text" name="content" placeholder="Đánh giá sản phẩm">
-                <button type="submit">Đánh giá</button>
-            </form>
-            </div>
-        </div>`; 
-    document.getElementById("modal").innerHTML = modal;
-    $('.modal-exit').click(function(){
-            $('.modal-assess').css('display', 'none')
-        });
-       }
+    //    function assess(id,star){
+    //     $('.modal-assess').css('display', 'flex');
+    //     var modal = ` <div class="form">
+    //     <div class="modal-header">
+    //         <img src="/images/kfc.jpg" width="30px" alt="logo">
+    //         <div class="modal-exit">X</div>
+    //     </div>
+    //    <div class="star">`;
+    //     for (var i = 0; i < 5 ;i++)
+    //     {
+    //         if(i < star)
+    //         {
+    //             modal +=`<a><span class="ion-ios-star"  onclick="(assess(${id},${i + 1}))"></span></a>`;
+    //         }
+    //     else
+    //     {
+    //         modal +=`<a><span class="ion-ios-star-outline"  onclick="(assess(${id}, ${i + 1}))"></span></a>`;
+    //     } 
+    //     }
+    //     modal +=`  </div>
+    //     <form action="" method="post">
+    //         @csrf
+    //             <input type="hidden" name="id" value="${id}">
+    //             <input type="text" name="content" placeholder="Đánh giá sản phẩm">
+    //             <button type="submit">Đánh giá</button>
+    //         </form>
+    //         </div>
+    //     </div>`; 
+    // document.getElementById("modal").innerHTML = modal;
+    // $('.modal-exit').click(function(){
+    //         $('.modal-assess').css('display', 'none')
+    //     });
+    //    }
     </script>
 </section>
 @endsection

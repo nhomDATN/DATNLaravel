@@ -91,8 +91,6 @@ Route::get('/GioHang', [HoaDonController::class, 'cart'])->name('cart')->middlew
 
 Route::get('/addCart', [HoaDonController::class, 'addCart'])->name('cart.add')->middleware('CheckLogin');
 
-Route::get('/addFast', [HoaDonController::class, 'addCartFast'])->name('cart.addFast')->middleware('CheckLogin');
-
 Route::get('/deleteProductInCart/{id}',[HoaDonController::class, 'deleteProductInCart'])->name('deleteProductInCart');
 
 Route::get('/ThanhToan', [TaiKhoanController::class, 'checkout'])->middleware('CheckLogin')->name('checkout');

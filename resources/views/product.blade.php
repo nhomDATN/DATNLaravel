@@ -79,7 +79,7 @@
                         @endif
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
-                                <a href="{{ route('cart.addFast',['productId' => $items->id,'quantity' => 1,'price' => $items->gia,'sales' => $items->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
+                                <a href="{{ route('cart.add',['productId' => $items->id,'quantity' => 1,'price' => $items->gia,'sales' => $items->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
                                 @if(!empty(Session::get('UserId')))

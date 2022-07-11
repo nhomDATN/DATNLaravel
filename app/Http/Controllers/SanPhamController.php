@@ -210,7 +210,7 @@ class SanPhamController extends Controller
             }
            
             $binhchon = count($select);
-            $so_sao = ($so_sao*1.0)/($binhchon*1.0);
+            $so_sao = $so_sao / $binhchon;
         }
         $select = DB::select('select so_luong from chi_tiet_hoa_dons,hoa_dons where hoa_don_id = hoa_dons.id and san_pham_id = ? and trang_thai != "Giỏ Hàng"', [$request->id]);
         if(!empty($select))
@@ -234,10 +234,17 @@ class SanPhamController extends Controller
             if($dem++ != count($explore))
                 $string .= " or ";
         }
-        //dd($string);
+        $comments = DB::table('tai_khoans')
+        ->join('binh_luans','binh_luans.tai_khoan_id', '=','tai_khoans.id')
+        ->join('danh_gias','danh_gias.tai_khoan_id', '=', 'tai_khoans.id')
+        ->where('binh_luans.san_pham_id',$id)
+        ->where('danh_gias.san_pham_id',$id)
+        ->where('so_sao','>',0)
+        ->get();
+        //dd($comment);
         $listProduct = DB::select('select san_phams.id,ten_san_pham,gia,hinh,mo_ta, gia_tri from san_phams, khuyen_mais where  san_phams.khuyen_mai_id = khuyen_mais.id and ('.$string.') and san_phams.id <> '.$request->id.' limit 4');
        
-        return view('productdetail',['listProduct'=>$listProduct,'product' =>$product,'daban' =>$daban,'so_sao'=>$so_sao,'binhchon'=>$binhchon]);
+        return view('productdetail',['listProduct'=>$listProduct,'product' =>$product,'daban' =>$daban,'so_sao'=>$so_sao,'binhchon'=>$binhchon,'comment'=>$comments]);
     }
 
     /**
