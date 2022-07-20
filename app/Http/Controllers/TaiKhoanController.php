@@ -167,6 +167,7 @@ class TaiKhoanController extends Controller
                 'dia_chi' => $request->input('diachi'),
                 'sdt' => $request->input('sdt'),
                 'loai_tai_khoan_id' => $request->input('loaitk'),
+                'trang_thai' => 1,
                 'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
                 'updated_at' => null,
             ]);

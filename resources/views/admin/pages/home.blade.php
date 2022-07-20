@@ -28,9 +28,9 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3 id="countInvoice">{{ number_format($donhangmoi,0,',','.') }}</h3>
+                                <h3 id="countInvoice">{{ number_format($donhang,0,',','.') }}</h3>
 
-                                <p>Đơn Hàng</p>
+                                <p>Đơn Hàng Theo Năm</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -45,7 +45,7 @@
                             <div class="inner">
                                 <h3 id="revenue">{{ number_format($tongdoanhthu,0,',','.')  }}<sup style="font-size: 20px">VNĐ</sup></h3>
 
-                                <p>Doanh Thu</p>
+                                <p>Doanh Thu Theo Năm</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>

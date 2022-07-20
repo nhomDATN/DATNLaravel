@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NguyenLieu;
 use App\Models\NoiLamViec;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -49,15 +50,24 @@ class NoiLamViecController extends Controller
             return redirect()->back()->with('alert', $alert);
         }
 
-        $tonTai = NoiLamViec::where('ma_noi_lam_viec', $request['manoilamviec'])->first();
+        $tonTai = NoiLamViec::where('ma_noi_lam_viec', $request['manoilamviec'])
+        ->first();
+        
         if (empty($tonTai)) {
-            $noiLamViec = NoiLamViec::insert([
-                'ma_noi_lam_viec' => $request->input('manoilamviec'),
-                'dia_chi' => $request->input('diachi'),
-                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
-                'updated_at' => null,
-            ]);
-            return Redirect::route('noiLamViec.index');
+            $tonTaiKho = NoiLamViec::where('ma_noi_lam_viec', 'LIKE', 'K-%')
+            ->first();
+
+            if (empty($tonTaiKho)) {
+                $noiLamViec = NoiLamViec::insert([
+                    'ma_noi_lam_viec' => $request->input('manoilamviec'),
+                    'dia_chi' => $request->input('diachi'),
+                    'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+                    'updated_at' => null,
+                ]);
+                return Redirect::route('noiLamViec.index');
+            }
+            $alert = 'Kho đã tồn tại, không được phép tạo thêm';
+            return redirect()->back()->with('alert', $alert);
         }
         $alert = 'Mã nơi làm việc đã tồn tại';
         return redirect()->back()->with('alert', $alert);
@@ -98,12 +108,13 @@ class NoiLamViecController extends Controller
         $tontai = NoiLamViec::where('ma_noi_lam_viec','like', $noilamviecformat)
         ->where('id', '!=', $noiLamViec->id)
         ->first();
+
         if(empty($tontai)){
-            $kt_noilamviec = str_replace(' ', '', $noilamviecformat);
-            $tontai = NoiLamViec::where('ma_noi_lam_viec','like',$kt_noilamviec)
+            $tonTaiKho = NoiLamViec::where('ma_noi_lam_viec', 'LIKE', 'K-%')
             ->where('id', '!=', $noiLamViec->id)
             ->first();
-            if(empty($tontai)){
+
+            if(empty($tonTaiKho)) {
                 $noiLamViec->fill([
                     'ma_noi_lam_viec' => $noilamviecformat,
                     'dia_chi' => $request->input('diachi'),
@@ -112,7 +123,11 @@ class NoiLamViecController extends Controller
                 $noiLamViec->save();
                 return Redirect::route('noiLamViec.index');
             }
+            $alert = 'Kho đã tồn tại, không được phép tạo thêm';
+        return redirect()->back()->with('alert', $alert);
         }
+            
+               
         $alert = 'Mã nơi làm việc đã tồn tại';
         return redirect()->back()->with('alert', $alert);
 
@@ -126,6 +141,16 @@ class NoiLamViecController extends Controller
      */
     public function destroy(NoiLamViec $noiLamViec)
     {
+        $lstnguyenlieu = NguyenLieu::where('kho_id', $noiLamViec->id)
+        ->get();
+
+        foreach($lstnguyenlieu as $nguyenlieu) {
+            $nguyenlieu->fill([
+                'trang_thai' => 0,
+            ]);
+            $nguyenlieu->save();
+        }
+
         $noiLamViec->fill([
             'trang_thai' => 0,
         ]);

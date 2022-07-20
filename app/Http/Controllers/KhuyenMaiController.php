@@ -47,17 +47,38 @@ class KhuyenMaiController extends Controller
             return redirect()->back()->with('alert', $alert);
         }
 
-        else if ($request->ngaybatdau == null) {
+        if ($request->ngaybatdau == null) {
             $alert = 'Ngày bắt đầu không được bỏ trống';
             return redirect()->back()->with('alert', $alert);
         }
-        else if ($request->input('giatri') == null) {
+
+        if ($request->ngayketthuc == null) {
+            $alert = 'Ngày kết thúc không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->ngaybatdau > $request->ngayketthuc) {
+            $alert = 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('giatri') == null) {
             $alert = 'Giá trị phần trăm giảm giá không được bỏ trống';
             return redirect()->back()->with('alert', $alert);
         }
 
-        else if ($request->input('maximum') == null) {
+        if ($request->input('maximum') == null) {
             $alert = 'Số tiền được giảm tối đa không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('giatri') < 0 || $request->input('giatri') > 100) {
+            $alert = 'Giá trị phần trăm phải trong khoảng 0 tới 100';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('maximum') < 0) {
+            $alert = 'Số tiền được giảm tối đa không thể là số âm';
             return redirect()->back()->with('alert', $alert);
         }
 
@@ -142,7 +163,6 @@ class KhuyenMaiController extends Controller
                     'gia_tri' => $request->input('giatri'),
                     'maximum' => $request->input('maximum'),
                     'trang_thai' => $request->input('trangthai'),
-                    
                 ]);
                 $khuyenMai->save();
                 return Redirect::route('khuyenMai.index');

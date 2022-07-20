@@ -46,7 +46,7 @@
 
                                 <div class="form-group">
                                     <label for="">Ngày Sinh</label>
-                                    <input type="datetime" class="form-control" name="ngaysinh"
+                                    <input type="date" class="form-control" name="ngaysinh"
                                     placeholder="Ngày Sinh" value="{{ $nhanVien->ngay_sinh }}">
                                 </div>
 

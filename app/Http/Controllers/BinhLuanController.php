@@ -16,7 +16,7 @@ class BinhLuanController extends Controller
     {
         $lstbl = BinhLuan::join('tai_khoans', 'tai_khoans.id', '=', 'binh_luans.tai_khoan_id')
         ->join('san_phams', 'san_phams.id', '=', 'binh_luans.san_pham_id')
-        ->select('binh_luans.id', 'binh_luans.noi_dung', 'tai_khoans.email', 'san_phams.ten_san_pham', 'binh_luans.trang_thai', 'binh_luans.created_at', 'binh_luans.updated_at')
+        ->select('binh_luans.id', 'binh_luans.noi_dung', 'tai_khoans.email', 'san_phams.ten_san_pham', 'san_phams.id as idsp', 'binh_luans.trang_thai', 'binh_luans.created_at', 'binh_luans.updated_at')
         ->get();
         return view('admin/pages.comment', ['lstbl' => $lstbl]);
     }

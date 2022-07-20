@@ -62,7 +62,7 @@
                                         @foreach ($lstbl as $bl)
                                             <tr>
                                                 <td>{{ ++$stt }}</td>
-                                                <td>{{ $bl->noi_dung }}</td>
+                                                <td><a href="{{ route('productdetail',['id'=>$bl->idsp])}}"> {{ $bl->noi_dung }} </a></td>
                                                 <td>{{ $bl->email }}</td>
                                                 <td>{{ $bl->ten_san_pham }}</td>
                                                 @if ($bl->trang_thai  == 1)

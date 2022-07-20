@@ -73,14 +73,23 @@
                                                     <td>{{ $phanphoi->kho_id }}</td>
                                                     <td>{{ $phanphoi->so_luong }}</td>
                                                     <td>{{ $phanphoi->created_at }}</td>
-                                                    <td style=";width: 20px;">
-                                                        <a href='{{ route('phanPhoi.edit', ['phanPhoi' => $phanphoi->id]) }}'>
-                                                            <button type="button"
-                                                                class="btn btn-default btn-sm checkbox-toggle"><i
-                                                                    class="fas fa-edit"></i>
+                                                    @if($phanphoi->ktra_hoatdong == 1)
+                                                        <td style=";width: 20px;">
+                                                            <a href='{{ route('phanPhoi.edit', ['phanPhoi' => $phanphoi->id]) }}'>
+                                                                <button type="button"
+                                                                    class="btn btn-default btn-sm checkbox-toggle"><i
+                                                                        class="fas fa-edit"></i>
+                                                                </button>
+                                                            </a>
+                                                        </td>
+                                                    @else
+                                                        <td>
+                                                            <button type="button" disabled
+                                                            class="btn btn-default btn-sm checkbox-toggle">
+                                                                <i class="fas fa-edit"></i>
                                                             </button>
-                                                        </a>
-                                                    </td>
+                                                        </td>
+                                                    @endif
                                                     <td style="width: 20px;">
                                                         <form method="post"
                                                             action="{{ route('phanPhoi.destroy', ['phanPhoi' => $phanphoi->id]) }}">

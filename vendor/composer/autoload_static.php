@@ -713,6 +713,7 @@ class ComposerStaticInitb725cac0f431b28be13470cc78c7c6b5
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
+        'App\\Http\\Middleware\\UpdateSales' => __DIR__ . '/../..' . '/app/Http/Middleware/UpdateSales.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\StoreBinhLuanRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreBinhLuanRequest.php',
         'App\\Http\\Requests\\StoreChiTietHoaDonRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreChiTietHoaDonRequest.php',

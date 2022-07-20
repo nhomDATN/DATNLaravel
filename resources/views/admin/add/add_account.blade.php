@@ -65,7 +65,7 @@
                                     <label for="">Loại Tài Khoản</label>
                                     <select class="form-control" name="loaitk">
                                         @foreach ($lstltk as $ltk)
-                                            @if($ltk->trang_thai != 0)
+                                            @if($ltk->trang_thai != 0 && $ltk->id != 1)
                                                 <option value="{{ $ltk->id }}" >
                                                     {{ $ltk->ten_loai_tai_khoan }}
                                                 </option>

@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Add Product</h1>
+                        <h1 class="m-0">Chỉnh Sửa Sản Phẩm</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('sanPham.index') }}">Product</a></li>
-                            <li class="breadcrumb-item active">Add Product</li>
+                            <li class="breadcrumb-item"><a href="{{ route('sanpham.adminShow') }}">Sản Phẩm</a></li>
+                            <li class="breadcrumb-item active">Chỉnh Sửa Sản Phẩm</li>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -28,7 +28,7 @@
             <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Form Add Product</h3>
+                            <h3 class="card-title">Mẫu Chỉnh Sửa Sản Phẩm</h3>
                         </div>
                         @if(session('alert'))
                         <section class='alert alert-danger'>{{session('alert')}}</section>

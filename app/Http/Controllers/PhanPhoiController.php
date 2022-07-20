@@ -21,10 +21,10 @@ class PhanPhoiController extends Controller
      */
     public function index()
     {
-        $lstphanphoi = DB::select('SELECT phan_phois.id, a.ma_noi_lam_viec as ma_noi_lam_viec, nguyen_lieus.ten_nguyen_lieu, don_vi_tinhs.ten_don_vi_tinh, b.ma_noi_lam_viec as kho_id, phan_phois.so_luong, phan_phois.created_at
+        $lstphanphoi = DB::select('SELECT phan_phois.id, a.ma_noi_lam_viec as ma_noi_lam_viec, nguyen_lieus.ten_nguyen_lieu, don_vi_tinhs.ten_don_vi_tinh, b.ma_noi_lam_viec as kho_id, phan_phois.so_luong, phan_phois.created_at, nguyen_lieus.trang_thai as ktra_hoatdong
         FROM `phan_phois`, `noi_lam_viecs` a, `noi_lam_viecs` b, `nguyen_lieus`, `don_vi_tinhs`
         WHERE phan_phois.noi_phan_phoi_id = a.id and phan_phois.kho_id = b.id  and phan_phois.nguyen_lieu_id = nguyen_lieus.id and don_vi_tinhs.id = phan_phois.don_vi_tinh_id');
-        // dd($lstphanphoi);
+        
         return view('admin/pages.distribution', ['lstphanphoi' => $lstphanphoi]); 
     }
 
@@ -45,7 +45,7 @@ class PhanPhoiController extends Controller
 
         $lstdvt = DonViTinh::all();
 
-        $lstnguyenlieu = NguyenLieu::all();
+        $lstnguyenlieu = NguyenLieu::where('trang_thai', 1)->get();
 
         return view('admin/add.add_distribution', ['lstnlv' => $lstnlv, 'lstkho' => $lstkho,'lstdvt' => $lstdvt, 'lstnguyenlieu' => $lstnguyenlieu]);
     }
@@ -150,12 +150,23 @@ class PhanPhoiController extends Controller
         ->where('phan_phois.id', '!=', $phanPhoi->id)
         ->first();
 
+        $nguyenlieu = NguyenLieu::where('id', '=', $request->input('tennguyenlieu'))
+        ->where('kho_id', '=', $request->input('kho'))
+        ->first();
+
         if(empty($tontai)){
             $phanPhoi = DB::update('update phan_phois 
                 set noi_phan_phoi_id = ?, nguyen_lieu_id =?, kho_id = ?, so_luong =?
                 where id = ? ', 
                 [$request->input('noiphanphoi'), $request->input('tennguyenlieu'), $request->input('kho'), $request->input('soluong'), $phanPhoi->id]
             );
+         
+            $nguyenlieu =  DB::update('update nguyen_lieus 
+                set so_luong = ?
+                where id = ? and kho_id = ? ',
+                [$nguyenlieu->so_luong + $request->input('soluongcu') - $request->input('soluong'), $request->input('tennguyenlieu'), $request->input('kho')]
+            );
+            
             return Redirect::route('phanPhoi.index');
         }
         $alert = 'Nơi phân phối đã tồn tại nguyên liệu này.';
@@ -170,6 +181,16 @@ class PhanPhoiController extends Controller
      */
     public function destroy(PhanPhoi $phanPhoi)
     {
+        $nguyenlieu = NguyenLieu::where('id', '=', $phanPhoi->nguyen_lieu_id)
+        ->where('kho_id', '=', $phanPhoi->kho_id)
+        ->first();
+
+        $nguyenlieu =  DB::update('update nguyen_lieus 
+            set so_luong = ?
+            where id = ? and kho_id = ? ',
+            [$nguyenlieu->so_luong + $phanPhoi->so_luong, $phanPhoi->nguyen_lieu_id, $phanPhoi->kho_id]
+        );
+
         $phanPhoi->delete();
         return Redirect::route('phanPhoi.index');
     }

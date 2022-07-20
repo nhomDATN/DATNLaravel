@@ -51,7 +51,7 @@
                                 <div class="form-group">
                                     <label for="">Ngày Bắt Đầu</label>
                                     <input type="date" class="form-control" name="ngaybatdau" 
-                                        placeholder="Ngày Bắt Đầu">
+                                        placeholder="dd-mm-yyyy"> 
                                 </div>
 
                                 <div class="form-group">

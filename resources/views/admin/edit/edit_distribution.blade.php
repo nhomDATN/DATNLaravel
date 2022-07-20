@@ -77,7 +77,13 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Số Lượng</label>
+                                    <label for="">Số Lượng Cũ</label>
+                                    <input type="id" class="form-control" name="soluongcu"
+                                    value="{{ $phanPhoi->so_luong }}" readonly>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="">Cập Nhật Số Lượng Mới</label>
                                     <input type="id" class="form-control" name="soluong"
                                     value="{{ $phanPhoi->so_luong }}">
                                 </div>

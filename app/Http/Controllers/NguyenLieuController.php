@@ -33,7 +33,7 @@ class NguyenLieuController extends Controller
     public function create()
     {
         $lstdvt = DonViTinh::all();
-        $lstkho = NoiLamViec::all();
+        $lstkho = NoiLamViec::where('ma_noi_lam_viec', 'LIKE', 'K-%')->get();
         return view('admin/add.add_material', ['lstdvt' => $lstdvt, 'lstkho' => $lstkho]);
     }
 
@@ -88,7 +88,7 @@ class NguyenLieuController extends Controller
     public function edit(NguyenLieu $nguyenLieu)
     {
         $lstdvt = DonViTinh::all();
-        $lstkho = NoiLamViec::all();
+        $lstkho = NoiLamViec::where('ma_noi_lam_viec', 'LIKE', 'K-%')->get();
         return view('admin/edit.edit_material', ['nguyenLieu' => $nguyenLieu, 'lstdvt' => $lstdvt, 'lstkho' => $lstkho]);
     }
 

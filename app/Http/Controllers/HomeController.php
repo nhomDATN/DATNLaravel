@@ -16,24 +16,29 @@ class HomeController extends Controller
     public function index()
     {
         $now = Carbon::now('Asia/Ho_Chi_Minh');
-        $donhangmoi = HoaDon::where('trang_thai', '0')->whereYear('created_at',$now->year)->count();
+        $donhang = HoaDon::where('trang_thai', '3')->whereYear('created_at',$now->year)->count();
+
         $taikhoankhachhang = TaiKhoan::where('loai_tai_khoan_id', '2')->whereYear('created_at',$now->year)->count();
+
         $soluong = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
             ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
             ->whereYear('hoa_dons.created_at',$now->year)
             ->where('hoa_dons.trang_thai', '=', 3)
             ->select('chi_tiet_hoa_dons.so_luong')
             ->get();
+
         $gia = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
             ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
             ->whereYear('hoa_dons.created_at',$now->year)
             ->where('hoa_dons.trang_thai', '=', 3)
             ->select('san_phams.gia')
             ->get();
+
         $tongdoanhthu = 0;
         for ($i = 0; $i < count($gia); $i++) {
             $tongdoanhthu = $tongdoanhthu + $gia[$i]->gia * $soluong[$i]->so_luong;
         }
+
         $doanhthutungthang = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
         ->whereYear('hoa_dons.created_at', '=', now()->year)
         ->where('trang_thai', '=', 3)
@@ -42,26 +47,27 @@ class HomeController extends Controller
         ->groupBy('month')
         ->get();
         //dd($doanhthutungthang);
-        return view('admin/pages.home', ['donhangmoi' => $donhangmoi, 'taikhoankhachhang' => $taikhoankhachhang, 'tongdoanhthu' => $tongdoanhthu, 'doanhthutungthang' => $doanhthutungthang]);
-    
-        
+        return view('admin/pages.home', ['donhang' => $donhang, 'taikhoankhachhang' => $taikhoankhachhang, 'tongdoanhthu' => $tongdoanhthu, 'doanhthutungthang' => $doanhthutungthang]);
     }
+    
     public function getDataWithYear(Request $request)
     {
-        $donhangmoi = HoaDon::where('trang_thai', '0')->whereYear('created_at',$request->year)->count();
+        $donhang = HoaDon::where('trang_thai', '3')->whereYear('created_at', $request->year)->count();
         $taikhoankhachhang = TaiKhoan::where('loai_tai_khoan_id', '2')->whereYear('created_at',$request->year)->count();
         $soluong = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
             ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
-            ->whereYear('hoa_dons.created_at',$request->year)
+            ->whereYear('hoa_dons.created_at', $request->year)
             ->where('hoa_dons.trang_thai', '=', 3)
             ->select('chi_tiet_hoa_dons.so_luong')
             ->get();
+
         $gia = HoaDon::join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.hoa_don_id', '=', 'hoa_dons.id')
             ->join('san_phams', 'san_phams.id', '=', 'chi_tiet_hoa_dons.san_pham_id')
             ->whereYear('hoa_dons.created_at',$request->year)
             ->where('hoa_dons.trang_thai', '=', 3)
             ->select('san_phams.gia')
             ->get();
+
         $tongdoanhthu = 0;
         for ($i = 0; $i < count($gia); $i++) {
             $tongdoanhthu = $tongdoanhthu + $gia[$i]->gia * $soluong[$i]->so_luong;
@@ -74,7 +80,7 @@ class HomeController extends Controller
         ->groupBy('month')
         ->get();
         $data = [
-            'tongdonhang' => count($soluong),
+            'tongdonhang' => $donhang,
             'doanhthu' => $tongdoanhthu,
             'taikhoankhachhang' => $taikhoankhachhang,
             'doanhthutungthang' => $doanhthutungthang

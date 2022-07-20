@@ -26,8 +26,8 @@ class UpdateSales
         {
             if($key->ngay_ket_thuc < $now)
             {
-                DB::update('update khuyen_mais set trang_thai = 0 where id = ?', [$item->id]);
-                DB::update('update san_phams set khuyen_mai_id = ? where khuyen_mai_id = ?', [$nothing[0]->id,$item->id]);
+                DB::update('update khuyen_mais set trang_thai = 0 where id = ?', [$key->id]);
+                DB::update('update san_phams set khuyen_mai_id = ? where khuyen_mai_id = ?', [$nothing[0]->id,$key->id]);
             }
            
         }

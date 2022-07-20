@@ -13,7 +13,6 @@ class NhanVien extends Model
         'dia_chi',
         'ngay_sinh',
         'sdt',
-        'ho_ten',
         'CCCD',
         'luong',
         'thuong_thang',

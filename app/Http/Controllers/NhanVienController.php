@@ -51,6 +51,21 @@ class NhanVienController extends Controller
             return redirect()->back()->with('alert', $alert);
         }
 
+        if (count($request->input('CCCD')) == 12) {
+            $alert = 'CCCD không hợp lệ';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('luong') < 0) {
+            $alert = 'Lương không thể là số âm';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('thuongthang') < 0) {
+            $alert = 'Thưởng tháng không thể là số âm';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $tonTai = NhanVien::where('CCCD', $request['CCCD'])->first();
 
         if (empty($tonTai)) {
@@ -106,6 +121,21 @@ class NhanVienController extends Controller
      */
     public function update(Request $request, NhanVien $nhanVien)
     {
+        if ($request->input('CCCD') == null) {
+            $alert = 'CCCD không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('luong') < 0) {
+            $alert = 'Lương không thể là số âm';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('thuongthang') < 0) {
+            $alert = 'Thưởng tháng không thể là số âm';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $nhavienformat = trim( $request->input('CCCD')); 
         $tontai = NhanVien::where('CCCD','like', $nhavienformat)
         ->where('nhan_viens.id', '!=', $nhanVien->id)
