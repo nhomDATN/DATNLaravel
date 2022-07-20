@@ -51,13 +51,13 @@
 
                                 <div class="form-group">
                                     <label for="">Ngày Bắt Đầu</label>
-                                    <input type="datetime" class="form-control" name="ngaybatdau" 
+                                    <input type="date" class="form-control" name="ngaybatdau" 
                                         placeholder="Ngày Bắt Đầu" value="{{ $khuyenMai->ngay_bat_dau }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Ngày Kết Thúc</label>
-                                    <input type="datetime" class="form-control" name="ngayketthuc" 
+                                    <input type="date" class="form-control" name="ngayketthuc" 
                                         placeholder="Ngày Kết Thúc" value="{{ $khuyenMai->ngay_ket_thuc }}">
                                 </div>
 
@@ -94,7 +94,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%">Gửi</button>
                             </div>
                             @if(session('alert'))
                             <section class='alert alert-danger'>{{session('alert')}}</section>

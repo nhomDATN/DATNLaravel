@@ -38,6 +38,11 @@ class ChucVuController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->input('thuong') < 0 || $request->input('thuong') > 100 ) {
+            $alert = 'Phần trăm thưởng không hợp lệ';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $tonTai = ChucVu::where('ten_chuc_vu', $request['tenchucvu'])->first();
         if (empty($tonTai)) {
             $chucVu = ChucVu::insert([
@@ -83,6 +88,11 @@ class ChucVuController extends Controller
      */
     public function update(Request $request, ChucVu $chucVu)
     {
+        if ($request->input('thuong') < 0 || $request->input('thuong') > 100 ) {
+            $alert = 'Phần trăm thưởng không hợp lệ';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $chucvuformat = trim( $request->input('tenchucvu')); 
         $tontai = ChucVu::where('ten_chuc_vu','like', $chucvuformat)
         ->where('chuc_vus.id', '!=', $chucVu->id)

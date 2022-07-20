@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LoaiSanPham;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Facades\DB;
 
 class LoaiSanPhamController extends Controller
 {
@@ -43,16 +43,19 @@ class LoaiSanPhamController extends Controller
         if (empty($tontai)) {
             $kt_loaisp = str_replace(' ', '', $loaisanphamformat);
             $tontai = LoaiSanPham::where('ten_loai_san_pham', 'like', $kt_loaisp)->first();
+            
             if (empty($tontai)) {
                 $loaiSanPham = new LoaiSanPham;
+
+                $file = $request->file('file');
+                $file_name = $request->input('tenlsp') .'.jpg';
+                $file->move(public_path('images'),$file_name);
+
                 $loaiSanPham->fill([
                     'ten_loai_san_pham' => $loaisanphamformat,
-                    'hinh_anh_loai_sp' => '',
+                    'hinh_anh' => $file_name,
                 ]);
                 $loaiSanPham->save();
-                if ($request->hasFile('file')) {
-                    $loaiSanPham->hinh_anh_loai_sp = $request->file('file')->store('image/' . $loaiSanPham->id, 'public');
-                }
                 return Redirect::route('loaiSanPham.index');
             }
         }
@@ -92,23 +95,20 @@ class LoaiSanPhamController extends Controller
     public function update(Request $request, LoaiSanPham $loaiSanPham)
     {
         $loaisanpham = trim($request->input('tenlsp'));
+        
+        $file = $request->file('file');
+        $file_name = $request->input('tenlsp') .'.jpg';
+        $file->move(public_path('images'),$file_name);
 
-        $hinh_anh = $request->file('file')->store('image/' . $loaiSanPham->id, 'public');
-
-        if ($request->hasFile('file')) {
-            $tontai = LoaiSanPham::where('ten_loai_san_pham', 'like', $loaisanpham)
-            ->where('hinh_anh', $hinh_anh)
-            ->first();
-        }
-        else {
-            $tontai = LoaiSanPham::where('ten_loai_san_pham', 'like', $loaisanpham)->first();
-        }
+        $tontai = LoaiSanPham::where('ten_loai_san_pham', 'like', $loaisanpham)
+        ->where('id', '!=', $loaiSanPham->id)
+        ->first();
 
         if (empty($tontai)) {
             // $loaisanphamformat = str_replace(' ', '', $loaisanpham);
             $loaiSanPham->fill([
                 'ten_loai_san_pham' => $loaisanpham,
-                'hinh_anh' => $loaiSanPham->hinh_anh,
+                'hinh_anh' => $file_name,
             ]);
             $loaiSanPham->save();   
             return Redirect::route('loaiSanPham.index');

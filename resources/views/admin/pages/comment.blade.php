@@ -26,7 +26,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 200px;">
+                                    <div class="input-group input-group-sm" style="width: 250px;">
                                         <input type="text" name="table_search" class="form-control float-right" id="search" name="search"
                                             placeholder="Tìm kiếm theo tên sản phẩm">
                                             

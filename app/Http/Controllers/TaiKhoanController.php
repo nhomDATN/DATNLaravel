@@ -269,7 +269,7 @@ class TaiKhoanController extends Controller
      */
     public function edit(TaiKhoan $taiKhoan)
     {
-        $lstltk = LoaiTaiKhoan::all();
+        $lstltk = LoaiTaiKhoan::where('id', '<>', 1)->where('trang_thai', '=', 1)->get();
         return view('admin/edit.edit_account', ['taiKhoan' => $taiKhoan, 'lstltk' => $lstltk]);
     }
     public function replace_password($id)

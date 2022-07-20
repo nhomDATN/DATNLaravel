@@ -130,20 +130,47 @@ class KhuyenMaiController extends Controller
      */
     public function update(Request $request, KhuyenMai $khuyenMai)
     {
-        if ($request->ngaybatdau == null){
+        if ($request->input('makhuyenmai') == null) {
+            $alert = 'Mã khuyến mãi không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->ngaybatdau == null) {
             $alert = 'Ngày bắt đầu không được bỏ trống';
             return redirect()->back()->with('alert', $alert);
         }
-        if ($request->ngayketthuc == null){
+
+        if ($request->ngayketthuc == null) {
             $alert = 'Ngày kết thúc không được bỏ trống';
             return redirect()->back()->with('alert', $alert);
-        }   
+        }
 
         if ($request->ngaybatdau > $request->ngayketthuc) {
             $alert = 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc';
             return redirect()->back()->with('alert', $alert);
         }
 
+        if ($request->input('giatri') == null) {
+            $alert = 'Giá trị phần trăm giảm giá không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('maximum') == null) {
+            $alert = 'Số tiền được giảm tối đa không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('giatri') < 0 || $request->input('giatri') > 100) {
+            $alert = 'Giá trị phần trăm phải trong khoảng 0 tới 100';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('maximum') < 0) {
+            $alert = 'Số tiền được giảm tối đa không thể là số âm';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        
         $khuyenmaiformat=trim( $request->input('makhuyenmai')); 
         $tontai = KhuyenMai::where('ma_khuyen_mai','like', $khuyenmaiformat)
         ->where('khuyen_mais.ma_khuyen_mai', '!=', $request->input('makhuyenmai'))

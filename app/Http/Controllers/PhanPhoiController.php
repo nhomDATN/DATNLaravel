@@ -58,6 +58,11 @@ class PhanPhoiController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->input('soluong') < 0) {
+            $alert = 'Số lượng không thể là số âm';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $tontai = PhanPhoi::where('noi_phan_phoi_id','like', $request->input('noiphanphoi'))
         ->where('nguyen_lieu_id','=', $request->input('tennguyenlieu'))
         ->where('kho_id', '=',  $request->input('kho'))
@@ -141,6 +146,11 @@ class PhanPhoiController extends Controller
      */
     public function update(Request $request, PhanPhoi $phanPhoi)
     {
+        if ($request->input('soluong') < 0) {
+            $alert = 'Số lượng không thể là số âm';
+            return redirect()->back()->with('alert', $alert);
+        }
+        
         $phanphoiformat = $request->input('noiphanphoi');
         $nguyenlieuformat =  $request->input('tennguyenlieu');
         $khoformat = $request->input('kho');

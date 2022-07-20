@@ -50,6 +50,16 @@ class NguyenLieuController extends Controller
             return redirect()->back()->with('alert', $alert);
         }
 
+        if ($request->input('soluong') <= 0) {
+            $alert = 'Số lượng không hợp lệ';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('dongia') <= 0) {
+            $alert = 'Đơn giá không hợp lệ';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $tonTai = NguyenLieu::where('ten_nguyen_lieu', $request['tennguyenlieu'])->first();
         
         if (empty($tonTai)) {
@@ -101,6 +111,21 @@ class NguyenLieuController extends Controller
      */
     public function update(Request $request, NguyenLieu $nguyenLieu)
     {
+        if ($request->input('tennguyenlieu') == null) {
+            $alert = 'Tên nguyên liệu không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+        
+        if ($request->input('soluong') <= 0) {
+            $alert = 'Số lượng không hợp lệ';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        if ($request->input('dongia') <= 0) {
+            $alert = 'Đơn giá không hợp lệ';
+            return redirect()->back()->with('alert', $alert);
+        }
+
         $nguyenlieuformat = trim( $request->input('tennguyenlieu')); 
         $tontai = NguyenLieu::where('ten_nguyen_lieu','like', $nguyenlieuformat)
         ->where('nguyen_lieus.id', '!=', $nguyenLieu->id)

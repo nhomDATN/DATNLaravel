@@ -50,14 +50,14 @@ class NoiLamViecController extends Controller
             return redirect()->back()->with('alert', $alert);
         }
 
+        $noilamviecformat = trim($request->input('manoilamviec')); 
         $tonTai = NoiLamViec::where('ma_noi_lam_viec', $request['manoilamviec'])
         ->first();
         
         if (empty($tonTai)) {
-            $tonTaiKho = NoiLamViec::where('ma_noi_lam_viec', 'LIKE', 'K-%')
-            ->first();
-
-            if (empty($tonTaiKho)) {
+            $kiemTra = strlen(strstr($noilamviecformat, 'K'));
+            
+            if($kiemTra == 0) {
                 $noiLamViec = NoiLamViec::insert([
                     'ma_noi_lam_viec' => $request->input('manoilamviec'),
                     'dia_chi' => $request->input('diachi'),
@@ -104,17 +104,20 @@ class NoiLamViecController extends Controller
      */
     public function update(Request $request, NoiLamViec $noiLamViec)
     {
-        $noilamviecformat = trim( $request->input('manoilamviec')); 
+        if ($request->input('manoilamviec') == null) {
+            $alert = 'Mã nơi làm việc không được bỏ trống';
+            return redirect()->back()->with('alert', $alert);
+        }
+
+        $noilamviecformat = trim($request->input('manoilamviec')); 
         $tontai = NoiLamViec::where('ma_noi_lam_viec','like', $noilamviecformat)
         ->where('id', '!=', $noiLamViec->id)
         ->first();
 
         if(empty($tontai)){
-            $tonTaiKho = NoiLamViec::where('ma_noi_lam_viec', 'LIKE', 'K-%')
-            ->where('id', '!=', $noiLamViec->id)
-            ->first();
+            $kiemTra = strlen(strstr($noilamviecformat, 'K'));
 
-            if(empty($tonTaiKho)) {
+            if($kiemTra == 0) {
                 $noiLamViec->fill([
                     'ma_noi_lam_viec' => $noilamviecformat,
                     'dia_chi' => $request->input('diachi'),
@@ -124,10 +127,8 @@ class NoiLamViecController extends Controller
                 return Redirect::route('noiLamViec.index');
             }
             $alert = 'Kho đã tồn tại, không được phép tạo thêm';
-        return redirect()->back()->with('alert', $alert);
-        }
-            
-               
+            return redirect()->back()->with('alert', $alert);
+        }   
         $alert = 'Mã nơi làm việc đã tồn tại';
         return redirect()->back()->with('alert', $alert);
 

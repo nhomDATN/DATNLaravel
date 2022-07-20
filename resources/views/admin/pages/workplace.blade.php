@@ -49,7 +49,7 @@
                                 <table class="table table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>STT</th>
                                             <th>Mã Nơi Làm Việc</th>
                                             <th>Địa Chỉ</th>
                                             <th>Trạng Thái</th>
@@ -60,10 +60,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $stt = 0
+                                        @endphp
+                                        @endphp
                                         @if(count($lstnoilamviec) > 0)
                                             @foreach ($lstnoilamviec as $nlv)
                                                 <tr>
-                                                    <td>{{ $nlv->id }}</td>
+                                                    <td>{{ ++$stt }}</td>
                                                     <td>{{ $nlv->ma_noi_lam_viec }}</td>
                                                     <td>{{ $nlv->dia_chi }}</td>
                                                     @if ($nlv->trang_thai  == 1)

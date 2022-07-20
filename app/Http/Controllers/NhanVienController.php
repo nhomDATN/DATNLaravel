@@ -51,11 +51,6 @@ class NhanVienController extends Controller
             return redirect()->back()->with('alert', $alert);
         }
 
-        if (count($request->input('CCCD')) == 12) {
-            $alert = 'CCCD không hợp lệ';
-            return redirect()->back()->with('alert', $alert);
-        }
-
         if ($request->input('luong') < 0) {
             $alert = 'Lương không thể là số âm';
             return redirect()->back()->with('alert', $alert);
@@ -147,7 +142,6 @@ class NhanVienController extends Controller
                 'dia_chi' => $request->input('diachi'),
                 'ngay_sinh' => $request->input('ngaysinh'),
                 'sdt' => $request->input('sdt'),
-                'ho_ten' => $request->input('hoten'),
                 'CCCD' => $nhavienformat,
                 'sdt' => $request->input('sdt'),
                 'luong' => $request->input('luong'),

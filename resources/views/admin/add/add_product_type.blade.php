@@ -47,7 +47,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%">Gửi</button>
                             </div>
                             @if(session('alert'))
                             <section class='alert alert-danger'>{{session('alert')}}</section>

@@ -93,7 +93,7 @@ class BinhLuanController extends Controller
             $output = '';
             $comments = BinhLuan::join('tai_khoans', 'tai_khoans.id', '=', 'binh_luans.tai_khoan_id')
             ->join('san_phams', 'san_phams.id', '=', 'binh_luans.san_pham_id')
-            ->select('binh_luans.id', 'binh_luans.noi_dung', 'tai_khoans.email', 'san_phams.ten_san_pham', 'binh_luans.trang_thai', 'binh_luans.created_at', 'binh_luans.updated_at')
+            ->select('binh_luans.id', 'binh_luans.noi_dung', 'tai_khoans.email', 'san_phams.ten_san_pham', 'san_phams.id as idsp', 'binh_luans.trang_thai', 'binh_luans.created_at', 'binh_luans.updated_at')
             ->where('san_phams.ten_san_pham', 'LIKE', '%' . $request->search . '%')
             ->get();
             
@@ -103,7 +103,7 @@ class BinhLuanController extends Controller
                 foreach ($comments as $key => $bl) {
                     $output .= '<tr>
                         <td>' . ++$stt . '</td>
-                        <td>' . $bl->noi_dung . '</td>
+                        <td><a href=" '.route('productdetail',['id'=>$bl->idsp]).'"> '.$bl->noi_dung.' </a></td>
                         <td>' . $bl->email . '</td>
                         <td>' . $bl->ten_san_pham . '</td>';
                         if($bl->trang_thai == 1) {
