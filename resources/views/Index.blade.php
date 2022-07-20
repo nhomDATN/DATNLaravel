@@ -135,9 +135,9 @@
                 <h2 class="mb-4">Thực Phẩm Của Chúng Tôi</h2>
                 <p style="color: black">Chế biến ngay bán ngay, không để qua ngày</p>
                 <div class="tab">
-                    <div style="border-radius: 0 24px 0 0; background-color: rgba(255, 255, 250);box-shadow: 3px 1px rgba(0, 0, 0, 0.5); width: 150px; height: 60px">
+                    <div style="border-radius: 0 24px 0 0; background-color: rgba(255, 255, 250);box-shadow: 3px 1px rgba(0, 0, 0, 0.5); width: auto ; height: 60px">
                         <img src="images/hot.png" alt="hot" width="50px" style="float: left; background: transparent;">
-                        <p style="color: red;float: left;font-size: 25px; padding-left: 10px; margin-top:15px">Hot</p>
+                        <p style="color: red;float: left;font-size: 25px; padding-left: 5px; margin-top:15px; float: right">Được Yêu Thích Nhiều</p>
                     </div>
                     <a href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" class="see-more">Mua thêm</a>
                 </div>
@@ -206,70 +206,91 @@
                     </div>
                 </div>
             @endforeach
-
-            <div class="container">
-                <div class="row mt-5">
-                    <div class="col text-center">
-                        <div class="block-27">
-                                <a href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" class="see-more">Mua thêm</a> 
-                        </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <div class="tab">
+                    <div style="border-radius: 0 24px 0 0; background-color: rgba(255, 255, 250);box-shadow: 3px 1px rgba(0, 0, 0, 0.5); width: auto ; height: 60px">
+                        <img src="images/hot.png" alt="hot" width="50px" style="float: left; background: transparent;">
+                        <p style="color: red;float: left;font-size: 25px; padding-left: 5px; margin-top:15px; float: right">Mua nhiều</p>
                     </div>
                 </div>
+               
             </div>
-                    <section class="ftco-section testimony-section">
-                        <div class="container">
-                            <div class="row justify-content-center mb-5 pb-3">
-                                <div class="col-md-7 heading-section ftco-animate text-center">
-                                    <span class="subheading">Thông tin</span>
-                                    <h2 class="mb-4">Một vài thông tin cơ bản</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            @foreach ($lstsp2 as $sp)
+                <div id="idsp" class="carousel-item active" style="margin-right: 0; width: 25%;">
+                    
+                    <div class="col-md-6 col-lg-3 ftco-animate" style="max-width: 100%;">
+                        <div class="product">
+                            <a href="{{ route('productdetail',['id'=>$sp->id]) }}" class="img-prod">
+                                <img class="img-fluid w-100" style="height: 160px;" src="{{ asset("/images/$sp->hinh") }}" alt="Colorlib Template">
+                                @if($sp->khuyen_mai_id != 3)
+                                    <span class="status">{{ $sp->gia_tri }}%</span>
+                                @endif
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3 text-center">
+                                <h3><a href="{{ route('productdetail',['id'=>$sp->id]) }}">{{ $sp->ten_san_pham }}</a></h3>
+                                @if($sp->gia_tri > 0)
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price priceOld"><span>{{ number_format($sp->gia, 0, ",", ".") }} VNĐ</span></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row ftco-animate">
-                                <div class="col-md-12">
-                                    <div class="carousel-testimony owl-carousel">
-                                        <div class="item">
-                                            <div class="testimony-wrap p-4 pb-5">
-                                                <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
-                                                    <span class="quote d-flex align-items-center justify-content-center">
-                                                        <i class="icon-quote-left"></i>
-                                                    </span>
-                                                </div>
-                                                <div class="text text-center">
-                                                    <p class="mb-5 pl-4 line">Giao Hàng Tận Nơi, Món Ăn Ngon Và Rẻ.</p>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="testimony-wrap p-4 pb-5">
-                                                <div class="user-img mb-5" style="background-image: url(images/person_2.jpg)">
-                                                    <span class="quote d-flex align-items-center justify-content-center">
-                                                        <i class="icon-quote-left"></i>
-                                                    </span>
-                                                </div>
-                                                <div class="text text-center">
-                                                    <p class="mb-5 pl-4 line">Thiết kế giao diện thân thiện, hợp mắt mới người dùng.</p>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="testimony-wrap p-4 pb-5">
-                                                <div class="user-img mb-5" style="background-image: url(images/person_3.jpg)">
-                                                    <span class="quote d-flex align-items-center justify-content-center">
-                                                        <i class="icon-quote-left"></i>
-                                                    </span>
-                                                </div>
-                                                <div class="text text-center">
-                                                    <p class="mb-5 pl-4 line">Thao tác chức năng ổn định, giảm thiếu tối đa sự cố không mong muốn</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class=" priceSales"><span>{{ number_format($sp->gia - ($sp->gia * $sp->gia_tri) / 100, 0, ",", ".") }} VNĐ</span></p>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price"><span>{{ number_format($sp->gia, 0, ",", ".") }} VNĐ</span></p>
+                                    </div>
+                                </div>
+                                @endif
+                                <div class="bottom-area d-flex px-3">
+                                    <div class="m-auto d-flex">
+                                        <a href="{{ route('cart.add',['productId' => $sp->id,'quantity' => 1,'price' => $sp->gia,'sales' => $sp->gia_tri]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="cart">
+                                            <span><i class="ion-ios-cart"></i></span>
+                                        </a>
+                                        @if(!empty(Session::get('UserId')))
+                                            @if (hasLike(Session::get('UserId'),$sp->id))
+                                                <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center" style="background-image: linear-gradient(red, white);" id="heart">
+                                                    <span><i class="ion-ios-heart"></i></span>
+                                                </a>
+                                            @else
+                                            <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart">
+                                                <span><i class="ion-ios-heart"></i></span>
+                                            </a>
+                                            @endif
+                                            @else
+                                            <a href="{{ route('like',['id' => $sp->id]) }}"class="heart d-flex justify-content-center align-items-center" id="heart">
+                                                <span><i class="ion-ios-heart"></i></span>
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                        <a href="{{ route('productpage',['key' => "Tất cả",'page' => 1]) }}" class="see-more">Mua thêm</a> 
+                </div>
+            </div>
         </div>
     </div>
 </section>

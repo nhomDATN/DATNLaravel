@@ -34,7 +34,11 @@ class SanPhamController extends Controller
         if($active != "Tất cả")
             $select = $request->key;
         $allProduct = DB::select('select mo_ta from san_phams where mo_ta like "%'.$select.'%" ');
-        $product =  DB::select('select mo_ta,san_phams.id,ten_san_pham,gia,gia_tri,khuyen_mai_id,hinh from san_phams,khuyen_mais where khuyen_mai_id = khuyen_mais.id and mo_ta like "%'.$select.'%" limit '.$limit.' offset '.$offset.'');
+        $product =  DB::select('select mo_ta,san_phams.id,ten_san_pham,gia,gia_tri,khuyen_mai_id,hinh 
+        from san_phams, khuyen_mais where  khuyen_mai_id = khuyen_mais.id 
+        and mo_ta like "%'.$select.'%" 
+        limit '.$limit.' 
+        offset '.$offset.'');
         $maxpage = ceil(count($allProduct)/$limit);
         //dd($allProduct);
       return view('product',['key' => $active , 'product' =>$product,'page' => $page,'maxpage' => $maxpage]);
@@ -118,11 +122,42 @@ class SanPhamController extends Controller
     
     public function home(Request $request)
     {
+        //dd($request->session()->all());
         $lstsp = SanPham::join('khuyen_mais', 'khuyen_mais.id', '=', 'san_phams.khuyen_mai_id')
-        ->select('san_phams.id', 'hinh', 'ten_san_pham', 'gia','gia_tri','khuyen_mai_id')
-        ->limit(16)
+        ->join('danh_gias','danh_gias.san_pham_id', '=', 'san_phams.id')
+        ->where('yeu_thich',1)
+        ->select([
+            DB::raw('Count(san_phams.id) as tong_sp'),
+            DB::raw('san_phams.id'),
+            DB::raw('hinh'),
+            DB::raw('ten_san_pham'),
+            DB::raw('gia'),
+            DB::raw('gia_tri'),
+            DB::raw('khuyen_mai_id'),
+        ])
+        ->groupBy('san_phams.id','hinh', 'ten_san_pham', 'gia','gia_tri','khuyen_mai_id')
+        ->limit(8)
+        ->orderByDESC('tong_sp')
         ->get();
-        return view('index', ['lstsp'=>$lstsp]);
+        $lstsp2 = SanPham::join('khuyen_mais', 'khuyen_mais.id', '=', 'san_phams.khuyen_mai_id')
+        ->join('chi_tiet_hoa_dons', 'chi_tiet_hoa_dons.san_pham_id', '=', 'san_phams.id')
+        ->join('hoa_dons', 'hoa_dons.id', '=','chi_tiet_hoa_dons.hoa_don_id')
+        ->where('hoa_dons.trang_thai',3)
+        ->select([
+            DB::raw('Count(san_phams.id) as tong_sp'),
+            DB::raw('san_phams.id'),
+            DB::raw('hinh'),
+            DB::raw('ten_san_pham'),
+            DB::raw('san_phams.gia'),
+            DB::raw('gia_tri'),
+            DB::raw('khuyen_mai_id'),
+        ])
+        ->groupBy('san_phams.id', 'hinh', 'ten_san_pham', 'san_phams.gia','gia_tri','khuyen_mai_id')
+        ->orderByDESC('tong_sp')
+        ->limit(8)
+        ->get();
+        //dd($lstsp2);
+        return view('index', ['lstsp'=>$lstsp,'lstsp2'=>$lstsp2]);
     }
     
     public function adminShow()
