@@ -32,7 +32,7 @@ class HoaDonController extends Controller
         ->where('hoa_dons.trang_thai', -1)
         ->where('tai_khoans.id', Session::get('UserId'))
         ->get();
-        // dd($lstgiohang);
+         //dd($lstgiohang);
         return view('cart', ['lstgiohang'=>$lstgiohang]);
     }
 
@@ -42,6 +42,7 @@ class HoaDonController extends Controller
 
     public function addCart(Request $request)
     {
+        //dd(Session::get('cartId'));
         $product = $request->productId;
         $date =  CarBon::now('Asia/Ho_Chi_Minh');
         if(empty(Session::get('cartId')))
@@ -50,6 +51,7 @@ class HoaDonController extends Controller
             Session::put('cartId',$idNew + 1);
             DB::insert('insert into hoa_dons (tai_khoan_id,tong_tien,nhan_vien_id, trang_thai,created_at) values (?,?,?,?,?)', [Session::get('UserId'), 0, 1, -1, $date]);
             DB::insert('insert into chi_tiet_hoa_dons (so_luong,gia,chiet_khau,hoa_don_id, san_pham_id,created_at) values (?,?,?,?,?,?)', [$request->quantity,$request->price,$request->sales,Session::get('cartId'), $product,$date]);
+    
         }
         else
         {

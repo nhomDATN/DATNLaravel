@@ -8,6 +8,7 @@
         ->get();
         if(count($isCart) > 0)
             Session::put('cartId', $isCart[0]->id);
+        $user = DB::table('tai_khoans')->where('id',Session::get('UserId'))->get();
        
     @endphp
     <title>CKC FASTFOOD</title>
@@ -68,7 +69,7 @@
                         @else
                         <div class="col-md pr-4 d-flex  align-items-center">
                             <a href="{{ route('user.info',['id' => Session::get('UserId')]) }}" class="text text-white"><img src="/imageUsers/{{ Session::get('UserPicture') }}" alt="avatar" class="imgUser"></a>
-                            <a href="{{ route('user.info',['id' => Session::get('UserId')]) }}" class="text text-white" >{{ Session::get('UserName') }} </a>/
+                            <a href="{{ route('user.info',['id' => Session::get('UserId')]) }}" class="text text-white">{{ $user[0]->ho_ten }}</a>/
                             <a class="cookie-logout text text-dark" href="{{ route('user.logout')}}">Đăng Xuất </a>
                         </div>
                         @endif

@@ -46,6 +46,8 @@
                         <h3 class="billing-heading mb-4" style="color: red; font-size: 18px">CHI TIẾT GIỎ HÀNG</h3>
                         <p class="d-flex" style="color: black">
                             <span style="color: green; font-size: 18px">Tên sản phẩm</span>
+                            <span style="color: green; text-align: center; font-size: 18px">Giá gốc</span>
+                            <span style="color: green; text-align: center; font-size: 18px">Chiết khấu</span>
                             <span style="color: green; text-align: center; font-size: 18px">Đơn giá</span>
                             <span style="color: green; text-align: center; font-size: 18px">Số lượng</span>
                             <span style="color: green; text-align: center; font-size: 18px">Thành tiền</span>
@@ -53,7 +55,9 @@
                         @foreach($giohang as $item)
                             <p class="d-flex">
                                 <span style="color: black; font-size: 16px">{{ $item->ten_san_pham }}</span>
-                                <span style="color: black; text-align: center; font-size: 16px">{{ number_format(($item->gia - ($item->gia * $item->chiet_khau)/100), 0, ",", ".") }} VNĐ</span> 
+                                <span style="color: black; text-align: center; font-size: 16px">{{ number_format($item->gia , 0, ",", ".") }} VNĐ</span>
+                                <span style="color: black; text-align: center; font-size: 16px">{{ $item->chiet_khau }}%</span>                                
+                                <span style="color: red; text-align: center; font-size: 16px">{{ number_format(($item->gia - ($item->gia * $item->chiet_khau)/100), 0, ",", ".") }} VNĐ</span> 
                                 <span style="color: black; text-align: center; font-size: 16px">{{ $item->so_luong }}</span>
                                 <span style="color: black; text-align: center; font-size: 16px">{{ number_format(($item->gia - ($item->gia * $item->chiet_khau)/100) * $item->so_luong, 0, ",", ".") }} VNĐ</span>       
                             </p>

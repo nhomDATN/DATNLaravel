@@ -35,7 +35,9 @@
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>Tên sản phẩm</th>
-                                <th>Giá</th>
+                                <th>Giá gốc</th>
+                                <th>Chiết khấu</th>
+                                <th>Giá KM</th>
                                 <th>Số lượng</th>
                                 <th>Tổng</th>
                             </tr>
@@ -63,11 +65,19 @@
                                     $gia_tam =($gh->gia - (($gh->gia * $gh->chiet_khau) / 100));
                                 @endphp
                                 <input type="hidden" id="oldPrice-@php echo $gh->id @endphp" value="{{ ($gh->gia - (($gh->gia * $gh->chiet_khau) / 100)) }}">
-                                <td class="price" name="price" id="price @php echo $gh->id @endphp">{{  number_format(($gh->gia - (($gh->gia * $gh->chiet_khau) / 100)),0,',','.') }} VNĐ</td>
+                                <td class="price" @if ($gh->chiet_khau > 0)
+                                    style="text-decoration: line-through;"
+                                @endif id="price @php echo $gh->id @endphp">{{  number_format($gh->gia ,0,',','.') }} VNĐ</td>
+                                <td>{{ $gh->chiet_khau }}%</td>
+                                @if ($gh->chiet_khau > 0)
+                                <td class="price" style="color: red;" name="price" id="price @php echo $gh->id @endphp">{{  number_format(($gh->gia - (($gh->gia * $gh->chiet_khau) / 100)),0,',','.') }} VNĐ</td>
+                                @else
+                                <td>Không</td>
+                                @endif
                                 
                                 <td class="quantity">
                                     <div class="input-group mb-3">
-                                        <input type="number" name="quantity" class="quantity" value="@php echo $gh->so_luong @endphp" min="1" max="100" id="@php echo $gh->id @endphp" onchange="sum({{ $gh->id}})">
+                                        <input type="number" name="quantity" class="quantity" value="@php echo $gh->so_luong @endphp" min="1" max="50" id="@php echo $gh->id @endphp" onchange="sum({{ $gh->id}})">
                                     </div>
                                     <div class="hide" id="select-{{ $gh->id }}">
                                         <a href="{{ route('deleteProductInCart',['id' => $gh->id]) }}" class="cart-delete-btn">Xóa</a>
@@ -93,7 +103,7 @@
 function sum(id){
     
         var quantity = $("#"+id).val();
-       if(quantity > 0)
+       if(quantity > 0 && quantity <= 50)
        {
         var oldPrice = document.getElementById('oldPrice-'+ id).value;
         var total = quantity * oldPrice;
@@ -108,7 +118,20 @@ function sum(id){
             },
         });
        }
-       else
+       else if(quantity>50)
+       {
+        alert('Số lượng nhập vào vượt quá giới hạn!');
+        $("#"+id).val(1);
+        $.ajax({    
+            type: 'get',
+            url: "{{ route('capNhatSoLuong') }}",
+            data: {
+                id : id,
+                quantity: 1,
+            },
+        });
+       }
+       else if(quantity < 1)
        {
         $("#"+id).addClass('hide');
         $('#select-'+id).removeClass('hide');
